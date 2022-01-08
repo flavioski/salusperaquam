@@ -17,5 +17,8 @@
       "prepend-autoloader": false
     },
     "type": "prestashop-module"
+  },
+  "require-dev": {
+    "prestashop/php-dev-tools": "^4.2"
   }
 }
