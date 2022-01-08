@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+  <name>salusperaquam</name>
+  <displayName><![CDATA[Salus Per Aquam]]></displayName>
+  <version><![CDATA[0.1.0]]></version>
+  <description><![CDATA[Salus Per Aquam is a plugin for PrestaShop for connection and handling thermae center's.]]></description>
+  <author><![CDATA[FP]]></author>
+  <tab><![CDATA[front_office_features]]></tab>
+  <is_configurable>1</is_configurable>
+  <need_instance>0</need_instance>
+  <limited_countries></limited_countries>
+</module>
