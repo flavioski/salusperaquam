@@ -19,6 +19,7 @@
     "type": "prestashop-module"
   },
   "require-dev": {
-    "prestashop/php-dev-tools": "^4.2"
+    "prestashop/php-dev-tools": "^4.2",
+    "phpstan/phpstan": "^1.3"
   }
 }
