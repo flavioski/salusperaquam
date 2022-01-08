@@ -1,0 +1,21 @@
+{
+  "name": "prestashop/salusperaquam",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Flavio Pellizze"
+    },
+    {
+      "name": "PrestaShop Plugin"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PrestaShop\\Module\\SalusPerAquam\\": "src/"
+    },
+    "config": {
+      "prepend-autoloader": false
+    },
+    "type": "prestashop-module"
+  }
+}
