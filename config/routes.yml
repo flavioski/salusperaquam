@@ -1,0 +1,11 @@
+# @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/#how-to-map-an-action-of-your-controller-to-a-uri
+# @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/tabs/
+#
+
+salusperaquam_configuration:
+  path: salusperaquam/tab/configuration
+  methods: [ GET ]
+  defaults:
+    _controller: 'Salusperaquam\Controller\Admin\ConfigurationController::indexAction'
+    _legacy_controller: ConfigurationController
+    _legacy_link: ConfigurationController
