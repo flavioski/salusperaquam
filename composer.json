@@ -14,8 +14,7 @@
       "PrestaShop\\Module\\SalusPerAquam\\": "src/"
     },
     "classmap": [
-      "salusperaquam.php",
-      "controllers"
+      "salusperaquam.php"
     ],
     "config": {
       "platform": {
