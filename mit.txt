@@ -1,4 +1,3 @@
-<?php
 /**
  * Salus per Aquam
  * Copyright since 2021 Flavio Pellizzer and Contributors
@@ -14,27 +13,7 @@
  * obtain it through the world-wide-web, please send an email
  * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
  *
- * @author    Flavio Pellizzer
- * @copyright Since 2021 Flavio Pellizzer
+ * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
+ * @copyright Since 2021 Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
-
-namespace SalusPerAquam\Controller\Admin;
-
-use Doctrine\Common\Cache\CacheProvider;
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-
-class ConfigurationController extends FrameworkBundleAdminController
-{
-    private $cache;
-
-    public function __construct(CacheProvider $cache)
-    {
-        $this->cache = $cache;
-    }
-
-    public function demoAction()
-    {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
-    }
-}
