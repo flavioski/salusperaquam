@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7bc3fafc8e639656be201bb0ad1faf6",
+    "content-hash": "04655c2f88dac0a229f8522a88eab387",
     "packages": [],
     "packages-dev": [
         {
@@ -572,16 +572,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.4.8",
+            "version": "1.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2a6d6704b17c4db6190cc3104056c0aad740cb15"
+                "reference": "1a45f44d319cf000a8c960af6b7435741e944771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2a6d6704b17c4db6190cc3104056c0aad740cb15",
-                "reference": "2a6d6704b17c4db6190cc3104056c0aad740cb15",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1a45f44d319cf000a8c960af6b7435741e944771",
+                "reference": "1a45f44d319cf000a8c960af6b7435741e944771",
                 "shasum": ""
             },
             "require": {
@@ -612,7 +612,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.4.8"
+                "source": "https://github.com/phpstan/phpstan/tree/1.4.9"
             },
             "funding": [
                 {
@@ -632,7 +632,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-04T13:03:56+00:00"
+            "time": "2022-03-10T08:52:08+00:00"
         },
         {
             "name": "prestashop/autoindex",
@@ -686,16 +686,16 @@
         },
         {
             "name": "prestashop/header-stamp",
-            "version": "v2.1",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PrestaShopCorp/header-stamp.git",
-                "reference": "d00c2ce550fe9b1a3713cebafee669f44a93ff2a"
+                "url": "https://github.com/flavioski/header-stamp.git",
+                "reference": "f72534b270dd85daf841a107d7dbeee1ffe7fe39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PrestaShopCorp/header-stamp/zipball/d00c2ce550fe9b1a3713cebafee669f44a93ff2a",
-                "reference": "d00c2ce550fe9b1a3713cebafee669f44a93ff2a",
+                "url": "https://api.github.com/repos/flavioski/header-stamp/zipball/f72534b270dd85daf841a107d7dbeee1ffe7fe39",
+                "reference": "f72534b270dd85daf841a107d7dbeee1ffe7fe39",
                 "shasum": ""
             },
             "require": {
@@ -717,7 +717,6 @@
                     "PrestaShop\\HeaderStamp\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "AFL-3.0"
             ],
@@ -730,10 +729,9 @@
             "description": "Rewrite your file headers to add the license or to make them up-to-date",
             "homepage": "https://github.com/PrestaShopCorp/header-stamp",
             "support": {
-                "issues": "https://github.com/PrestaShopCorp/header-stamp/issues",
-                "source": "https://github.com/PrestaShopCorp/header-stamp/tree/v2.1"
+                "source": "https://github.com/flavioski/header-stamp/tree/v2.1.2"
             },
-            "time": "2021-11-15T16:57:29+00:00"
+            "time": "2022-03-10T09:56:00+00:00"
         },
         {
             "name": "prestashop/php-dev-tools",
