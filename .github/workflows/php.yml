@@ -55,7 +55,7 @@ jobs:
           [[ "${PS_VERSION:0:3}" != '1.7' ]] && echo ::set-output name=filename::phpstan-PS-1.6.neon || echo ::set-output name=filename::phpstan-PS-1.7.neon
 
       - name : Run PHPStan
-        run: docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module phpstan/phpstan:latest analyse --configuration=/web/module/tests/phpstan/${{steps.neon.outputs.filename}} --error-format github
+        run: docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module phpstan/phpstan analyse --configuration=/web/module/tests/phpstan/${{steps.neon.outputs.filename}} --error-format github
   header-stamp:
     name: Check license headers
     runs-on: ubuntu-latest
