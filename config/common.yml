@@ -1,0 +1,6 @@
+services:
+  # From PS 1.7.0 to PS 1.7.3, the bundled version of Symfony is 2.x on which the _defaults
+  # key is invalid. To prevent error on these versions, each service has to be specifically
+  # declared as public.
+  #  _defaults:
+  #   public: true

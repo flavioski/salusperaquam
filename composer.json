@@ -1,25 +1,57 @@
 {
-  "name": "prestashop/salusperaquam",
+  "name": "flavioski/salusperaquam",
+  "description": "Provide connection from PrestaShop and a webService SPA thermea. This plugin is for Academic purpose.",
   "license": "MIT",
   "authors": [
     {
-      "name": "Flavio Pellizze"
-    },
-    {
-      "name": "PrestaShop Plugin"
+      "name": "Flavio Pellizzer",
+      "email": "flappio.pelliccia@gmail.com"
     }
   ],
+  "type": "prestashop-module",
   "autoload": {
     "psr-4": {
       "PrestaShop\\Module\\SalusPerAquam\\": "src/"
     },
+    "classmap": [
+      "salusperaquam.php"
+    ],
     "config": {
+      "platform": {
+        "php": "7.2.0"
+      },
+      "sort-packages": true,
+      "preferred-install": "dist",
+      "optimize-autoloader": true,
       "prepend-autoloader": false
-    },
-    "type": "prestashop-module"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/flavioski/header-stamp"
+    }
+  ],
+  "require": {
+    "php": "7.4.28"
   },
   "require-dev": {
     "prestashop/php-dev-tools": "^4.2",
-    "phpstan/phpstan": "^1.3"
-  }
+    "phpstan/phpstan": "^1.3",
+    "prestashop/header-stamp": "^2.1.1"
+  },
+  "scripts": {
+    "unit-tests": [
+      "@php -d date.timezone=UTC ./vendor/bin/phpunit -c tests/Unit/phpunit.xml"
+    ],
+    "set-license-header": [
+      "@php ./vendor/bin/header-stamp --license=mit.txt --exclude=.github,node_modules,vendor,tests,_dev --author=\"Flavio Pellizzer\""
+    ]
+  },
+  "author": "Flavio Pellizzer"
 }

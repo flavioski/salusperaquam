@@ -1,0 +1,74 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=presta
+      - MYSQL_DATABASE=presta
+      - MYSQL_USER=presta
+      - MYSQL_PASSWORD=presta
+
+  php:
+    image: phpdockerio/php72-cli
+    volumes:
+      - ./:/var/www/html/modules/salusperaquam
+    working_dir: /var/www/html/modules/salusperaquam
+    environment:
+      _PS_ROOT_DIR_: /var/www/html
+
+  node:
+    image: node:13.1
+    volumes:
+      - ./:/var/www/html/modules/salusperaquam
+    working_dir: /var/www/html/modules/salusperaquam
+    environment:
+      PATH: /var/www/html/_dev/node_modules/.bin/:$PATH
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=db
+    depends_on:
+      - db
+
+  prestashop:
+    image: prestashop/prestashop:latest
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      - PS_DEV_MODE=true
+      - PS_DOMAIN=localhost
+      - PS_DEMO_MODE=true
+      - DB_SERVER=db
+      - DB_USER=presta
+      - DB_PASSWD=presta
+      - DB_PREFIX=ps_
+      - DB_NAME=presta
+      - PS_INSTALL_AUTO=1
+      - PS_LANGUAGE=it
+      - PS_COUNTRY=IT
+      - PS_FOLDER_ADMIN=manage
+      - PS_FOLDER_INSTALL=install.old
+      - ADMIN_MAIL=flappio.pelliccia@gmail.com
+      - ADMIN_PASSWD=adminadmin
+    volumes:
+      - ./salusperaquam:/var/www/html/modules/salusperaquam
+      - presta:/var/www/html
+    depends_on:
+      - db
+
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    ports:
+      - 9090:80
+    volumes:
+      - presta:/srv
+volumes:
+  db_data: {}
+  presta: {}
