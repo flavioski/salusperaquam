@@ -83,4 +83,4 @@ jobs:
       - run: composer install
 
       - name: Run Header Stamp in Dry Run mode
-        run: php vendor/bin/header-stamp --license=mit.txt --exclude=.github,node_modules,vendor,tests,_dev --dry-run
+        run: php vendor/bin/header-stamp --license=mit.txt --exclude=.github,node_modules,vendor,tests,_dev --dry-run --author="Flavio Pellizzer"
