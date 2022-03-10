@@ -21,18 +21,10 @@
 
 namespace SalusPerAquam\Controller\Admin;
 
-use Doctrine\Common\Cache\CacheProvider;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 
 class ConfigurationController extends FrameworkBundleAdminController
 {
-    private $cache;
-
-    public function __construct(CacheProvider $cache)
-    {
-        $this->cache = $cache;
-    }
-
     public function demoAction()
     {
         return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
