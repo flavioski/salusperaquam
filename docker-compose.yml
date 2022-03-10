@@ -58,7 +58,7 @@ services:
       - ADMIN_MAIL=flappio.pelliccia@gmail.com
       - ADMIN_PASSWD=adminadmin
     volumes:
-      - ./salusperaquam:/var/www/html/modules/salusperaquam
+      - ./:/var/www/html/modules/salusperaquam
       - presta:/var/www/html
     depends_on:
       - db
