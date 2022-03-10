@@ -11,6 +11,22 @@ services:
       - MYSQL_USER=presta
       - MYSQL_PASSWORD=presta
 
+  php:
+    image: phpdockerio/php72-cli
+    volumes:
+      - ./:/var/www/html/modules/salusperaquam
+    working_dir: /var/www/html/modules/salusperaquam
+    environment:
+      _PS_ROOT_DIR_: /var/www/html
+
+  node:
+    image: node:13.1
+    volumes:
+      - ./:/var/www/html/modules/salusperaquam
+    working_dir: /var/www/html/modules/salusperaquam
+    environment:
+      PATH: /var/www/html/_dev/node_modules/.bin/:$PATH
+
   phpmyadmin:
     image: phpmyadmin:latest
     ports:
