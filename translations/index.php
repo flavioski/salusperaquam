@@ -18,15 +18,12 @@
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
-namespace SalusPerAquam\Controller\Admin;
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-
-class ConfigurationController extends FrameworkBundleAdminController
-{
-    public function demoAction()
-    {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
-    }
-}
+header('Location: ../');
+exit;

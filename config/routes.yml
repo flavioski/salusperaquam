@@ -6,6 +6,13 @@ salusperaquam_configuration:
   path: salusperaquam/tab/configuration
   methods: [ GET ]
   defaults:
-    _controller: 'Salusperaquam\Controller\Admin\ConfigurationController::indexAction'
+    _controller: 'SalusPerAquam\Controller\Admin\ConfigurationController::indexAction'
     _legacy_controller: ConfigurationController
     _legacy_link: ConfigurationController
+
+salusperaquam_demo:
+  path: salusperaquam/demo
+  methods: [ GET ]
+  defaults:
+    _controller: 'SalusPerAquam\Controller\Admin\ConfigurationController::demoAction'
+    _disable_module_prefix: true
