@@ -93,7 +93,9 @@ class SalusPerAquam extends Module
      * enable
      *
      * @param bool $force_all
+     *
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -108,7 +110,9 @@ class SalusPerAquam extends Module
      * disable
      *
      * @param bool $force_all
+     *
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -123,6 +127,7 @@ class SalusPerAquam extends Module
      * install Tab
      *
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
@@ -137,14 +142,13 @@ class SalusPerAquam extends Module
         $MainTab = new Tab($MainTabId);
         $MainTab->active = true;
         $MainTab->class_name = 'AdminSalusPerAquam';
-        $MainTab->name = array();
+        $MainTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $MainTab->name[$lang['id_lang']] = 'SalusPerAquam';
         }
         $MainTab->id_parent = 0;
         $MainTab->module = $this->name;
         $MainTab->save();
-
 
         // Sub for "Parameters"
         $ParamTabId = (int) Tab::getIdFromClassName('ParameterController');
@@ -155,7 +159,7 @@ class SalusPerAquam extends Module
         $ParamTab = new Tab($ParamTabId);
         $ParamTab->active = true;
         $ParamTab->class_name = 'ParameterController';
-        $ParamTab->name = array();
+        $ParamTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $ParamTab->name[$lang['id_lang']] = 'Parameters';
         }
@@ -172,7 +176,7 @@ class SalusPerAquam extends Module
         $ConfigurationTab = new Tab($ConfigurationTabId);
         $ConfigurationTab->active = true;
         $ConfigurationTab->class_name = 'ConfigurationController';
-        $ConfigurationTab->name = array();
+        $ConfigurationTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $ConfigurationTab->name[$lang['id_lang']] = 'Configurations';
         }
@@ -189,7 +193,7 @@ class SalusPerAquam extends Module
         $AccessTab = new Tab($AccessTabId);
         $AccessTab->active = true;
         $AccessTab->class_name = 'AccessController';
-        $AccessTab->name = array();
+        $AccessTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $AccessTab->name[$lang['id_lang']] = 'Accesses';
         }
@@ -206,7 +210,7 @@ class SalusPerAquam extends Module
         $TreatmentTab = new Tab($TreatmentTabId);
         $TreatmentTab->active = true;
         $TreatmentTab->class_name = 'TreatmentController';
-        $TreatmentTab->name = array();
+        $TreatmentTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $TreatmentTab->name[$lang['id_lang']] = 'Treatments';
         }
@@ -221,6 +225,7 @@ class SalusPerAquam extends Module
      * uninstall Tab
      *
      * @return bool
+     *
      * @throws PrestaShopDatabaseException
      * @throws PrestaShopException
      */
