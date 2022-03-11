@@ -135,7 +135,7 @@ class SalusPerAquam extends Module
         }
 
         $MainTab = new Tab($MainTabId);
-        $MainTab->active = 1;
+        $MainTab->active = true;
         $MainTab->class_name = 'AdminSalusPerAquam';
         $MainTab->name = array();
         foreach (Language::getLanguages(true) as $lang) {
@@ -153,7 +153,7 @@ class SalusPerAquam extends Module
         }
 
         $ParamTab = new Tab($ParamTabId);
-        $ParamTab->active = 1;
+        $ParamTab->active = true;
         $ParamTab->class_name = 'ParameterController';
         $ParamTab->name = array();
         foreach (Language::getLanguages(true) as $lang) {
@@ -169,8 +169,8 @@ class SalusPerAquam extends Module
             $ConfigurationTab = null;
         }
 
-        $ConfigurationTab = new Tab($ConfigurationTab);
-        $ConfigurationTab->active = 1;
+        $ConfigurationTab = new Tab($ConfigurationTabId);
+        $ConfigurationTab->active = true;
         $ConfigurationTab->class_name = 'ConfigurationController';
         $ConfigurationTab->name = array();
         foreach (Language::getLanguages(true) as $lang) {
@@ -187,7 +187,7 @@ class SalusPerAquam extends Module
         }
 
         $AccessTab = new Tab($AccessTabId);
-        $AccessTab->active = 1;
+        $AccessTab->active = true;
         $AccessTab->class_name = 'AccessController';
         $AccessTab->name = array();
         foreach (Language::getLanguages(true) as $lang) {
@@ -204,7 +204,7 @@ class SalusPerAquam extends Module
         }
 
         $TreatmentTab = new Tab($TreatmentTabId);
-        $TreatmentTab->active = 1;
+        $TreatmentTab->active = true;
         $TreatmentTab->class_name = 'TreatmentController';
         $TreatmentTab->name = array();
         foreach (Language::getLanguages(true) as $lang) {
