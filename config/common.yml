@@ -4,3 +4,14 @@ services:
   # declared as public.
   #  _defaults:
   #   public: true
+  flavioski.module.salusperaquam.repository.treatment_repository:
+    class: Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Flavioski\Module\SalusPerAquam\Entity\Treatment
+
+  flavioski.module.salusperaquam.treatments.install:
+    class: Flavioski\Module\SalusPerAquam\Database\TreatmentInstaller
+    arguments:
+      - '@doctrine.dbal.default_connection'
+      - '%database_prefix%'

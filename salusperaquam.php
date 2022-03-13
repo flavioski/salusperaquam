@@ -18,8 +18,16 @@
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
+declare(strict_types=1);
+
+use Flavioski\Module\SalusPerAquam\Database\TreatmentInstaller;
+
 if (!defined('_PS_VERSION_')) {
     exit;
+}
+
+if (file_exists(__DIR__.'/vendor/autoload.php')) {
+    require_once __DIR__.'/vendor/autoload.php';
 }
 
 class SalusPerAquam extends Module
@@ -72,7 +80,7 @@ class SalusPerAquam extends Module
      */
     public function install()
     {
-        return parent::install() &&
+        return $this->installTables() && parent::install() &&
             $this->installTab()
             ;
     }
@@ -84,7 +92,7 @@ class SalusPerAquam extends Module
      */
     public function uninstall()
     {
-        return parent::uninstall() &&
+        return $this->removeTables() && parent::uninstall() &&
             $this->uninstallTab()
             ;
     }
@@ -121,6 +129,53 @@ class SalusPerAquam extends Module
         return parent::disable($force_all)
             && $this->uninstallTab()
             ;
+    }
+
+    /**
+     * @return bool
+     */
+    private function installTables()
+    {
+        /** @var TreatmentInstaller $installer */
+        $installer = $this->getInstaller();
+        $errors = $installer->createTables();
+
+        return empty($errors);
+    }
+
+    /**
+     * @return bool
+     */
+    private function removeTables()
+    {
+        /** @var TreatmentInstaller $installer */
+        $installer = $this->getInstaller();
+        $errors = $installer->dropTables();
+
+        return empty($errors);
+    }
+
+    /**
+     * @return TreatmentInstaller
+     */
+    private function getInstaller()
+    {
+        try {
+            $installer = $this->get('prestashop.module.saluperaquam.treatment.install');
+        } catch (Exception $e) {
+            // Catch exception in case container is not available, or service is not available
+            $installer = null;
+        }
+
+        // During install process the module's service is not available yet, so we build it manually
+        if (!$installer) {
+            $installer = new TreatmentInstaller(
+                $this->get('doctrine.dbal.default_connection'),
+                $this->getContainer()->getParameter('database_prefix')
+            );
+        }
+
+        return $installer;
     }
 
     /**
