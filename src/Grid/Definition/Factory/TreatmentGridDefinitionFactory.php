@@ -102,7 +102,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                             ->setName($this->trans('Edit', [], 'Admin.Actions'))
                             ->setIcon('edit')
                             ->setOptions([
-                                'route' => 'ps_demodoctrine_quote_edit',
+                                'route' => 'flavioski_salusperaquam_treatment_edit',
                                 'route_param_name' => 'treatmentId',
                                 'route_param_field' => 'id_treatment',
                                 'clickable_row' => true,
@@ -113,7 +113,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                             ->setIcon('delete')
                             ->setOptions([
                                 'method' => 'DELETE',
-                                'route' => 'ps_treatment_treatment_delete',
+                                'route' => 'flavioski_salusperaquam_treatment_delete',
                                 'route_param_name' => 'treatmentId',
                                 'route_param_field' => 'id_treatment',
                                 'confirm_message' => $this->trans(
@@ -150,7 +150,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                         'placeholder' => $this->trans('Name', [], 'Modules.Salusperaquam.Admin'),
                     ],
                 ])
-                ->setAssociatedColumn('author')
+                ->setAssociatedColumn('name')
             )
             ->add((new Filter('price', TextType::class))
                 ->setTypeOptions([
@@ -159,7 +159,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                         'placeholder' => $this->trans('Price', [], 'Modules.Salusperaquam.Admin'),
                     ],
                 ])
-                ->setAssociatedColumn('content')
+                ->setAssociatedColumn('price')
             )
             ->add((new Filter('actions', SearchAndResetType::class))
                 ->setTypeOptions([
@@ -167,7 +167,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                     'reset_route_params' => [
                         'filterId' => self::GRID_ID,
                     ],
-                    'redirect_route' => 'ps_treatment_treatment_index',
+                    'redirect_route' => 'flavioski_salusperaquam_treatment_index',
                 ])
                 ->setAssociatedColumn('actions')
             )
@@ -204,7 +204,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
             ->add((new SubmitBulkAction('delete_bulk'))
                 ->setName($this->trans('Delete selected', [], 'Admin.Actions'))
                 ->setOptions([
-                    'submit_route' => 'ps_treatment_treatment_bulk_delete',
+                    'submit_route' => 'flavioski_salusperaquam_treatment_bulk_delete',
                     'confirm_message' => $this->trans('Delete selected items?', [], 'Admin.Notifications.Warning'),
                 ])
             )
