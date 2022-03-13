@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PrestaShop\\Module\\SalusPerAquam\\": "src/"
+      "Flavioski\\Module\\SalusPerAquam\\": "src/"
     },
     "classmap": [
       "salusperaquam.php",
