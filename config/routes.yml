@@ -44,24 +44,24 @@ flavioski_salusperaquam_treatment_create:
     _legacy_link: 'AdminSalusperaquamTreatment:add'
 
 flavioski_salusperaquam_treatment_edit:
-  path: /salusperaquam/treatments/{quoteId}/edit
+  path: /salusperaquam/treatments/{treatmentId}/edit
   methods: [GET, POST]
   defaults:
     _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::editAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:update'
   requirements:
-    quoteId: \d+
+    treatmentId: \d+
 
 flavioski_salusperaquam_treatment_delete:
-  path: /salusperaquam/treatments/{quoteId}/delete
+  path: /salusperaquam/treatments/{treatmentId}/delete
   methods: [DELETE]
   defaults:
     _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::deleteAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:deletetreatment'
   requirements:
-    quoteId: \d+
+    treatmentId: \d+
 
 flavioski_salusperaquam_treatment_bulk_delete:
   path: /salusperaquam/treatments/bulkDelete

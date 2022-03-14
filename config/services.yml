@@ -22,7 +22,7 @@ services:
     class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
     factory: 'prestashop.core.form.builder.form_builder_factory:create'
     arguments:
-      - 'Flavioski\Module\SalusPerAquam\Form\QuoteType'
+      - 'Flavioski\Module\SalusPerAquam\Form\TreatmentType'
       - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider'
 
   flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_form_data_handler:
