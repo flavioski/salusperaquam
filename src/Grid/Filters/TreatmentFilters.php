@@ -20,7 +20,7 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Filters;
+namespace Flavioski\Module\SalusPerAquam\Grid\Filters;
 
 use Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory;
 use PrestaShop\PrestaShop\Core\Search\Filters;
