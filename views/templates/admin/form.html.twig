@@ -1,0 +1,49 @@
+{#**
+ * Salus per Aquam
+ * Copyright since 2021 Flavio Pellizzer and Contributors
+ * <Flavio Pellizzer> Property
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/MIT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
+ *
+ * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
+ * @copyright Since 2021 Flavio Pellizzer
+ * @license   https://opensource.org/licenses/MIT
+ *#}
+
+{% import '@PrestaShop/Admin/macros.html.twig' as ps %}
+
+{% block contact_form %}
+  {{ form_start(treatmentForm) }}
+  <div class="card">
+    <h3 class="card-header">
+      <i class="material-icons">mail_outline</i>
+      {{ 'Treatments'|trans({}, 'Modules.Salusperaquam.Admin') }}
+    </h3>
+    <div class="card-block row">
+      <div class="card-text">
+        {{ form_errors(treatmentForm) }}
+
+        {% block treatment_form_rest %}
+          {{ form_rest(treatmentForm) }}
+        {% endblock %}
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="{{ path('flavioski_salusperaquam_treatment_index') }}" class="btn btn-outline-secondary">
+        {{ 'Cancel'|trans({}, 'Admin.Actions') }}
+      </a>
+      <button class="btn btn-primary float-right">
+        {{ 'Save'|trans({}, 'Admin.Actions') }}
+      </button>
+    </div>
+  </div>
+  {{ form_end(treatmentForm) }}
+{% endblock %}

@@ -28,7 +28,7 @@ services:
   flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_form_data_handler:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataHandler'
     arguments:
-      - '@prestashop.module.salusperaquam.repository.treatment_repository'
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
       - '@prestashop.core.admin.lang.repository'
       - '@doctrine.orm.default_entity_manager'
 
