@@ -28,7 +28,7 @@ use PrestaShop\PrestaShop\Core\Grid\Query\AbstractDoctrineQueryBuilder;
 use PrestaShop\PrestaShop\Core\Grid\Query\DoctrineSearchCriteriaApplicatorInterface;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
 
-class QuoteQueryBuilder extends AbstractDoctrineQueryBuilder
+class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
 {
     /**
      * @var DoctrineSearchCriteriaApplicatorInterface

@@ -22,11 +22,13 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form;
 
+use Flavioski\Module\SalusPerAquam\Form\DataTransformer\CentToEuroTransformer;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -70,6 +72,21 @@ class TreatmentType extends TranslatorAwareType
                     new NotBlank(),
                 ]
             ])
+            ->add('price', MoneyType::class, [
+                'label' => 'Price treatment',
+                'help' => 'Price treatment (e.g. 12.45).',
+                'translation_domain' => 'Modules.Salusperaquam.Admin',
+                'scale' => 2,
+                'currency' => null,
+                'attr' => [
+                    'min' => '0.00',
+                    'max' => '1000.00',
+                    'step' => '0.01'
+                ]
+            ])
         ;
+
+        $builder->get('price')
+            ->addModelTransformer(new CentToEuroTransformer());
     }
 }
