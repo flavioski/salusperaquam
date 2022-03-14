@@ -7,7 +7,7 @@ const cssExtractedFileName = 'theme';
 
 // PrestShop folders, we use process.env.PWD instead of __dirname in case the module is symlinked
 const psRootDir = path.resolve(process.env.PWD, '../../../');
-const psJsDir = path.resolve(psRootDir, 'admin-dev/themes/new-theme/js');
+const psJsDir = path.resolve(psRootDir, 'manage/themes/new-theme/js');
 const psComponentsDir = path.resolve(psJsDir, 'components');
 
 module.exports = {
