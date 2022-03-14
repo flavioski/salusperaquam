@@ -24,6 +24,7 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 
 use Flavioski\Module\SalusPerAquam\Form\DataTransformer\CentToEuroTransformer;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
+use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -83,6 +84,12 @@ class TreatmentType extends TranslatorAwareType
                     'max' => '1000.00',
                     'step' => '0.01'
                 ]
+            ])
+            ->add('active', SwitchType::class, [
+                'label' => 'Active',
+                'help' => 'Treatment is active?',
+                'translation_domain' => 'Modules.Salusperaquam.Admin',
+                'required' => true,
             ])
         ;
 

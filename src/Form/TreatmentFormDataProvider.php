@@ -53,6 +53,7 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'name' => $treatment->getName(),
             'code' => $treatment->getCode(),
             'price' => $treatment->getPrice(),
+            'active' => $treatment->getActive(),
         ];
 
         return $treatmentData;
@@ -67,6 +68,7 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'name' => '',
             'code' => '',
             'price' => 0,
+            'active' => false,
         ];
     }
 }
