@@ -1,18 +1,72 @@
 # @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/#how-to-map-an-action-of-your-controller-to-a-uri
 # @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/tabs/
 #
-
-salusperaquam_configuration:
-  path: salusperaquam/tab/configuration
-  methods: [ GET ]
+# configuration
+flavioski_salusperaquam_configuration_index:
+  path: /salusperaquam/configuration
+  methods: [GET]
   defaults:
-    _controller: 'SalusPerAquam\Controller\Admin\ConfigurationController::indexAction'
-    _legacy_controller: ConfigurationController
-    _legacy_link: ConfigurationController
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ConfigurationController::indexAction'
+    _legacy_controller: 'AdminSalusperaquamConfiguration'
+    _legacy_link: 'AdminSalusperaquamConfiguration'
 
-salusperaquam_demo:
-  path: salusperaquam/demo
-  methods: [ GET ]
+# treatments
+flavioski_salusperaquam_treatment_index:
+  path: /salusperaquam/treatments
+  methods: [GET]
   defaults:
-    _controller: 'SalusPerAquam\Controller\Admin\ConfigurationController::demoAction'
-    _disable_module_prefix: true
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::indexAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment'
+
+flavioski_salusperaquam_treatment_search:
+  path: /salusperaquam/treatments
+  methods: [POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::searchAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:search'
+
+flavioski_salusperaquam_treatment_generate:
+  path: /salusperaquam/generate
+  methods: [GET, POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::generateAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:generate'
+
+flavioski_salusperaquam_treatment_create:
+  path: /salusperaquam/treatments/new
+  methods: [GET, POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::createAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:add'
+
+flavioski_salusperaquam_treatment_edit:
+  path: /salusperaquam/treatments/{quoteId}/edit
+  methods: [GET, POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::editAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:update'
+  requirements:
+    quoteId: \d+
+
+flavioski_salusperaquam_treatment_delete:
+  path: /salusperaquam/treatments/{quoteId}/delete
+  methods: [DELETE]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::deleteAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:deletetreatment'
+  requirements:
+    quoteId: \d+
+
+flavioski_salusperaquam_treatment_bulk_delete:
+  path: /salusperaquam/treatments/bulkDelete
+  methods: [POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::deleteBulkAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:submitBulkdeletetreatment'
