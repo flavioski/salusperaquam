@@ -31,6 +31,13 @@ use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory;
 use Flavioski\Module\SalusPerAquam\Grid\Filters\TreatmentFilters;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShopBundle\Entity\Lang;
+use PrestaShopBundle\Entity\Repository\LangRepository;
+use PrestaShopBundle\Service\Grid\ResponseBuilder;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TreatmentsController extends FrameworkBundleAdminController
 {
