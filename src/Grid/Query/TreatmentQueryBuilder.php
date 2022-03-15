@@ -110,18 +110,55 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             'name',
             'code',
             'price',
+            'product_name',
+            'product_attribute_name',
+            'active',
         ];
 
-        $qb = $this->connection
-            ->createQueryBuilder()
+        $allowedFiltersMap = [
+            'id_treatment' => 'q.id_treatment',
+            'name' => 'q.name',
+            'code' => 'q.code',
+            'price' => 'q.price',
+            'product_name' => 'pl.name',
+            'product_attribute_name' => 'al.name',
+            'active' => 'q.active',
+        ];
+
+        $qb = $this->connection->createQueryBuilder();
+        $qb
             ->from($this->dbPrefix . 'treatment', 'q')
-            ->innerJoin('q', $this->dbPrefix . 'product_lang', 'pl', 'q.id_product = pl.id_product')
-            ->innerJoin('q', $this->dbPrefix . 'attribute_lang', 'al', 'q.id_attribute = al.id_attribute')
-            ->andWhere('pl.`id_lang`= :language')
-            ->andWhere('pl.`id_shop`= :shop')
-            ->setParameter('language', $this->languageId)
-            ->setParameter('shop', $this->shopId)
+            ->leftJoin('q',
+                $this->dbPrefix . 'product_lang',
+                'pl',
+                $qb->expr()->andX(
+                    $qb->expr()->eq('pl.`id_product`', 'q.`id_product`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_product`')),
+                    $qb->expr()->andX($qb->expr()->eq('pl.`id_shop`', ':shopId')),
+                    $qb->expr()->andX($qb->expr()->eq('pl.`id_lang`', ':langId'))
+                )
+            )
+            ->leftJoin('q',
+                $this->dbPrefix . 'product_attribute_combination',
+                'pac',
+                $qb->expr()->andX(
+                    $qb->expr()->eq('q.`id_attribute`', 'pac.`id_product_attribute`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_attribute`'))
+                )
+            )
+            ->leftJoin('pac',
+                $this->dbPrefix . 'attribute_lang',
+                'al',
+                $qb->expr()->andX(
+                    $qb->expr()->eq('pac.`id_attribute`', 'al.`id_attribute`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('pac.`id_attribute`')),
+                    $qb->expr()->andX($qb->expr()->eq('al.`id_lang`', ':langId'))
+                )
+            )
         ;
+        $qb->andWhere('q.`deleted` = 0');
+        $qb->setParameter('shopId', $this->languageId);
+        $qb->setParameter('langId', $this->languageId);
 
         foreach ($filters as $name => $value) {
             if (!in_array($name, $allowedFilters, true)) {
@@ -129,13 +166,20 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             }
 
             if ('id_treatment' === $name) {
-                $qb->andWhere('q.`id_treatment` = :' . $name);
+                $qb->andWhere($allowedFiltersMap[$name] . ' = :' . $name);
                 $qb->setParameter($name, $value);
 
                 continue;
             }
 
-            $qb->andWhere("$name LIKE :$name");
+            if ('active' === $name) {
+                $qb->andWhere($allowedFiltersMap[$name] . ' = :' . $name);
+                $qb->setParameter($name, $value);
+
+                continue;
+            }
+
+            $qb->andWhere($allowedFiltersMap[$name] . ' LIKE :' . $name);
             $qb->setParameter($name, '%' . $value . '%');
         }
 
