@@ -142,8 +142,8 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
                 $this->dbPrefix . 'product_attribute_combination',
                 'pac',
                 $qb->expr()->andX(
-                    $qb->expr()->eq('q.`id_attribute`', 'pac.`id_product_attribute`'),
-                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_attribute`'))
+                    $qb->expr()->eq('q.`id_product_attribute`', 'pac.`id_product_attribute`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_product_attribute`'))
                 )
             )
             ->leftJoin('pac',

@@ -53,9 +53,9 @@ class Treatment
     /**
      * @var int
      *
-     * @ORM\Column(name="id_attribute", type="integer", options={"unsigned"=true}, nullable=true)
+     * @ORM\Column(name="id_product_attribute", type="integer", options={"unsigned"=true}, nullable=true)
      */
-    private $attributeId;
+    private $productAttributeId;
 
     /**
      * @var string
@@ -145,19 +145,19 @@ class Treatment
     /**
      * @return int
      */
-    public function getAttributeId(): ?int
+    public function getProductAttributeId(): ?int
     {
-        return $this->attributeId;
+        return $this->productAttributeId;
     }
 
     /**
-     * @param int|null $attributeId
+     * @param int|null $productAttributeId
      *
      * @return Treatment
      */
-    public function setAttributeId(?int $attributeId): self
+    public function setProductAttributeId(?int $productAttributeId): self
     {
-        $this->attributeId = $attributeId;
+        $this->productAttributeId = $productAttributeId;
 
         return $this;
     }
@@ -341,7 +341,7 @@ class Treatment
         return [
             'id_treatment' => $this->getId(),
             'id_product' => $this->getProductId(),
-            'id_attribute' => $this->getAttributeId(),
+            'id_product_attribute' => $this->getProductAttributeId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'price' => $this->getPrice(),
