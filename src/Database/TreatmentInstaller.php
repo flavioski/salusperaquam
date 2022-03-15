@@ -72,7 +72,7 @@ class TreatmentInstaller
                 continue;
             }
             $statement = $this->connection->executeQuery($query);
-            if (0 != (int) $statement->errorCode()) {
+            if ($statement instanceof Statement && 0 != (int) $statement->errorCode()) {
                 $errors[] = [
                     'key' => json_encode($statement->errorInfo()),
                     'parameters' => [],

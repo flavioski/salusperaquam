@@ -25,7 +25,46 @@ namespace Flavioski\Module\SalusPerAquam\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class TreatmentRepository
+class TreatmentRepository extends EntityRepository
 {
-    // stuff
+    public function getRandom($langId = 0, $limit = 0)
+    {
+        /** @var QueryBuilder $qb */
+        $qb = $this->createQueryBuilder('q')
+            ->addSelect('q')
+        ;
+
+
+        $ids = $this->getAllIds();
+        shuffle($ids);
+        if ($limit > 0) {
+            $ids = array_slice($ids, 0, $limit);
+        }
+        $qb
+            ->andWhere('q.id in (:ids)')
+            ->setParameter('ids', $ids)
+        ;
+
+        $treatments = $qb->getQuery()->getResult();
+        uasort($treatments, function($a, $b) use ($ids) {
+            return array_search($a->getId(), $ids) - array_search($b->getId(), $ids);
+        });
+
+        return $treatments;
+    }
+
+    public function getAllIds()
+    {
+        /** @var QueryBuilder $qb */
+        $qb = $this
+            ->createQueryBuilder('q')
+            ->select('q.id')
+        ;
+
+        $treatments = $qb->getQuery()->getScalarResult();
+
+        return array_map(function($treatment) {
+            return $treatment['id'];
+        }, $treatments);
+    }
 }

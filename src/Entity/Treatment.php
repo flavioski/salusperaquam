@@ -90,7 +90,7 @@ class Treatment
      *
      * @ORM\Column(name="deleted", type="boolean")
      */
-    private $deleted = 0;
+    private $deleted = false;
 
     /**
      * @var \DateTime
