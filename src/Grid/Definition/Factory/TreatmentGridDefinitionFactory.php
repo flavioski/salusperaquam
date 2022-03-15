@@ -32,17 +32,45 @@ use PrestaShop\PrestaShop\Core\Grid\Action\Type\SimpleGridAction;
 use PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ActionColumn;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\BulkActionColumn;
+use PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ToggleColumn;
 use PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn;
 use PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory;
 use PrestaShop\PrestaShop\Core\Grid\Filter\Filter;
 use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollection;
+use PrestaShop\PrestaShop\Core\Hook\HookDispatcherInterface;
 use PrestaShopBundle\Form\Admin\Type\SearchAndResetType;
+use PrestaShopBundle\Form\Admin\Type\YesAndNoChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
 {
     const GRID_ID = 'treatment';
 
+    /**
+     * @var
+     */
+    private $resetActionUrl;
+
+    /**
+     * @var
+     */
+    private $redirectionUr;
+
+    /**
+     * @param HookDispatcherInterface $hookDispatcher
+     * @param $resetActionUrl
+     * @param $redirectionUrl
+     */
+    public function __construct(
+        HookDispatcherInterface $hookDispatcher,
+        $resetActionUrl,
+        $redirectionUrl
+    )
+    {
+        parent::__construct($hookDispatcher);
+        $this->resetActionUrl = $resetActionUrl;
+        $this->redirectionUr = $redirectionUrl;
+    }
     /**
      * {@inheritdoc}
      */
@@ -74,6 +102,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setName($this->trans('ID', [], 'Admin.Global'))
                 ->setOptions([
                     'field' => 'id_treatment',
+                    'sortable' => true,
                 ])
             )
             ->add((new DataColumn('name'))
@@ -92,6 +121,29 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setName($this->trans('Price', [], 'Modules.Salusperaquam.Admin'))
                 ->setOptions([
                     'field' => 'price',
+                ])
+            )
+            ->add((new DataColumn('product'))
+                ->setName($this->trans('Product', [], 'Admin.Global'))
+                ->setOptions([
+                    'field' => 'product_name',
+                    'sortable' => false,
+                ])
+            )
+            ->add((new DataColumn('product_attribute'))
+                ->setName($this->trans('Attribute', [], 'Admin.Global'))
+                ->setOptions([
+                    'field' => 'product_attribute_name',
+                    'sortable' => false,
+                ])
+            )
+            ->add((new ToggleColumn('active'))
+                ->setName($this->trans('Enabled', [], 'Admin.Global'))
+                ->setOptions([
+                    'field' => 'active',
+                    'primary_field' => 'id_treatment',
+                    'route' => 'flavioski_salusperaquam_treatment_grid_toggle_status',
+                    'route_param_name' => 'treatmentId',
                 ])
             )
             ->add((new ActionColumn('actions'))
@@ -161,8 +213,37 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ])
                 ->setAssociatedColumn('price')
             )
+            ->add((new Filter('product_name', TextType::class))
+                ->setTypeOptions([
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => $this->trans('Search name', [], 'Admin.Actions'),
+                    ],
+                ])
+                ->setAssociatedColumn('product')
+            )
+            ->add((new Filter('product_attribute_name', TextType::class))
+                ->setTypeOptions([
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => $this->trans('Search name', [], 'Admin.Actions'),
+                    ],
+                ])
+                ->setAssociatedColumn('product_attribute')
+            )
+            ->add((new Filter('active', YesAndNoChoiceType::class))
+                ->setTypeOptions([
+                    'required' => false,
+                    'choice_translation_domain' => false,
+                ])
+                ->setAssociatedColumn('active')
+            )
             ->add((new Filter('actions', SearchAndResetType::class))
                 ->setTypeOptions([
+                    'attr' => [
+                        'data-url' => $this->resetActionUrl,
+                        'data-redirect' => $this->redirectionUr,
+                    ],
                     'reset_route' => 'admin_common_reset_search_by_filter_id',
                     'reset_route_params' => [
                         'filterId' => self::GRID_ID,

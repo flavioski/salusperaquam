@@ -74,7 +74,8 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
     {
         $qb = $this->getQueryBuilder($searchCriteria->getFilters());
         $qb
-            ->select('q.id_treatment, q.name, q.code, q.price')
+            ->select('q.id_treatment, q.name, q.code, q.price, q.active, q.id_product, q.id_product_attribute,
+              pl.`name` AS product_name, al.`name` AS product_attribute_name')
             ->groupBy('q.id_treatment');
 
         $this->searchCriteriaApplicator

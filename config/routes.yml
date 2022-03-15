@@ -70,3 +70,15 @@ flavioski_salusperaquam_treatment_bulk_delete:
     _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::deleteBulkAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:submitBulkdeletetreatment'
+
+flavioski_salusperaquam_treatment_grid_toggle_status:
+  path: /salusperaquam/treatments/{treatmentId}/toggle-status
+  methods: [POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::toggleStatusAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:toggleStatus'
+    _legacy_parameters:
+      id_treatment: treatmentId
+  requirements:
+    treatmentId: \d+

@@ -35,6 +35,7 @@ use PrestaShopBundle\Entity\Lang;
 use PrestaShopBundle\Entity\Repository\LangRepository;
 use PrestaShopBundle\Service\Grid\ResponseBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -240,6 +241,23 @@ class TreatmentsController extends FrameworkBundleAdminController
         }
 
         return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
+    }
+
+    /**
+     * Toggles status.
+     *
+     * @param $treatmentId
+     *
+     * @return JsonResponse
+     */
+    public function toggleStatusAction($treatmentId)
+    {
+        $response = [
+            'status' => true,
+            'message' => $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success'),
+        ];
+
+        return $this->json($response);
     }
 
     /**

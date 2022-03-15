@@ -42,6 +42,9 @@ services:
   flavioski.module.salusperaquam.grid.definition.factory.treatments:
     class: 'Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory'
     parent: 'prestashop.core.grid.definition.factory.abstract_grid_definition'
+    arguments:
+      - "@=service('router').generate('admin_common_reset_search', {'controller': 'treatment', 'action': 'index'})"
+      - "@=service('router').generate('flavioski_salusperaquam_treatment_index')"
 
   flavioski.module.salusperaquam.grid.query_builder.treatment:
     class: 'Flavioski\Module\SalusPerAquam\Grid\Query\TreatmentQueryBuilder'
