@@ -18,8 +18,9 @@
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
+declare(strict_types=1);
 
-namespace SalusPerAquam\Controller\Admin;
+namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 

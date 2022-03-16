@@ -24,7 +24,6 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
-use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface;
 use PrestaShopBundle\Entity\Repository\LangRepository;

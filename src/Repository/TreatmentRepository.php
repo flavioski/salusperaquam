@@ -34,7 +34,6 @@ class TreatmentRepository extends EntityRepository
             ->addSelect('q')
         ;
 
-
         $ids = $this->getAllIds();
         shuffle($ids);
         if ($limit > 0) {
@@ -46,7 +45,7 @@ class TreatmentRepository extends EntityRepository
         ;
 
         $treatments = $qb->getQuery()->getResult();
-        uasort($treatments, function($a, $b) use ($ids) {
+        uasort($treatments, function ($a, $b) use ($ids) {
             return array_search($a->getId(), $ids) - array_search($b->getId(), $ids);
         });
 
@@ -63,7 +62,7 @@ class TreatmentRepository extends EntityRepository
 
         $treatments = $qb->getQuery()->getScalarResult();
 
-        return array_map(function($treatment) {
+        return array_map(function ($treatment) {
             return $treatment['id'];
         }, $treatments);
     }

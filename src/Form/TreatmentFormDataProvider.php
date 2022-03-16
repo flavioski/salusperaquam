@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form;
 
-use Flavioski\Module\SalusPerAquam\Entity\Treatment;
-use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface;
 

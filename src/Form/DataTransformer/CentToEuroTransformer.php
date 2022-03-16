@@ -29,7 +29,8 @@ class CentToEuroTransformer implements DataTransformerInterface
     /**
      * Transforms cent to euro amount.
      *
-     * @param  int|null $priceInCent
+     * @param int|null $priceInCent
+     *
      * @return string
      */
     public function transform($priceInCent)
@@ -38,7 +39,7 @@ class CentToEuroTransformer implements DataTransformerInterface
             return 0;
         }
 
-        $priceInEuro = number_format(($priceInCent /100), 2, '.', ' ');
+        $priceInEuro = number_format(($priceInCent / 100), 2, '.', ' ');
 
         return $priceInEuro;
     }
@@ -46,7 +47,8 @@ class CentToEuroTransformer implements DataTransformerInterface
     /**
      * Transforms euro to cent amount.
      *
-     * @param  double|null $priceInEuro
+     * @param float|null $priceInEuro
+     *
      * @return int
      */
     public function reverseTransform($priceInEuro)
@@ -55,7 +57,7 @@ class CentToEuroTransformer implements DataTransformerInterface
             return 0;
         }
 
-        $priceInCent = (int)($priceInEuro * 100);
+        $priceInCent = (int) ($priceInEuro * 100);
 
         return $priceInCent;
     }

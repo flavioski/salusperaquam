@@ -44,7 +44,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
 {
-    const GRID_ID = 'treatment';
+    public const GRID_ID = 'treatment';
 
     /**
      * @var
@@ -65,12 +65,12 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
         HookDispatcherInterface $hookDispatcher,
         $resetActionUrl,
         $redirectionUrl
-    )
-    {
+    ) {
         parent::__construct($hookDispatcher);
         $this->resetActionUrl = $resetActionUrl;
         $this->redirectionUr = $redirectionUrl;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -142,7 +142,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setOptions([
                     'field' => 'active',
                     'primary_field' => 'id_treatment',
-                    'route' => 'flavioski_salusperaquam_treatment_grid_toggle_status',
+                    'route' => 'flavioski_salusperaquam_treatment_toggle_status',
                     'route_param_name' => 'treatmentId',
                 ])
             )

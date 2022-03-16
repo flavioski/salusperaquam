@@ -26,8 +26,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-if (file_exists(__DIR__.'/vendor/autoload.php')) {
-    require_once __DIR__.'/vendor/autoload.php';
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
 }
 
 class SalusPerAquam extends Module
@@ -45,18 +45,18 @@ class SalusPerAquam extends Module
         $this->displayName = $this->getTranslator()->trans(
             'Salus Per Aquam',
             [],
-            'Modules.SalusPerAquam.Admin'
+            'Modules.Salusperaquam.Admin'
         );
 
         $this->description =
             $this->getTranslator()->trans(
                 'Salus Per Aquam webService thermae.',
                 [],
-                'Modules.SalusPerAquam.Admin'
+                'Modules.Salusperaquam.Admin'
             );
 
         $this->ps_versions_compliancy = [
-            'min' => '1.7.6.0',
+            'min' => '1.7.7.0',
             'max' => _PS_VERSION_,
         ];
     }
@@ -199,7 +199,7 @@ class SalusPerAquam extends Module
         $MainTab->class_name = 'AdminSalusPerAquam';
         $MainTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
-            $MainTab->name[$lang['id_lang']] = 'SalusPerAquam';
+            $MainTab->name[$lang['id_lang']] = 'Salus Per Aquam';
         }
         $MainTab->id_parent = 0;
         $MainTab->module = $this->name;
@@ -257,14 +257,14 @@ class SalusPerAquam extends Module
         $AccessTab->save();
 
         // Sub for "Treatment"
-        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentController');
+        $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
         if (!$TreatmentTabId) {
             $TreatmentTab = null;
         }
 
         $TreatmentTab = new Tab($TreatmentTabId);
         $TreatmentTab->active = true;
-        $TreatmentTab->class_name = 'TreatmentController';
+        $TreatmentTab->class_name = 'AdminSalusperaquamTreatment';
         $TreatmentTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $TreatmentTab->name[$lang['id_lang']] = 'Treatments';
@@ -314,7 +314,7 @@ class SalusPerAquam extends Module
         $AccessTab = new Tab($AccessTabId);
         $AccessTab->delete();
 
-        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentController');
+        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentsController');
         if (!$TreatmentTabId) {
             return true;
         }

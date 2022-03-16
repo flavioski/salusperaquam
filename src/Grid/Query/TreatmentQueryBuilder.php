@@ -53,13 +53,12 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
      * @param int $shopId
      */
     public function __construct(
-        Connection                                $connection,
+        Connection $connection,
                                                   $dbPrefix,
         DoctrineSearchCriteriaApplicatorInterface $searchCriteriaApplicator,
         $languageId,
         $shopId
-    )
-    {
+    ) {
         parent::__construct($connection, $dbPrefix);
 
         $this->searchCriteriaApplicator = $searchCriteriaApplicator;
