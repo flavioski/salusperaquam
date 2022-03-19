@@ -34,12 +34,7 @@ class GetTreatmentIsActiveHandler extends AbstractTreatmentHandler
      */
     private $treatmentRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(TreatmentRepository $treatmentRepository, EntityManagerInterface $entityManager)
+    public function __construct(TreatmentRepository $treatmentRepository)
     {
         $this->treatmentRepository = $treatmentRepository;
         $this->entityManager = $entityManager;

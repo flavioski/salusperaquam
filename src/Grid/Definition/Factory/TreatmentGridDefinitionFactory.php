@@ -47,19 +47,19 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
     public const GRID_ID = 'treatment';
 
     /**
-     * @var
+     * @var string $resetActionUrl
      */
     private $resetActionUrl;
 
     /**
-     * @var
+     * @var string $redirectionUr
      */
     private $redirectionUr;
 
     /**
      * @param HookDispatcherInterface $hookDispatcher
-     * @param $resetActionUrl
-     * @param $redirectionUrl
+     * @param string $resetActionUrl
+     * @param string $redirectionUrl
      */
     public function __construct(
         HookDispatcherInterface $hookDispatcher,

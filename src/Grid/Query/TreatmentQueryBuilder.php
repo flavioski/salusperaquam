@@ -50,7 +50,6 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
      * @param string $dbPrefix
      * @param DoctrineSearchCriteriaApplicatorInterface $searchCriteriaApplicator
      * @param int $languageId
-     * @param int $shopId
      */
     public function __construct(
         Connection $connection,
@@ -131,6 +130,7 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             ->leftJoin('q',
                 $this->dbPrefix . 'product_lang',
                 'pl',
+                /* @phpstan-ignore-next-line */
                 $qb->expr()->andX(
                     $qb->expr()->eq('pl.`id_product`', 'q.`id_product`'),
                     $qb->expr()->andX($qb->expr()->isNotNull('q.`id_product`')),
@@ -141,6 +141,7 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             ->leftJoin('q',
                 $this->dbPrefix . 'product_attribute_combination',
                 'pac',
+                /* @phpstan-ignore-next-line */
                 $qb->expr()->andX(
                     $qb->expr()->eq('q.`id_product_attribute`', 'pac.`id_product_attribute`'),
                     $qb->expr()->andX($qb->expr()->isNotNull('q.`id_product_attribute`'))
@@ -149,6 +150,7 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             ->leftJoin('pac',
                 $this->dbPrefix . 'attribute_lang',
                 'al',
+                /* @phpstan-ignore-next-line */
                 $qb->expr()->andX(
                     $qb->expr()->eq('pac.`id_attribute`', 'al.`id_attribute`'),
                     $qb->expr()->andX($qb->expr()->isNotNull('pac.`id_attribute`')),
@@ -157,7 +159,7 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             )
         ;
         $qb->andWhere('q.`deleted` = 0');
-        $qb->setParameter('shopId', $this->languageId);
+        $qb->setParameter('shopId', $this->shopId);
         $qb->setParameter('langId', $this->languageId);
 
         foreach ($filters as $name => $value) {

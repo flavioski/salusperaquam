@@ -31,7 +31,7 @@ class TreatmentId
     /**
      * TreatmentId constructor.
      *
-     * @param $treatmentId
+     * @param int $treatmentId
      *
      * @throws InvalidTreatmentIdException
      */
@@ -51,7 +51,7 @@ class TreatmentId
     }
 
     /**
-     * @param $treatmentId
+     * @param int $treatmentId
      *
      * @throws InvalidTreatmentIdException
      */

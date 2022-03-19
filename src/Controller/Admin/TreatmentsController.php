@@ -245,7 +245,7 @@ class TreatmentsController extends FrameworkBundleAdminController
     /**
      * Toggles status.
      *
-     * @param $treatmentId
+     * @param int $treatmentId
      *
      * @return JsonResponse
      */

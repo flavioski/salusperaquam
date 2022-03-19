@@ -26,7 +26,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface;
-use PrestaShopBundle\Entity\Repository\LangRepository;
 
 class TreatmentFormDataHandler implements FormDataHandlerInterface
 {
@@ -36,27 +35,19 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
     private $treatmentRepository;
 
     /**
-     * @var LangRepository
-     */
-    private $langRepository;
-
-    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
     /**
      * @param TreatmentRepository $treatmentRepository
-     * @param LangRepository $langRepository
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
         TreatmentRepository $treatmentRepository,
-        LangRepository $langRepository,
         EntityManagerInterface $entityManager
     ) {
         $this->treatmentRepository = $treatmentRepository;
-        $this->langRepository = $langRepository;
         $this->entityManager = $entityManager;
     }
 

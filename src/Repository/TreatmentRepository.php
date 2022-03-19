@@ -24,9 +24,30 @@ namespace Flavioski\Module\SalusPerAquam\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 
 class TreatmentRepository extends EntityRepository
 {
+    /**
+     * Find one item by ID.
+     *
+     * @param int $id
+     *
+     * @return array
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->addSelect('q')
+        ;
+        $qb
+            ->andWhere('q.id = :id')
+            ->setParameter('id', $id)
+        ;
+
+        return $qb->getQuery()->getResult()[0];
+    }
+
     public function getRandom($langId = 0, $limit = 0)
     {
         /** @var QueryBuilder $qb */

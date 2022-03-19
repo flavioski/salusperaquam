@@ -40,7 +40,7 @@ class ToggleIsActiveTreatmentCommand
     /**
      * ToggleIsActiveTreatmentCommand constructor.
      *
-     * @param $treatmentId
+     * @param int $treatmentId
      * @param bool $active
      *
      * @throws InvalidTreatmentIdException
