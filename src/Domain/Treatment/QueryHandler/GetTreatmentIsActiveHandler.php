@@ -22,12 +22,10 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler;
 
-use Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive;
-use Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\TreatmentNotFoundException;
-use Flavioski\Module\SalusPerAquam\Entity\Treatment;
-use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\TreatmentNotFoundException;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive;
+use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 
 class GetTreatmentIsActiveHandler extends AbstractTreatmentHandler
 {

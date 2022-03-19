@@ -36,6 +36,7 @@ class GetTreatmentIsActive
 
     /**
      * @param int $treatmentId
+     *
      * @throws \Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\InvalidTreatmentIdException
      */
     public function __construct(int $treatmentId)

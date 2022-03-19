@@ -36,7 +36,7 @@ class CentToEuroTransformer implements DataTransformerInterface
     public function transform($priceInCent)
     {
         if (null === $priceInCent) {
-            return 0;
+            return '0';
         }
 
         $priceInEuro = number_format(($priceInCent / 100), 2, '.', ' ');

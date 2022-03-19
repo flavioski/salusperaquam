@@ -22,14 +22,11 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\CommandHandler;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Command\ToggleIsActiveTreatmentCommand;
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\CannotToggleActiveTreatmentStatusException;
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\TreatmentNotFoundException;
-use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
-use PrestaShopException;
-use Doctrine\ORM\EntityManagerInterface;
-
 
 class ToggleIsActiveTreatmentHandler extends AbstractTreatmentHandler
 {
@@ -59,7 +56,6 @@ class ToggleIsActiveTreatmentHandler extends AbstractTreatmentHandler
         }
 
         if ($treatment->isActive() != $command->getActive()) {
-
             $treatment->setActive($command->getActive());
 
             if (false === $this->entityManager->flush()) {

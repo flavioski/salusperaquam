@@ -43,11 +43,12 @@ class TreatmentsController extends FrameworkBundleAdminController
     /**
      * List treatments
      *
+     * @param Request $request
      * @param TreatmentFilters $filters
      *
      * @return Response
      */
-    public function indexAction(TreatmentFilters $filters)
+    public function indexAction(Request $request, TreatmentFilters $filters)
     {
         $treatmentGridFactory = $this->get('flavioski.module.salusperaquam.grid.factory.treatments');
         $treatmentGrid = $treatmentGridFactory->getGrid($filters);
@@ -251,7 +252,7 @@ class TreatmentsController extends FrameworkBundleAdminController
     public function toggleStatusAction($treatmentId)
     {
         try {
-            $isActive = $this->getQueryBus()->handle(new GetTreatmentIsActive((int)$treatmentId));
+            $isActive = $this->getQueryBus()->handle(new GetTreatmentIsActive((int) $treatmentId));
 
             $this->getCommandBus()->handle(new ToggleIsActiveTreatmentCommand((int) $treatmentId, !$isActive));
 
