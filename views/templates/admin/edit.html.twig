@@ -1,5 +1,4 @@
-<?php
-/**
+{#**
  * Salus per Aquam
  * Copyright since 2021 Flavio Pellizzer and Contributors
  * <Flavio Pellizzer> Property
@@ -14,20 +13,23 @@
  * obtain it through the world-wide-web, please send an email
  * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
  *
- * @author    Flavio Pellizzer
+ * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
- */
-declare(strict_types=1);
+ *#}
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
+{% extends 'PrestaShopBundle:Admin:layout.html.twig' %}
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col">
+      {% include '@Modules/salusperaquam/views/templates/admin/form.html.twig' %}
+    </div>
+  </div>
+{% endblock %}
 
-class ConfigurationController extends FrameworkBundleAdminController
-{
-    public function demoAction()
-    {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
-    }
-}
+{% block javascripts %}
+  {{ parent() }}
+
+  <script src="{{ asset('../modules/salusperaquam/views/js/treatment_form.bundle.js') }}"></script>
+{% endblock %}

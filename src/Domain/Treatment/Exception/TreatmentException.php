@@ -20,14 +20,10 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
+namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception;
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShop\PrestaShop\Core\Domain\Exception\DomainException;
 
-class ConfigurationController extends FrameworkBundleAdminController
+class TreatmentException extends DomainException
 {
-    public function demoAction()
-    {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
-    }
 }

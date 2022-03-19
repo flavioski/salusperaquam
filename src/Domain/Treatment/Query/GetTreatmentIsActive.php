@@ -20,14 +20,35 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
+namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\Query;
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\ValueObject\TreatmentId;
 
-class ConfigurationController extends FrameworkBundleAdminController
+/**
+ * Get current status (enabled/disabled) for a given treatment
+ */
+class GetTreatmentIsActive
 {
-    public function demoAction()
+    /**
+     * @var TreatmentId
+     */
+    private $treatmentId;
+
+    /**
+     * @param int $treatmentId
+     *
+     * @throws \Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\InvalidTreatmentIdException
+     */
+    public function __construct(int $treatmentId)
     {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
+        $this->treatmentId = new TreatmentId($treatmentId);
+    }
+
+    /**
+     * @return TreatmentId
+     */
+    public function getTreatmentId(): TreatmentId
+    {
+        return $this->treatmentId;
     }
 }

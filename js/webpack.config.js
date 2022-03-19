@@ -1,4 +1,3 @@
-<?php
 /**
  * Salus per Aquam
  * Copyright since 2021 Flavio Pellizzer and Contributors
@@ -18,16 +17,15 @@
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
-declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
-
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-
-class ConfigurationController extends FrameworkBundleAdminController
-{
-    public function demoAction()
-    {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
-    }
-}
+/**
+ * Three mode available:
+ *  build = production mode
+ *  build:analyze = production mode with bundler analyzer
+ *  dev = development mode
+ */
+module.exports = () => (
+  process.env.NODE_ENV === 'production' ?
+    require('./.webpack/prod.js')() :
+    require('./.webpack/dev.js')()
+);

@@ -20,14 +20,17 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
+namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception;
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
-
-class ConfigurationController extends FrameworkBundleAdminController
+class CannotToggleActiveTreatmentStatusException extends TreatmentException
 {
-    public function demoAction()
-    {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
-    }
+    /**
+     * When fails to toggle single list grid
+     */
+    public const FAILED_TOGGLE = 10;
+
+    /**
+     * When fails to toggle list grid on bulk action
+     */
+    public const FAILED_BULK_TOGGLE = 20;
 }

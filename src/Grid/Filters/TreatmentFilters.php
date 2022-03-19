@@ -20,14 +20,26 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
+namespace Flavioski\Module\SalusPerAquam\Grid\Filters;
 
-use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory;
+use PrestaShop\PrestaShop\Core\Search\Filters;
 
-class ConfigurationController extends FrameworkBundleAdminController
+class TreatmentFilters extends Filters
 {
-    public function demoAction()
+    protected $filterId = TreatmentGridDefinitionFactory::GRID_ID;
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDefaults()
     {
-        return $this->render('@Modules/salusperaquam/templates/admin/demo.html.twig');
+        return [
+            'limit' => 10,
+            'offset' => 0,
+            'orderBy' => 'id_treatment',
+            'sortOrder' => 'asc',
+            'filters' => [],
+        ];
     }
 }

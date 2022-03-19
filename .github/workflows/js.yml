@@ -4,11 +4,18 @@ jobs:
   js-linter:
     name: JS linter
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        js: [ '12']
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.js }}
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: lint js dependencies
         uses: PrestaShopCorp/github-action-lint-js/12@v1.0
         with:
-          cmd: npm
-          path: ./
+          cmd: npm --no-audit
+          path: ./js/

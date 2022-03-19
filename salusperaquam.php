@@ -18,8 +18,16 @@
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
+declare(strict_types=1);
+
+use Flavioski\Module\SalusPerAquam\Database\TreatmentInstaller;
+
 if (!defined('_PS_VERSION_')) {
     exit;
+}
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
 }
 
 class SalusPerAquam extends Module
@@ -37,18 +45,18 @@ class SalusPerAquam extends Module
         $this->displayName = $this->getTranslator()->trans(
             'Salus Per Aquam',
             [],
-            'Modules.SalusPerAquam.Admin'
+            'Modules.Salusperaquam.Admin'
         );
 
         $this->description =
             $this->getTranslator()->trans(
                 'Salus Per Aquam webService thermae.',
                 [],
-                'Modules.SalusPerAquam.Admin'
+                'Modules.Salusperaquam.Admin'
             );
 
         $this->ps_versions_compliancy = [
-            'min' => '1.7.6.0',
+            'min' => '1.7.7.0',
             'max' => _PS_VERSION_,
         ];
     }
@@ -72,7 +80,7 @@ class SalusPerAquam extends Module
      */
     public function install()
     {
-        return parent::install() &&
+        return $this->installTables() && parent::install() &&
             $this->installTab()
             ;
     }
@@ -84,7 +92,7 @@ class SalusPerAquam extends Module
      */
     public function uninstall()
     {
-        return parent::uninstall() &&
+        return $this->removeTables() && parent::uninstall() &&
             $this->uninstallTab()
             ;
     }
@@ -124,6 +132,53 @@ class SalusPerAquam extends Module
     }
 
     /**
+     * @return bool
+     */
+    private function installTables()
+    {
+        /** @var TreatmentInstaller $installer */
+        $installer = $this->getInstaller();
+        $errors = $installer->createTables();
+
+        return empty($errors);
+    }
+
+    /**
+     * @return bool
+     */
+    private function removeTables()
+    {
+        /** @var TreatmentInstaller $installer */
+        $installer = $this->getInstaller();
+        $errors = $installer->dropTables();
+
+        return empty($errors);
+    }
+
+    /**
+     * @return TreatmentInstaller
+     */
+    private function getInstaller()
+    {
+        try {
+            $installer = $this->get('prestashop.module.saluperaquam.treatment.install');
+        } catch (Exception $e) {
+            // Catch exception in case container is not available, or service is not available
+            $installer = null;
+        }
+
+        // During install process the module's service is not available yet, so we build it manually
+        if (!$installer) {
+            $installer = new TreatmentInstaller(
+                $this->get('doctrine.dbal.default_connection'),
+                $this->getContainer()->getParameter('database_prefix')
+            );
+        }
+
+        return $installer;
+    }
+
+    /**
      * install Tab
      *
      * @return bool
@@ -144,7 +199,7 @@ class SalusPerAquam extends Module
         $MainTab->class_name = 'AdminSalusPerAquam';
         $MainTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
-            $MainTab->name[$lang['id_lang']] = 'SalusPerAquam';
+            $MainTab->name[$lang['id_lang']] = 'Salus Per Aquam';
         }
         $MainTab->id_parent = 0;
         $MainTab->module = $this->name;
@@ -202,14 +257,14 @@ class SalusPerAquam extends Module
         $AccessTab->save();
 
         // Sub for "Treatment"
-        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentController');
+        $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
         if (!$TreatmentTabId) {
             $TreatmentTab = null;
         }
 
         $TreatmentTab = new Tab($TreatmentTabId);
         $TreatmentTab->active = true;
-        $TreatmentTab->class_name = 'TreatmentController';
+        $TreatmentTab->class_name = 'AdminSalusperaquamTreatment';
         $TreatmentTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
             $TreatmentTab->name[$lang['id_lang']] = 'Treatments';
@@ -259,7 +314,7 @@ class SalusPerAquam extends Module
         $AccessTab = new Tab($AccessTabId);
         $AccessTab->delete();
 
-        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentController');
+        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentsController');
         if (!$TreatmentTabId) {
             return true;
         }

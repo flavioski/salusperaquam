@@ -35,7 +35,7 @@ jobs:
         uses: PrestaShopCorp/github-action-build-js/12@v1.0
         with:
           cmd: npm
-          path: ./
+          path: ./js/
 
       - name: Install composer dependencies
         run: composer install --no-dev -o

@@ -9,7 +9,21 @@ parameters:
 		- ../../src
 		- ../../salusperaquam.php
 	reportUnmatchedIgnoredErrors: false
+	doctrine:
+		ormRepositoryClass: Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository
 	ignoreErrors:
 		- '#Property TabCore::\$name \(string\) does not accept array.#'
+		- '#Call to sprintf contains 0 placeholders, 1 value given.#'
+		- '#Result of method Doctrine\\Persistence\\ObjectManager::flush\(\) \(void\) is used.#'
+		- '#Strict comparison using === between false and void will always evaluate to false.#'
+		- '#Cannot call method getId\(\) on array.#'
+		- '#Cannot call method getName\(\) on array.#'
+		- '#Cannot call method setName\(\) on array.#'
+		- '#Cannot call method getCode\(\) on array.#'
+		- '#Cannot call method setCode\(\) on array.#'
+		- '#Cannot call method getPrice\(\) on array.#'
+		- '#Cannot call method setPrice\(\) on array.#'
+		- '#Cannot call method isActive\(\) on array.#'
+		- '#Cannot call method setActive\(\) on array.#'
 
 	level: 5

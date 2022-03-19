@@ -1,1 +1,99 @@
 # main services
+imports:
+  - { resource: ./common.yml }
+
+services:
+  # Form services
+  flavioski.module.salusperaquam.type.treatment:
+    class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentType'
+    parent: 'form.type.translatable.aware'
+    public: true
+    arguments:
+      - '@=service("prestashop.adapter.multistore_feature").isUsed()'
+    tags:
+      - { name: form.type }
+
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+
+  flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_form_builder:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
+    factory: 'prestashop.core.form.builder.form_builder_factory:create'
+    arguments:
+      - 'Flavioski\Module\SalusPerAquam\Form\TreatmentType'
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider'
+
+  flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_form_data_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@doctrine.orm.default_entity_manager'
+
+  flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_form_handler:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler'
+    factory: 'prestashop.core.form.identifiable_object.handler.form_handler_factory:create'
+    arguments:
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_form_data_handler'
+
+  # Grid services
+  flavioski.module.salusperaquam.grid.definition.factory.treatments:
+    class: 'Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory'
+    parent: 'prestashop.core.grid.definition.factory.abstract_grid_definition'
+    arguments:
+      - "@=service('router').generate('admin_common_reset_search', {'controller': 'treatment', 'action': 'index'})"
+      - "@=service('router').generate('flavioski_salusperaquam_treatment_index')"
+
+  flavioski.module.salusperaquam.grid.query_builder.treatment:
+    class: 'Flavioski\Module\SalusPerAquam\Grid\Query\TreatmentQueryBuilder'
+    parent: 'prestashop.core.grid.abstract_query_builder'
+    public: true
+    arguments:
+      - '@prestashop.core.query.doctrine_search_criteria_applicator'
+      - "@=service('prestashop.adapter.legacy.context').getContext().language.id"
+      - "@=service('prestashop.adapter.legacy.context').getContext().shop.id"
+
+  flavioski.module.salusperaquam.grid.data_provider.treatments:
+    class: '%prestashop.core.grid.data.factory.doctrine_grid_data_factory%'
+    arguments:
+      - '@flavioski.module.salusperaquam.grid.query_builder.treatment'
+      - '@prestashop.core.hook.dispatcher'
+      - '@prestashop.core.grid.query.doctrine_query_parser'
+      - 'treatment'
+
+  flavioski.module.salusperaquam.grid.factory.treatments:
+    class: 'PrestaShop\PrestaShop\Core\Grid\GridFactory'
+    arguments:
+      - '@flavioski.module.salusperaquam.grid.definition.factory.treatments'
+      - '@flavioski.module.salusperaquam.grid.data_provider.treatments'
+      - '@prestashop.core.grid.filter.form_factory'
+      - '@prestashop.core.hook.dispatcher'
+
+  # Generator service
+  flavioski.module.salusperaquam.treatments.generator:
+    class: 'Flavioski\Module\SalusPerAquam\Database\TreatmentGenerator'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@prestashop.core.admin.lang.repository'
+      - '@prestashop.core.admin.shop.repository'
+      - '@doctrine.orm.default_entity_manager'
+
+  # CQRS pattern toggle status
+  flavioski.module.salusperaquam.treatments.domain.treatment.query_handler.get_treatment_is_active_treatment_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler\GetTreatmentIsActiveHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@doctrine.orm.default_entity_manager'
+    tags:
+      - name: tactician.handler
+        command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive'
+
+  flavioski.module.salusperaquam.treatments.domain.treatment.command_handler.toggle_is_active_treatment_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\CommandHandler\ToggleIsActiveTreatmentHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@doctrine.orm.default_entity_manager'
+    tags:
+      - name: tactician.handler
+        command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Command\ToggleIsActiveTreatmentCommand'
