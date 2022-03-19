@@ -17,5 +17,5 @@ jobs:
       - name: lint js dependencies
         uses: PrestaShopCorp/github-action-lint-js/12@v1.0
         with:
-          cmd: npm --prefer-offline --no-audit
+          cmd: npm --no-audit
           path: ./js/
