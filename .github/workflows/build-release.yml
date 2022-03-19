@@ -31,11 +31,11 @@ jobs:
           GCLOUD_CLUSTER: ${{ secrets.GCLOUD_CLUSTER }}
           GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
 
-      - name: Build JS dependencies
-        uses: PrestaShopCorp/github-action-build-js/12@v1.0
-        with:
-          cmd: npm
-          path: ./js/
+      #- name: Build JS dependencies
+      #  uses: PrestaShopCorp/github-action-build-js/12@v1.0
+      #  with:
+      #    cmd: npm
+      #    path: ./js/
 
       - name: Install composer dependencies
         run: composer install --no-dev -o
@@ -44,7 +44,7 @@ jobs:
         uses: PrestaShopCorp/github-action-clean-before-deploy@v1.0
 
       - name: Clean-up node_modules directory
-        run: sudo rm -rf node_modules
+        run: sudo rm -rf js/node_modules
 
       - name: Create & upload artifact
         uses: actions/upload-artifact@v1
