@@ -79,3 +79,22 @@ services:
       - '@prestashop.core.admin.lang.repository'
       - '@prestashop.core.admin.shop.repository'
       - '@doctrine.orm.default_entity_manager'
+
+  # CQRS pattern toggle status
+  flavioski.module.salusperaquam.treatments.domain.treatment.query_handler.get_treatment_is_active_treatment_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler\GetTreatmentIsActiveHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@doctrine.orm.default_entity_manager'
+    tags:
+      - name: tactician.handler
+        command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive'
+
+  flavioski.module.salusperaquam.treatments.domain.treatment.command_handler.toggle_is_active_treatment_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\CommandHandler\ToggleIsActiveTreatmentHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@doctrine.orm.default_entity_manager'
+    tags:
+      - name: tactician.handler
+        command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Command\ToggleIsActiveTreatmentCommand'

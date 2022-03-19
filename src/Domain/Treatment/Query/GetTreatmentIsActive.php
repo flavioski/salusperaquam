@@ -1,0 +1,53 @@
+<?php
+/**
+ * Salus per Aquam
+ * Copyright since 2021 Flavio Pellizzer and Contributors
+ * <Flavio Pellizzer> Property
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/MIT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
+ *
+ * @author    Flavio Pellizzer
+ * @copyright Since 2021 Flavio Pellizzer
+ * @license   https://opensource.org/licenses/MIT
+ */
+declare(strict_types=1);
+
+namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\Query;
+
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\ValueObject\TreatmentId;
+
+/**
+ * Get current status (enabled/disabled) for a given treatment
+ */
+class GetTreatmentIsActive
+{
+    /**
+     * @var TreatmentId
+     */
+    private $treatmentId;
+
+    /**
+     * @param int $treatmentId
+     * @throws \Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\InvalidTreatmentIdException
+     */
+    public function __construct(int $treatmentId)
+    {
+        $this->treatmentId = new TreatmentId($treatmentId);
+    }
+
+    /**
+     * @return TreatmentId
+     */
+    public function getTreatmentId(): TreatmentId
+    {
+        return $this->treatmentId;
+    }
+}

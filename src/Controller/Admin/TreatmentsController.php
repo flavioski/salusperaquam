@@ -24,6 +24,10 @@ namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Command\ToggleIsActiveTreatmentCommand;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\CannotToggleActiveTreatmentStatusException;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Exception\TreatmentException;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory;
 use Flavioski\Module\SalusPerAquam\Grid\Filters\TreatmentFilters;
@@ -246,10 +250,21 @@ class TreatmentsController extends FrameworkBundleAdminController
      */
     public function toggleStatusAction($treatmentId)
     {
-        $response = [
-            'status' => true,
-            'message' => $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success'),
-        ];
+        try {
+            $isActive = $this->getQueryBus()->handle(new GetTreatmentIsActive((int)$treatmentId));
+
+            $this->getCommandBus()->handle(new ToggleIsActiveTreatmentCommand((int) $treatmentId, !$isActive));
+
+            $response = [
+                'status' => true,
+                'message' => $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success'),
+            ];
+        } catch (TreatmentException $e) {
+            $response = [
+                'status' => false,
+                'message' => $this->getErrorMessageForException($e, $this->getErrorMessageMapping()),
+            ];
+        }
 
         return $this->json($response);
     }
@@ -269,6 +284,22 @@ class TreatmentsController extends FrameworkBundleAdminController
                 'desc' => $this->trans('Generate treatments', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'add_circle_outline',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_generate'),
+            ],
+        ];
+    }
+
+    private function getErrorMessageMapping()
+    {
+        return [
+            CannotToggleActiveTreatmentStatusException::class => [
+                CannotToggleActiveTreatmentStatusException::FAILED_TOGGLE => $this->trans(
+                    'An error occurred while updating the status.',
+                    'Admin.Notifications.Error'
+                ),
+                CannotToggleActiveTreatmentStatusException::FAILED_BULK_TOGGLE => $this->trans(
+                    'An error occurred while updating the status.',
+                    'Admin.Notifications.Error'
+                ),
             ],
         ];
     }
