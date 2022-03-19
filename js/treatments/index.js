@@ -20,6 +20,7 @@
 
 import Grid from '@components/grid/grid';
 import ReloadListActionExtension from '@components/grid/extension/reload-list-extension';
+import ColumnTogglingExtension from '@components/grid/extension/column-toggling-extension';
 import ExportToSqlManagerExtension from '@components/grid/extension/export-to-sql-manager-extension';
 import FiltersResetExtension from '@components/grid/extension/filters-reset-extension';
 import SortingExtension from '@components/grid/extension/sorting-extension';
@@ -35,6 +36,7 @@ $(() => {
   const treatmentsGrid = new Grid('treatment');
 
   treatmentsGrid.addExtension(new ReloadListActionExtension());
+  treatmentsGrid.addExtension(new ColumnTogglingExtension());
   treatmentsGrid.addExtension(new ExportToSqlManagerExtension());
   treatmentsGrid.addExtension(new FiltersResetExtension());
   treatmentsGrid.addExtension(new SortingExtension());
