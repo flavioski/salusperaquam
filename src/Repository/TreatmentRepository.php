@@ -24,7 +24,6 @@ namespace Flavioski\Module\SalusPerAquam\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\EntityManagerInterface;
 
 class TreatmentRepository extends EntityRepository
 {
