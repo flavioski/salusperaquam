@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.0.0
       - name: lint js dependencies
-        uses: PrestaShopCorp/github-action-lint-js/12@v1.0
+        uses: PrestaShopCorp/github-action-lint-js/14@v1.0
         with:
           cmd: npm --no-audit
           path: ./js/
