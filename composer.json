@@ -52,6 +52,13 @@
     "prestashop/header-stamp": "^2.1.1",
     "prestashop/php-dev-tools": "^4.2"
   },
+  "extra": {
+    "phpstan": {
+      "includes": [
+        "extension.neon"
+      ]
+    }
+  },
   "scripts": {
     "unit-tests": [
       "@php -d date.timezone=UTC ./vendor/bin/phpunit -c tests/Unit/phpunit.xml"
