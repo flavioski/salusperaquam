@@ -19,5 +19,5 @@ jobs:
           key: php-${{ hashFiles('yarn.lock') }}
       - run: npm install
         working-directory: js
-      - run: npm test
-        working-directory: js
+      #- run: npm test
+      #  working-directory: js
