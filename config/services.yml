@@ -25,6 +25,8 @@ services:
 
   flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id:
     class: 'Flavioski\Module\SalusPerAquam\Form\ChoiceProvider\ProductAttributeByIdChoiceProvider'
+    arguments:
+      - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
 
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'

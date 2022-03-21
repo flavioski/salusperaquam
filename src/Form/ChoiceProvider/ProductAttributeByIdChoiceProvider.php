@@ -22,16 +22,29 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form\ChoiceProvider;
 
-use Product;
+use Attribute;
 use PrestaShop\PrestaShop\Core\Exception\CoreException;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShopException;
-use Combination;
+use Product;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 
 final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoiceProviderInterface
 {
+    /**
+     * @var int
+     */
+    private $langId;
+
+    /**
+     * @param CarrierDataProvider $carrierDataProvider
+     * @param int $langId
+     */
+    public function __construct($langId)
+    {
+        $this->langId = $langId;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -44,18 +57,19 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
 
         $productId = $resolvedOptions['id_product'];
         try {
-            //$productHasCombinations = (new ProductId($productId))::hasAttributes();
+            $product = new Product($productId);
+            $productHasCombinations = $product->hasAttributes();
 
-            //if (!$productHasCombinations) {
+            if ($productHasCombinations == 0) {
                 return [];
-            //}
+            }
 
-            //$combinations = Product::getAttributesInformationsByProduct($productId);
-            //$combinations = Product::getAttributeCombinations();
+            $combinations = $product->getAttributeCombinations();
 
-            //foreach ($combinations as $combination) {
-            //    $choices[$combination['name']] = $combination['id_product_attribute'];
-            //}
+            foreach ($combinations as $combination) {
+                $attribute = new Attribute($combination['id_attribute']);
+                $choices[$attribute->name[$this->langId]] = $combination['id_product_attribute'];
+            }
         } catch (PrestaShopException $e) {
             throw new CoreException(sprintf('An error occurred when getting states for product id "%s"', $productId));
         }
