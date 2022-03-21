@@ -31,5 +31,5 @@ interface ProductRequiredFieldsProviderInterface
      *
      * @return bool
      */
-    public function isCombinationsRequired(CountryId $countryId): bool;
+    public function isCombinationsRequired(ProductId $productId): bool;
 }
