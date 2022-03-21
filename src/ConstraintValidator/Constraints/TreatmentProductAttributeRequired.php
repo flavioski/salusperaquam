@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints;
 
-use Symfony\Component\Validator\Constraint;
 use Flavioski\Module\SalusPerAquam\ConstraintValidator\TreatmentProductAttributeRequiredValidator;
+use Symfony\Component\Validator\Constraint;
 
 class TreatmentProductAttributeRequired extends Constraint
 {
