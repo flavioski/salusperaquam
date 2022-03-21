@@ -23,6 +23,12 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Form;
 
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
+use PrestaShop\PrestaShop\Adapter\Attribute\Repository\AttributeRepository;
+use PrestaShop\PrestaShop\Adapter\Product\Combination\Repository\CombinationRepository;
+use PrestaShop\PrestaShop\Adapter\Product\Repository\ProductRepository;
+use PrestaShop\PrestaShop\Core\Domain\Language\ValueObject\LanguageId;
+use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductId;
+use PrestaShop\PrestaShop\Core\Domain\Product\Combination\ValueObject\CombinationId;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface;
 
 class TreatmentFormDataProvider implements FormDataProviderInterface
@@ -30,14 +36,39 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
     /**
      * @var TreatmentRepository
      */
-    private $repository;
+    private $treatmentRepository;
 
     /**
-     * @param TreatmentRepository $repository
+     * @var ProductRepository
      */
-    public function __construct(TreatmentRepository $repository)
-    {
-        $this->repository = $repository;
+    private $productRepository;
+
+    /**
+     * @var AttributeRepository
+     */
+    private $attributeRepository;
+
+    /**
+     * @var int
+     */
+    private $contextLangId;
+
+    /**
+     * @param TreatmentRepository $treatmentRepository
+     * @param ProductRepository $productRepository
+     * @param AttributeRepository $attributeRepository
+     * @param int $contextLangId
+     */
+    public function __construct(
+        TreatmentRepository $treatmentRepository,
+        ProductRepository $productRepository,
+        AttributeRepository $attributeRepository,
+        int $contextLangId
+    ) {
+        $this->treatmentRepository = $treatmentRepository;
+        $this->productRepository = $productRepository;
+        $this->attributeRepository = $attributeRepository;
+        $this->contextLangId = $contextLangId;
     }
 
     /**
@@ -45,12 +76,30 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
      */
     public function getData($treatmentId)
     {
-        $treatment = $this->repository->findOneById($treatmentId);
+        $treatment = $this->treatmentRepository->findOneById($treatmentId);
+
+        $productId = new ProductId($treatment->getProductId());
+        $product = $this->productRepository->get($productId);
+
+        if ($treatment->getProductAttributeId() === null) {
+            $attribute_name = '';
+        } else {
+            $attributeInfo = $this->attributeRepository->getAttributesInfoByCombinationIds(
+                [$treatment->getProductAttributeId()],
+                new LanguageId($this->contextLangId)
+            );
+
+            $attribute_name = $attributeInfo[$treatment->getProductAttributeId()][0]['attribute_name'];
+        }
 
         $treatmentData = [
             'name' => $treatment->getName(),
             'code' => $treatment->getCode(),
             'price' => $treatment->getPrice(),
+            'id_product' => $treatment->getProductId(),
+            'product_name' => $product->name ? $product->name[$this->contextLangId] : '',
+            'id_product_attribute' => $treatment->getProductAttributeId(),
+            'attribute_name' => $attribute_name,
             'active' => $treatment->isActive(),
         ];
 
@@ -66,6 +115,8 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'name' => '',
             'code' => '',
             'price' => 0,
+            'id_product' => 0,
+            'id_product_attribute' => null,
             'active' => false,
         ];
     }

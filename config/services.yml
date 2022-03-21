@@ -10,13 +10,29 @@ services:
     public: true
     arguments:
       - '@=service("prestashop.adapter.multistore_feature").isUsed()'
+      - '@flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id'
+      - '@router'
     tags:
       - { name: form.type }
+
+  flavioski.module.salusperaquam.type.product_choice:
+    class: 'Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType'
+    arguments:
+      - '@flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id'
+      - '@prestashop.core.form.choice_provider.country_by_id'
+    tags:
+      - { name: form.type }
+
+  flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ChoiceProvider\ProductAttributeByIdChoiceProvider'
 
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@prestashop.adapter.product.repository.product_repository'
+      - '@prestashop.adapter.attribute.repository.attribute_repository'
+      - '@=service("prestashop.adapter.legacy.context").getContext().language.id'
 
   flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_form_builder:
     class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
