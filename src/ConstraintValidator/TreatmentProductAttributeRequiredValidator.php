@@ -25,7 +25,7 @@ namespace Flavioski\Module\SalusPerAquam\ConstraintValidator;
 use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProductAttributeRequired;
 use Flavioski\Module\SalusPerAquam\Domain\Product\Exception\ProductConstraintException;
 use Flavioski\Module\SalusPerAquam\Domain\Product\ProductRequiredFieldsProviderInterface;
-use Flavioski\Modules\SalusPerAquam\Domain\Product\ValueObject\ProductId;
+use Flavioski\Module\SalusPerAquam\Domain\Product\ValueObject\ProductId;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidator;
