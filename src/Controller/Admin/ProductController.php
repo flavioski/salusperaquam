@@ -43,7 +43,7 @@ class ProductController extends FrameworkBundleAdminController
     public function getCombinationsAction(Request $request)
     {
         try {
-            $productId = (int) $request->query->get('id_country');
+            $productId = (int) $request->query->get('id_product');
             $combinationsProvider = $this->get('flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id');
             $combinations = $combinationsProvider->getChoices([
                 'id_product' => $productId,

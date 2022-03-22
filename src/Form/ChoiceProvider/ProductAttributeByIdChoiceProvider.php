@@ -37,7 +37,7 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
     private $langId;
 
     /**
-     * @param CarrierDataProvider $carrierDataProvider
+     * @param ProductDataProvider $productDataProvider
      * @param int $langId
      */
     public function __construct($langId)

@@ -82,3 +82,10 @@ flavioski_salusperaquam_treatment_toggle_status:
       id_treatment: treatmentId
   requirements:
     treatmentId: \d+
+
+flavioski_salusperaquam_product_combinations:
+  path: /salusperaquam/product/combinations
+  methods: [GET]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ProductController:getCombinations'
+    _legacy_controller: AdminCombinations
