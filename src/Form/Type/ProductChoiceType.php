@@ -75,7 +75,7 @@ class ProductChoiceType extends AbstractType
 
         $resolver->setDefaults([
             'choices' => $choices,
-            'choice_attr' => [$this],
+            'choice_attr' => [$this, 'getChoiceAttr'],
         ]);
     }
 

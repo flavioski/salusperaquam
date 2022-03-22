@@ -108,7 +108,6 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler\GetTreatmentIsActiveHandler'
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_repository'
-      - '@doctrine.orm.default_entity_manager'
     tags:
       - name: tactician.handler
         command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive'
