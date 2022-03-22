@@ -156,7 +156,7 @@ class TreatmentType extends TranslatorAwareType
                     ]),
                 ],
                 'row_attr' => [
-                    'class' => 'js-treatment-combination-select',
+                    'class' => 'js-treatment-product-attribute-select',
                 ],
                 'attr' => [
                     'visible' => $showProductAttributes,

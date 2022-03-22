@@ -12,12 +12,21 @@ flavioski_salusperaquam_configuration_index:
 
 # treatments
 flavioski_salusperaquam_treatment_index:
-  path: /salusperaquam/treatments
+  path: /salusperaquam/treatments/{offset}/{limit}/{orderBy}/{sortOrder}
   methods: [GET]
   defaults:
     _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::indexAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment'
+    limit: last
+    offset: 0
+    orderBy: last
+    sortOrder: last
+  requirements:
+    limit: _limit|last|\d+
+    orderBy: last|id_product|name|code|price|active
+    offset: last|\d+
+    sortOrder: last|asc|desc
 
 flavioski_salusperaquam_treatment_search:
   path: /salusperaquam/treatments
@@ -83,9 +92,11 @@ flavioski_salusperaquam_treatment_toggle_status:
   requirements:
     treatmentId: \d+
 
+# product combinations
 flavioski_salusperaquam_product_combinations:
   path: /salusperaquam/product/combinations
   methods: [GET]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ProductController:getCombinations'
-    _legacy_controller: AdminCombinations
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ProductController::getCombinationsAction'
+    _legacy_controller: 'AdminSalusperaquamProduct'
+    _legacy_link: 'dminSalusperaquamProduct:getCombinations'
