@@ -34,6 +34,14 @@ services:
     arguments:
       - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
 
+  flavioski.module.salusperaquam.domain.product.product_required_fields_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Product\ProductRequiredFieldsProvider'
+    arguments:
+      - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
+      - '@prestashop.adapter.data_provider.product'
+      - '@prestashop.adapter.product.repository.product_repository'
+      - '@prestashop.adapter.attribute.repository.attribute_repository'
+
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
     arguments:
@@ -120,3 +128,11 @@ services:
     tags:
       - name: tactician.handler
         command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Command\ToggleIsActiveTreatmentCommand'
+
+  # Constraint validator
+  flavioski.module.salusperaquam.constraint_validator.treatment_product_attribute_validator:
+    class: 'Flavioski\Module\SalusPerAquam\ConstraintValidator\TreatmentProductAttributeRequiredValidator'
+    arguments:
+      - '@flavioski.module.salusperaquam.domain.product.product_required_fields_provider'
+    tags:
+      - { name: validator.constraint_validator }

@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form\ChoiceProvider;
 
-use Attribute;
 use PrestaShop\PrestaShop\Core\Exception\CoreException;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShopException;
@@ -75,7 +74,7 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
                     $existingAttribute = $productCombinations[$productAttributeId];
                     $attribute = $existingAttribute . ' - ' . $attribute;
                 }
-                $productCombinations[ $combination['id_product_attribute'] ] = $attribute;
+                $productCombinations[$combination['id_product_attribute']] = $attribute;
             }
 
             $choices = array_flip($productCombinations);
