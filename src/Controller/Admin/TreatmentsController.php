@@ -132,7 +132,7 @@ class TreatmentsController extends FrameworkBundleAdminController
                 $this->trans('Successful creation.', 'Admin.Notifications.Success')
             );
 
-            return $this->redirectToRoute('flavioski_salusperaquam_treament_index');
+            return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
 
         return $this->render('@Modules/salusperaquam/views/templates/admin/create.html.twig', [
