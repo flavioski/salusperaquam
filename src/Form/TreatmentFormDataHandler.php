@@ -61,6 +61,8 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
         $treatment->setCode($data['code']);
         $treatment->setPrice($data['price']);
         $treatment->setActive($data['active']);
+        $treatment->setProductId((int)$data['id_product']);
+        $treatment->setProductAttributeId($data['id_product_attribute']);
 
         $this->entityManager->persist($treatment);
         $this->entityManager->flush();
@@ -78,6 +80,8 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
         $treatment->setCode($data['code']);
         $treatment->setPrice($data['price']);
         $treatment->setActive($data['active']);
+        $treatment->setProductId((int)$data['id_product']);
+        $treatment->setProductAttributeId($data['id_product_attribute']);
 
         $this->entityManager->flush();
 
