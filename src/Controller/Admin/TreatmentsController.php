@@ -177,7 +177,7 @@ class TreatmentsController extends FrameworkBundleAdminController
      */
     public function deleteAction($treatmentId)
     {
-        $repository = $this->get('flavioski.module.salusperaquam.repository.salusperaquam_repository');
+        $repository = $this->get('flavioski.module.salusperaquam.repository.treatment_repository');
         try {
             $treatment = $repository->findOneById($treatmentId);
         } catch (EntityNotFoundException $e) {
