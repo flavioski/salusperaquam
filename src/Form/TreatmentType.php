@@ -88,7 +88,7 @@ class TreatmentType extends TranslatorAwareType
 
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name treatment',
+                'label' => $this->trans('Name', 'Admin.Global'),
                 'help' => 'Name treatment (e.g. Massage).',
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
@@ -104,7 +104,7 @@ class TreatmentType extends TranslatorAwareType
                 ],
             ])
             ->add('code', TextType::class, [
-                'label' => 'Code treatment',
+                'label' => $this->trans('Code', 'Admin.Global'),
                 'help' => 'Code treatment (e.g. Massage-12345).',
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
@@ -120,7 +120,7 @@ class TreatmentType extends TranslatorAwareType
                 ],
             ])
             ->add('price', MoneyType::class, [
-                'label' => 'Price treatment',
+                'label' => $this->trans('Price', 'Admin.Global'),
                 'help' => 'Price treatment (e.g. 12.45).',
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'scale' => 2,
@@ -163,7 +163,7 @@ class TreatmentType extends TranslatorAwareType
                 ],
             ])
             ->add('active', SwitchType::class, [
-                'label' => 'Active',
+                'label' => $this->trans('Status', 'Admin.Global'),
                 'help' => 'Treatment is active?',
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'required' => true,
