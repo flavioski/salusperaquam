@@ -51,6 +51,11 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
+
+        if ($options['id_product'] == 0) {
+            return [];
+        }
+
         $resolvedOptions = $resolver->resolve($options);
         $choices = [];
 
