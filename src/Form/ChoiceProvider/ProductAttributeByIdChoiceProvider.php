@@ -64,12 +64,21 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
                 return [];
             }
 
+            $productCombinations = [];
             $combinations = $product->getAttributeCombinations();
 
             foreach ($combinations as $combination) {
-                $attribute = new Attribute($combination['id_attribute']);
-                $choices[$attribute->name[$this->langId]] = $combination['id_product_attribute'];
+                $productAttributeId = (int) $combination['id_product_attribute'];
+                $attribute = $combination['attribute_name'];
+
+                if (isset($productCombinations[$productAttributeId])) {
+                    $existingAttribute = $productCombinations[$productAttributeId];
+                    $attribute = $existingAttribute . ' - ' . $attribute;
+                }
+                $productCombinations[ $combination['id_product_attribute'] ] = $attribute;
             }
+
+            $choices = array_flip($productCombinations);
         } catch (PrestaShopException $e) {
             throw new CoreException(sprintf('An error occurred when getting states for product id "%s"', $productId));
         }
