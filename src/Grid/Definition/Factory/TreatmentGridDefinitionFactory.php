@@ -204,6 +204,15 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ])
                 ->setAssociatedColumn('name')
             )
+            ->add((new Filter('code', TextType::class))
+                ->setTypeOptions([
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => $this->trans('Search code', [], 'Admin.Actions'),
+                    ],
+                ])
+                ->setAssociatedColumn('code')
+            )
             ->add((new Filter('price', TextType::class))
                 ->setTypeOptions([
                     'required' => false,
