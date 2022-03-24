@@ -30,11 +30,6 @@ use Product;
 final class ProductByIdChoiceProvider implements FormChoiceProviderInterface, FormChoiceAttributeProviderInterface
 {
     /**
-     * @var ProductDataProvider
-     */
-    private $productDataProvider;
-
-    /**
      * @var int
      */
     private $langId;
@@ -46,14 +41,11 @@ final class ProductByIdChoiceProvider implements FormChoiceProviderInterface, Fo
 
     /**
      * @param int $langId
-     * @param ProductDataProvider $productDataProvider
      */
     public function __construct(
-        $langId,
-        ProductDataProvider $productDataProvider
+        $langId
     ) {
         $this->langId = $langId;
-        $this->productDataProvider = $productDataProvider;
     }
 
     /**

@@ -31,20 +31,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoiceProviderInterface
 {
     /**
-     * @var int
-     */
-    private $langId;
-
-    /**
-     * @param ProductDataProvider $productDataProvider
-     * @param int $langId
-     */
-    public function __construct($langId)
-    {
-        $this->langId = $langId;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getChoices(array $options)

@@ -49,11 +49,6 @@ class TreatmentType extends TranslatorAwareType
     private $productAttributeChoiceProvider;
 
     /**
-     * @var bool
-     */
-    private $isMultiShopEnabled;
-
-    /**
      * @var RouterInterface
      */
     private $router;
@@ -61,19 +56,16 @@ class TreatmentType extends TranslatorAwareType
     /**
      * @param TranslatorInterface $translator
      * @param array $locales
-     * @param bool $isMultiShopEnabled
      * @param ConfigurableFormChoiceProviderInterface $productAttributeChoiceProvider
      * @param RouterInterface $router
      */
     public function __construct(
         TranslatorInterface $translator,
         array $locales,
-        $isMultiShopEnabled,
         ConfigurableFormChoiceProviderInterface $productAttributeChoiceProvider,
         RouterInterface $router
     ) {
         parent::__construct($translator, $locales);
-        $this->isMultiShopEnabled = $isMultiShopEnabled;
         $this->productAttributeChoiceProvider = $productAttributeChoiceProvider;
         $this->router = $router;
     }

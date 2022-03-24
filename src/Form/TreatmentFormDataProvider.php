@@ -35,36 +35,12 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
     private $treatmentRepository;
 
     /**
-     * @var ProductRepository
-     */
-    private $productRepository;
-
-    /**
-     * @var AttributeRepository
-     */
-    private $attributeRepository;
-
-    /**
-     * @var int
-     */
-    private $contextLangId;
-
-    /**
      * @param TreatmentRepository $treatmentRepository
-     * @param ProductRepository $productRepository
-     * @param AttributeRepository $attributeRepository
-     * @param int $contextLangId
      */
     public function __construct(
-        TreatmentRepository $treatmentRepository,
-        ProductRepository $productRepository,
-        AttributeRepository $attributeRepository,
-        int $contextLangId
+        TreatmentRepository $treatmentRepository
     ) {
         $this->treatmentRepository = $treatmentRepository;
-        $this->productRepository = $productRepository;
-        $this->attributeRepository = $attributeRepository;
-        $this->contextLangId = $contextLangId;
     }
 
     /**

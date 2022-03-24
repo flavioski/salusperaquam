@@ -16,14 +16,7 @@ parameters:
 		- '#Call to sprintf contains 0 placeholders, 1 value given.#'
 		- '#Result of method Doctrine\\Persistence\\ObjectManager::flush\(\) \(void\) is used.#'
 		- '#Strict comparison using === between false and void will always evaluate to false.#'
-		- '#Cannot call method getId\(\) on array.#'
-		- '#Cannot call method getName\(\) on array.#'
-		- '#Cannot call method setName\(\) on array.#'
-		- '#Cannot call method getCode\(\) on array.#'
-		- '#Cannot call method setCode\(\) on array.#'
-		- '#Cannot call method getPrice\(\) on array.#'
-		- '#Cannot call method setPrice\(\) on array.#'
-		- '#Cannot call method isActive\(\) on array.#'
-		- '#Cannot call method setActive\(\) on array.#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\Type\\ProductChoiceType::\$productsAttr is never read, only written.#'
+		- '#Cannot call method [a-zA-Z0-9\\_<>]+\(\) on array.#'
 
 	level: 5

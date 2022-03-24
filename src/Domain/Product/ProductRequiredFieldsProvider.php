@@ -32,40 +32,16 @@ use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductId as PrestaPro
 class ProductRequiredFieldsProvider implements ProductRequiredFieldsProviderInterface
 {
     /**
-     * @var int
-     */
-    private $langId;
-
-    /**
-     * @var ProductDataProvider
-     */
-    private $productDataProvider;
-
-    /**
-     * @var ProductRepository
-     */
-    private $productRepository;
-
-    /**
      * @var AttributeRepository
      */
     private $attributeRepository;
 
     /**
-     * @param int $langId
-     * @param ProductDataProvider $productDataProvider
-     * @param ProductRepository $productRepository
      * @param AttributeRepository $attributeRepository
      */
     public function __construct(
-        int $langId,
-        ProductDataProvider $productDataProvider,
-        ProductRepository $productRepository,
         AttributeRepository $attributeRepository
     ) {
-        $this->langId = $langId;
-        $this->productDataProvider = $productDataProvider;
-        $this->productRepository = $productRepository;
         $this->attributeRepository = $attributeRepository;
     }
 

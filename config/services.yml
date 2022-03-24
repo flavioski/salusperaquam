@@ -9,7 +9,6 @@ services:
     parent: 'form.type.translatable.aware'
     public: true
     arguments:
-      - '@=service("prestashop.adapter.multistore_feature").isUsed()'
       - '@flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id'
       - '@router'
     tags:
@@ -27,28 +26,19 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Form\ChoiceProvider\ProductByIdChoiceProvider'
     arguments:
       - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
-      - '@prestashop.adapter.data_provider.product'
 
   flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id:
     class: 'Flavioski\Module\SalusPerAquam\Form\ChoiceProvider\ProductAttributeByIdChoiceProvider'
-    arguments:
-      - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
 
   flavioski.module.salusperaquam.domain.product.product_required_fields_provider:
     class: 'Flavioski\Module\SalusPerAquam\Domain\Product\ProductRequiredFieldsProvider'
     arguments:
-      - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
-      - '@prestashop.adapter.data_provider.product'
-      - '@prestashop.adapter.product.repository.product_repository'
       - '@prestashop.adapter.attribute.repository.attribute_repository'
 
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_repository'
-      - '@prestashop.adapter.product.repository.product_repository'
-      - '@prestashop.adapter.attribute.repository.attribute_repository'
-      - '@=service("prestashop.adapter.legacy.context").getContext().language.id'
 
   flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_form_builder:
     class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
