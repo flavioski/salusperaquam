@@ -10,8 +10,6 @@
 ## About
 Salus Per Aquam - Thermae center's plugin for PrestaShop e-commerce solution.
 
-## About
-
 Warning! This is for Academic purpose. Do not put into production
 
 ## Reporting issues
