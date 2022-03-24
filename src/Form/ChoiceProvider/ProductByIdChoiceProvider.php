@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form\ChoiceProvider;
 
-use PrestaShop\PrestaShop\Adapter\Product\ProductDataProvider;
 use PrestaShop\PrestaShop\Core\Form\FormChoiceAttributeProviderInterface;
 use PrestaShop\PrestaShop\Core\Form\FormChoiceProviderInterface;
 use Product;

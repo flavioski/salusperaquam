@@ -25,8 +25,6 @@ namespace Flavioski\Module\SalusPerAquam\Domain\Product;
 use Flavioski\Module\SalusPerAquam\Domain\Product\Exception\ProductNotFoundException;
 use Flavioski\Module\SalusPerAquam\Domain\Product\ValueObject\ProductId;
 use PrestaShop\PrestaShop\Adapter\Attribute\Repository\AttributeRepository;
-use PrestaShop\PrestaShop\Adapter\Product\ProductDataProvider;
-use PrestaShop\PrestaShop\Adapter\Product\Repository\ProductRepository;
 use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductId as PrestaProductId;
 
 class ProductRequiredFieldsProvider implements ProductRequiredFieldsProviderInterface

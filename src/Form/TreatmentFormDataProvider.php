@@ -23,8 +23,6 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Form;
 
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
-use PrestaShop\PrestaShop\Adapter\Attribute\Repository\AttributeRepository;
-use PrestaShop\PrestaShop\Adapter\Product\Repository\ProductRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface;
 
 class TreatmentFormDataProvider implements FormDataProviderInterface
