@@ -1,0 +1,23 @@
+name: NodeJS tests
+on: [push, pull_request]
+jobs:
+  nodejs-linter:
+    name: NodeJS Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache node_modules folder
+        uses: actions/cache@v1
+        with:
+          path: ./js/node_modules
+          key: php-${{ hashFiles('yarn.lock') }}
+      - run: npm install
+        working-directory: js
+      #- run: npm test
+      #  working-directory: js

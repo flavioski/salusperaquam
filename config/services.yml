@@ -9,9 +9,31 @@ services:
     parent: 'form.type.translatable.aware'
     public: true
     arguments:
-      - '@=service("prestashop.adapter.multistore_feature").isUsed()'
+      - '@flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id'
+      - '@router'
     tags:
       - { name: form.type }
+
+  flavioski.module.salusperaquam.type.product_choice:
+    class: 'Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType'
+    arguments:
+      - '@flavioski.module.salusperaquam.form.choice_provider.product_by_id'
+      - '@flavioski.module.salusperaquam.form.choice_provider.product_by_id'
+    tags:
+      - { name: form.type }
+
+  flavioski.module.salusperaquam.form.choice_provider.product_by_id:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ChoiceProvider\ProductByIdChoiceProvider'
+    arguments:
+      - '@=service("prestashop.adapter.legacy.context").getLanguage().id'
+
+  flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ChoiceProvider\ProductAttributeByIdChoiceProvider'
+
+  flavioski.module.salusperaquam.domain.product.product_required_fields_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Product\ProductRequiredFieldsProvider'
+    arguments:
+      - '@prestashop.adapter.attribute.repository.attribute_repository'
 
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
@@ -84,7 +106,6 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler\GetTreatmentIsActiveHandler'
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_repository'
-      - '@doctrine.orm.default_entity_manager'
     tags:
       - name: tactician.handler
         command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive'
@@ -97,3 +118,20 @@ services:
     tags:
       - name: tactician.handler
         command: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\Command\ToggleIsActiveTreatmentCommand'
+
+  # Constraint validator
+  flavioski.module.salusperaquam.constraint_validator.treatment_product_attribute_validator:
+    class: 'Flavioski\Module\SalusPerAquam\ConstraintValidator\TreatmentProductAttributeRequiredValidator'
+    arguments:
+      - '@flavioski.module.salusperaquam.domain.product.product_required_fields_provider'
+    tags:
+      - { name: validator.constraint_validator }
+
+  # Product query handler
+  flavioski.module.salusperaquam.domain.product.query_handler.get_product_required_fields:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Product\QueryHandler\GetProductRequiredFieldsHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.domain.product.product_required_fields_provider'
+    tags:
+      - name: tactician.handler
+        command: 'Flavioski\Module\SalusPerAquam\Domain\Product\Query\GetProductRequiredFields'

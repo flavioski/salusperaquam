@@ -1,11 +1,3 @@
 # services backend
 imports:
   - { resource: ../common.yml }
-
-services:
-  salusperaquam.demo:
-    class: 'PrestaShop\Module\SalusPerAquam\Admin\ConfigurationController'
-    public: true
-    arguments:
-      - '@doctrine.cache.provider'
-

@@ -30,14 +30,15 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
     /**
      * @var TreatmentRepository
      */
-    private $repository;
+    private $treatmentRepository;
 
     /**
-     * @param TreatmentRepository $repository
+     * @param TreatmentRepository $treatmentRepository
      */
-    public function __construct(TreatmentRepository $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        TreatmentRepository $treatmentRepository
+    ) {
+        $this->treatmentRepository = $treatmentRepository;
     }
 
     /**
@@ -45,12 +46,14 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
      */
     public function getData($treatmentId)
     {
-        $treatment = $this->repository->findOneById($treatmentId);
+        $treatment = $this->treatmentRepository->findOneById($treatmentId);
 
         $treatmentData = [
             'name' => $treatment->getName(),
             'code' => $treatment->getCode(),
             'price' => $treatment->getPrice(),
+            'id_product' => $treatment->getProductId(),
+            'id_product_attribute' => $treatment->getProductAttributeId(),
             'active' => $treatment->isActive(),
         ];
 
@@ -66,6 +69,8 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'name' => '',
             'code' => '',
             'price' => 0,
+            'id_product' => 0,
+            'id_product_attribute' => null,
             'active' => false,
         ];
     }

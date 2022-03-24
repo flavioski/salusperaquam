@@ -8,9 +8,16 @@
  */
 
 import TranslatableInput from '@components/translatable-input';
+import ProductAttributeSelectionToggler from './components/product-attribute-selection-toggler';
+import treatmentFormMap from './treatment-form-map';
 
 const $ = window.$;
 
 $(() => {
   new TranslatableInput();
+  new ProductAttributeSelectionToggler(
+    treatmentFormMap.treatmentProductSelect,
+    treatmentFormMap.treatmentProductAttributeSelect,
+    treatmentFormMap.treatmentProductAttributeBlock,
+  );
 });

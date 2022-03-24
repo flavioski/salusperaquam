@@ -106,19 +106,19 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ])
             )
             ->add((new DataColumn('name'))
-                ->setName($this->trans('Name', [], 'Modules.Salusperaquam.Admin'))
+                ->setName($this->trans('Name', [], 'Admin.Global'))
                 ->setOptions([
                     'field' => 'name',
                 ])
             )
             ->add((new DataColumn('code'))
-                ->setName($this->trans('Code', [], 'Modules.Salusperaquam.Admin'))
+                ->setName($this->trans('Code', [], 'Admin.Global'))
                 ->setOptions([
                     'field' => 'code',
                 ])
             )
             ->add((new DataColumn('price'))
-                ->setName($this->trans('Price', [], 'Modules.Salusperaquam.Admin'))
+                ->setName($this->trans('Price', [], 'Admin.Global'))
                 ->setOptions([
                     'field' => 'price',
                 ])
@@ -138,7 +138,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ])
             )
             ->add((new ToggleColumn('active'))
-                ->setName($this->trans('Enabled', [], 'Admin.Global'))
+                ->setName($this->trans('Status', [], 'Admin.Global'))
                 ->setOptions([
                     'field' => 'active',
                     'primary_field' => 'id_treatment',
@@ -199,16 +199,25 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Name', [], 'Modules.Salusperaquam.Admin'),
+                        'placeholder' => $this->trans('Search name', [], 'Admin.Actions'),
                     ],
                 ])
                 ->setAssociatedColumn('name')
+            )
+            ->add((new Filter('code', TextType::class))
+                ->setTypeOptions([
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => $this->trans('Search code', [], 'Admin.Actions'),
+                    ],
+                ])
+                ->setAssociatedColumn('code')
             )
             ->add((new Filter('price', TextType::class))
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Price', [], 'Modules.Salusperaquam.Admin'),
+                        'placeholder' => $this->trans('Price', [], 'Admin.Global'),
                     ],
                 ])
                 ->setAssociatedColumn('price')

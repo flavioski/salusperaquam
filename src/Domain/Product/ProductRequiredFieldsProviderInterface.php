@@ -14,16 +14,22 @@
  * obtain it through the world-wide-web, please send an email
  * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
  *
- * @author    Flavio Pellizzer
+ * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
  */
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+declare(strict_types=1);
 
-header('Cache-Control: no-store, no-cache, must-revalidate');
-header('Cache-Control: post-check=0, pre-check=0', false);
-header('Pragma: no-cache');
+namespace Flavioski\Module\SalusPerAquam\Domain\Product;
 
-header('Location: ../');
-exit;
+use Flavioski\Module\SalusPerAquam\Domain\Product\ValueObject\ProductId;
+
+interface ProductRequiredFieldsProviderInterface
+{
+    /**
+     * @param ProductId $productId
+     *
+     * @return bool
+     */
+    public function isCombinationsRequired(ProductId $productId): bool;
+}

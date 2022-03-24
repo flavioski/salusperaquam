@@ -132,7 +132,7 @@ class TreatmentsController extends FrameworkBundleAdminController
                 $this->trans('Successful creation.', 'Admin.Notifications.Success')
             );
 
-            return $this->redirectToRoute('flavioski_salusperaquam_treament_index');
+            return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
 
         return $this->render('@Modules/salusperaquam/views/templates/admin/create.html.twig', [
@@ -151,7 +151,13 @@ class TreatmentsController extends FrameworkBundleAdminController
     public function editAction(Request $request, $treatmentId)
     {
         $treatmentFormBuilder = $this->get('flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_form_builder');
-        $treatmentForm = $treatmentFormBuilder->getFormFor((int) $treatmentId);
+        $formData = [];
+        // Product needs to be preset before building form type because it is used to build combinations field choices
+        if ($request->request->has('treatment') && isset($request->request->get('treatment')['id_product'])) {
+            $formProductId = (int) $request->request->get('treatment')['id_product'];
+            $formData['id_product'] = $formProductId;
+        }
+        $treatmentForm = $treatmentFormBuilder->getFormFor((int) $treatmentId, $formData);
         $treatmentForm->handleRequest($request);
 
         $treatmentFormHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_form_handler');
@@ -177,7 +183,7 @@ class TreatmentsController extends FrameworkBundleAdminController
      */
     public function deleteAction($treatmentId)
     {
-        $repository = $this->get('flavioski.module.salusperaquam.repository.salusperaquam_repository');
+        $repository = $this->get('flavioski.module.salusperaquam.repository.treatment_repository');
         try {
             $treatment = $repository->findOneById($treatmentId);
         } catch (EntityNotFoundException $e) {
