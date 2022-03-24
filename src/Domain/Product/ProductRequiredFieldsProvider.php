@@ -29,7 +29,6 @@ use PrestaShop\PrestaShop\Adapter\Product\ProductDataProvider;
 use PrestaShop\PrestaShop\Adapter\Product\Repository\ProductRepository;
 use PrestaShop\PrestaShop\Core\Domain\Product\ValueObject\ProductId as PrestaProductId;
 
-
 class ProductRequiredFieldsProvider implements ProductRequiredFieldsProviderInterface
 {
     /**

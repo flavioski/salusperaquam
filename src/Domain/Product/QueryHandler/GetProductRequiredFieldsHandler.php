@@ -24,7 +24,6 @@ namespace Flavioski\Module\SalusPerAquam\Domain\Product\QueryHandler;
 
 use Flavioski\Module\SalusPerAquam\Domain\Product\ProductRequiredFieldsProviderInterface;
 use Flavioski\Module\SalusPerAquam\Domain\Product\Query\GetProductRequiredFields;
-use Flavioski\Module\SalusPerAquam\Domain\Product\QueryHandler\GetProductRequiredFieldsHandlerInterface;
 use Flavioski\Module\SalusPerAquam\Domain\Product\QueryResult\ProductRequiredFields;
 
 /**

@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration;
 
-
 /**
  * Stores treatment form constraints configuration values
  */
