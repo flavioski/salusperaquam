@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form;
 
+use Currency;
 use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProductAttributeRequired;
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration\TreatmentConstraint;
 use Flavioski\Module\SalusPerAquam\Form\DataTransformer\CentToEuroTransformer;
@@ -49,6 +50,11 @@ class TreatmentType extends TranslatorAwareType
     private $productAttributeChoiceProvider;
 
     /**
+     * @var Currency
+     */
+    private $defaultCurrency;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -57,16 +63,19 @@ class TreatmentType extends TranslatorAwareType
      * @param TranslatorInterface $translator
      * @param array $locales
      * @param ConfigurableFormChoiceProviderInterface $productAttributeChoiceProvider
+     * @param Currency $defaultCurrency
      * @param RouterInterface $router
      */
     public function __construct(
         TranslatorInterface $translator,
         array $locales,
         ConfigurableFormChoiceProviderInterface $productAttributeChoiceProvider,
+        Currency $defaultCurrency,
         RouterInterface $router
     ) {
         parent::__construct($translator, $locales);
         $this->productAttributeChoiceProvider = $productAttributeChoiceProvider;
+        $this->defaultCurrency = $defaultCurrency;
         $this->router = $router;
     }
 
@@ -127,7 +136,7 @@ class TreatmentType extends TranslatorAwareType
                 'help' => 'Price treatment (e.g. 12.45).',
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'scale' => 2,
-                'currency' => null,
+                'currency' => $this->defaultCurrency->iso_code,
                 'attr' => [
                     'min' => TreatmentConstraint::MIN_PRICE_VALUE,
                     'max' => TreatmentConstraint::MAX_PRICE_VALUE,
