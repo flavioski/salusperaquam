@@ -18,6 +18,6 @@ $(() => {
   new ProductAttributeSelectionToggler(
     treatmentFormMap.treatmentProductSelect,
     treatmentFormMap.treatmentProductAttributeSelect,
-    treatmentFormMap.treatmentProductAttributeBlock,
+    treatmentFormMap.treatmentProductAttributeBlock
   );
 });
