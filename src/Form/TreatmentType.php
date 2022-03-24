@@ -25,6 +25,10 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProductAttributeRequired;
 use Flavioski\Module\SalusPerAquam\Form\DataTransformer\CentToEuroTransformer;
 use Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType;
+use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
+use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex;
+use PrestaShop\PrestaShop\Core\ConstraintValidator\TypedRegexValidator;
+use Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration\TreatmentConstraint;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
@@ -89,15 +93,22 @@ class TreatmentType extends TranslatorAwareType
         $builder
             ->add('name', TextType::class, [
                 'label' => $this->trans('Name', 'Admin.Global'),
-                'help' => 'Name treatment (e.g. Massage).',
+                'help' => $this->trans(
+                        'Invalid characters:',
+                        'Admin.Notifications.Info'
+                    ) . ' ' . TypedRegexValidator::NAME_CHARS,
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
+                    new CleanHtml(),
+                    new TypedRegex([
+                        'type' => TypedRegex::TYPE_NAME,
+                    ]),
                     new Length([
-                        'max' => 128,
+                        'max' => TreatmentConstraint::MAX_TREATMENT_NAME_LENGTH,
                         'maxMessage' => $this->trans(
                             'This field cannot be longer than %limit% characters',
                             'Admin.Notifications.Error',
-                            ['%limit%' => 128]
+                            ['%limit%' => TreatmentConstraint::MAX_TREATMENT_NAME_LENGTH]
                         ),
                     ]),
                     new NotBlank(),
@@ -109,11 +120,11 @@ class TreatmentType extends TranslatorAwareType
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
                     new Length([
-                        'max' => 128,
+                        'max' => TreatmentConstraint::MAX_CODE_LENGTH,
                         'maxMessage' => $this->trans(
                             'This field cannot be longer than %limit% characters',
                             'Admin.Notifications.Error',
-                            ['%limit%' => 128]
+                            ['%limit%' => TreatmentConstraint::MAX_CODE_LENGTH]
                         ),
                     ]),
                     new NotBlank(),
@@ -126,9 +137,9 @@ class TreatmentType extends TranslatorAwareType
                 'scale' => 2,
                 'currency' => null,
                 'attr' => [
-                    'min' => '0.00',
-                    'max' => '1000.00',
-                    'step' => '0.01',
+                    'min' => TreatmentConstraint::MIN_PRICE_VALUE,
+                    'max' => TreatmentConstraint::MAX_PRICE_VALUE,
+                    'step' => TreatmentConstraint::STEP_PRICE_VALUE,
                 ],
             ])
             ->add('id_product', ProductChoiceType::class, [
