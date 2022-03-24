@@ -62,7 +62,7 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
         $productId = $resolvedOptions['id_product'];
         try {
             $product = new Product($productId);
-            $productHasCombinations = $product->hasAttributes();
+            $productHasCombinations = $product->hasCombinations();
 
             if ($productHasCombinations == 0) {
                 return [];
@@ -84,7 +84,7 @@ final class ProductAttributeByIdChoiceProvider implements ConfigurableFormChoice
 
             $choices = array_flip($productCombinations);
         } catch (PrestaShopException $e) {
-            throw new CoreException(sprintf('An error occurred when getting states for product id "%s"', $productId));
+            throw new CoreException(sprintf('An error occurred when getting combinations for product id "%s"', $productId));
         }
 
         return $choices;

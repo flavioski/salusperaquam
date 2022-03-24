@@ -76,28 +76,12 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
     {
         $treatment = $this->treatmentRepository->findOneById($treatmentId);
 
-        $productId = new ProductId($treatment->getProductId());
-        $product = $this->productRepository->get($productId);
-
-        if ($treatment->getProductAttributeId() === null) {
-            $attribute_name = '';
-        } else {
-            $attributeInfo = $this->attributeRepository->getAttributesInfoByCombinationIds(
-                [$treatment->getProductAttributeId()],
-                new LanguageId($this->contextLangId)
-            );
-
-            $attribute_name = $attributeInfo[$treatment->getProductAttributeId()][0]['attribute_name'];
-        }
-
         $treatmentData = [
             'name' => $treatment->getName(),
             'code' => $treatment->getCode(),
             'price' => $treatment->getPrice(),
             'id_product' => $treatment->getProductId(),
-            'product_name' => $product->name ? $product->name[$this->contextLangId] : '',
             'id_product_attribute' => $treatment->getProductAttributeId(),
-            'attribute_name' => $attribute_name,
             'active' => $treatment->isActive(),
         ];
 
