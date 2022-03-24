@@ -160,6 +160,7 @@ class TreatmentType extends TranslatorAwareType
             ->add('id_product_attribute', ChoiceType::class, [
                 'label' => $this->trans('Attribute', 'Admin.Global'),
                 'required' => true,
+                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'choices' => $productAttributeChoices,
                 'constraints' => [
                     new TreatmentProductAttributeRequired([
