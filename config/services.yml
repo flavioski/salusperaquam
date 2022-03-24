@@ -136,3 +136,12 @@ services:
       - '@flavioski.module.salusperaquam.domain.product.product_required_fields_provider'
     tags:
       - { name: validator.constraint_validator }
+
+  # Product query handler
+  flavioski.module.salusperaquam.domain.product.query_handler.get_product_required_fields:
+    class: 'Flavioski\Module\SalusPerAquam\Domain\Product\QueryHandler\GetProductRequiredFieldsHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.domain.product.product_required_fields_provider'
+    tags:
+      - name: tactician.handler
+        command: 'Flavioski\Module\SalusPerAquam\Domain\Product\Query\GetProductRequiredFields'
