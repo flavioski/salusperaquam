@@ -25,7 +25,6 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 use Currency;
 use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProductAttributeRequired;
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration\TreatmentConstraint;
-use Flavioski\Module\SalusPerAquam\Form\DataTransformer\CentToEuroTransformer;
 use Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex;
@@ -182,8 +181,5 @@ class TreatmentType extends TranslatorAwareType
                 'required' => true,
             ])
         ;
-
-        $builder->get('price')
-            ->addModelTransformer(new CentToEuroTransformer());
     }
 }
