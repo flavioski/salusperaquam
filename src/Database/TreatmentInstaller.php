@@ -94,6 +94,7 @@ class TreatmentInstaller
         $errors = [];
         $tableNames = [
             'treatment',
+            'salusperaquam',
         ];
         foreach ($tableNames as $tableName) {
             $sql = 'DROP TABLE IF EXISTS ' . $this->dbPrefix . $tableName;
