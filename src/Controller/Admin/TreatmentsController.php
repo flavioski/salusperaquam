@@ -162,7 +162,13 @@ class TreatmentsController extends FrameworkBundleAdminController
     public function createAction(Request $request)
     {
         $treatmentFormBuilder = $this->get('flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_form_builder');
-        $treatmentForm = $treatmentFormBuilder->getForm();
+        $formData = [];
+        // Product needs to be preset before building form type because it is used to build combinations field choices
+        if ($request->request->has('treatment') && isset($request->request->get('treatment')['id_product'])) {
+            $formProductId = (int) $request->request->get('treatment')['id_product'];
+            $formData['id_product'] = $formProductId;
+        }
+        $treatmentForm = $treatmentFormBuilder->getForm($formData);
         $treatmentForm->handleRequest($request);
 
         $treatmentFormHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_form_handler');
