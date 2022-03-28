@@ -32,6 +32,19 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 class SalusPerAquam extends Module
 {
+    public $configurationList = [
+        'SALUSPERAQUAM_CONFIGURATION_TEST' => '1',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_PROTOCOL' => 'https',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_HOST' => 'host-test',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME' => 'username-test',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD' => 'password-test',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT' => '0',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_PROTOCOL' => 'https',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_HOST' => '',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_USERNAME' => '',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_PASSWORD' => '',
+    ];
+
     public function __construct($name = null, Context $context = null)
     {
         $this->name = 'salusperaquam';
@@ -80,7 +93,8 @@ class SalusPerAquam extends Module
      */
     public function install()
     {
-        return $this->installTables() && parent::install() &&
+        return $this->installTables() &&
+            $this->installConfiguration() && parent::install() &&
             $this->installTab()
             ;
     }
@@ -92,6 +106,10 @@ class SalusPerAquam extends Module
      */
     public function uninstall()
     {
+        foreach (array_keys($this->configurationList) as $name) {
+            Configuration::deleteByName($name);
+        }
+
         return $this->removeTables() && parent::uninstall() &&
             $this->uninstallTab()
             ;
@@ -259,14 +277,14 @@ class SalusPerAquam extends Module
             $Maintab->delete();
         }
 
-        $ConfigurationTabId = (int) Tab::getIdFromClassName('ConfigurationController');
+        $ConfigurationTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfiguration');
         if (!$ConfigurationTabId) {
             return true;
         }
         $ConfigurationTab = new Tab($ConfigurationTabId);
         $ConfigurationTab->delete();
 
-        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentsController');
+        $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
         if (!$TreatmentTabId) {
             return true;
         }
@@ -274,5 +292,31 @@ class SalusPerAquam extends Module
         $TreatmentTab->delete();
 
         return true;
+    }
+
+    /**
+     * Install configuration for each shop
+     *
+     * @return bool
+     */
+    public function installConfiguration()
+    {
+        $result = true;
+
+        foreach (\Shop::getShops(false, null, true) as $shopId) {
+            foreach ($this->configurationList as $name => $value) {
+                if (false === Configuration::hasKey($name, null, null, (int) $shopId)) {
+                    $result = $result && (bool) Configuration::updateValue(
+                            $name,
+                            $value,
+                            false,
+                            null,
+                            (int) $shopId
+                        );
+                }
+            }
+        }
+
+        return $result;
     }
 }
