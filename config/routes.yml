@@ -10,6 +10,14 @@ flavioski_salusperaquam_configuration_index:
     _legacy_controller: 'AdminSalusperaquamConfiguration'
     _legacy_link: 'AdminSalusperaquamConfiguration'
 
+flavioski_salusperaquam_configuration_save:
+  path: /salusperaquam/configuration
+  methods: [POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ConfigurationController::processFormAction'
+    _legacy_controller: 'AdminSalusperaquamConfiguration'
+    _legacy_link: 'AdminSalusperaquamConfiguration:update'
+
 # treatments
 flavioski_salusperaquam_treatment_index:
   path: /salusperaquam/treatments/{offset}/{limit}/{orderBy}/{sortOrder}

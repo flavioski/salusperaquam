@@ -4,6 +4,12 @@ imports:
 
 services:
   # Form services
+  flavioski.module.salusperaquam.type.configuration:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationType'
+    parent: 'form.type.translatable.aware'
+    tags:
+      - { name: form.type }
+
   flavioski.module.salusperaquam.type.treatment:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentType'
     parent: 'form.type.translatable.aware'
@@ -36,6 +42,25 @@ services:
     arguments:
       - '@prestashop.adapter.attribute.repository.attribute_repository'
 
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_form_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationFormDataHandler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_data_provider'
+      - 'Flavioski\Module\SalusPerAquam\Form\ConfigurationType'
+      - 'ConfigurationPage'
+    calls:
+      - method: setTabRepository
+        arguments:
+           - '@prestashop.core.admin.tab.repository'
+
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_data_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationFormDataProvider'
+    arguments:
+      - '@flavioski.module.salusperaquam.adapter.salusperaquam_configuration'
+      - '@translator'
+
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
     arguments:
@@ -59,6 +84,12 @@ services:
     factory: 'prestashop.core.form.identifiable_object.handler.form_handler_factory:create'
     arguments:
       - '@flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_form_data_handler'
+
+  # Adapter
+  flavioski.module.salusperaquam.adapter.salusperaquam_configuration:
+    class: 'Flavioski\Module\SalusPerAquam\Adapter\SalusperaquamConfiguration'
+    arguments:
+      - '@prestashop.adapter.legacy.configuration'
 
   # Grid services
   flavioski.module.salusperaquam.grid.definition.factory.treatments:
