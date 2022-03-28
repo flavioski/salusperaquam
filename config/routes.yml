@@ -23,7 +23,7 @@ flavioski_salusperaquam_treatment_index:
   path: /salusperaquam/treatments/{offset}/{limit}/{orderBy}/{sortOrder}
   methods: [GET]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::indexAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::indexAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment'
     limit: last
@@ -40,7 +40,7 @@ flavioski_salusperaquam_treatment_search:
   path: /salusperaquam/treatments
   methods: [POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::searchAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::searchAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:search'
 
@@ -48,7 +48,7 @@ flavioski_salusperaquam_treatment_generate:
   path: /salusperaquam/generate
   methods: [GET, POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::generateAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::generateAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:generate'
 
@@ -56,7 +56,7 @@ flavioski_salusperaquam_treatment_create:
   path: /salusperaquam/treatments/new
   methods: [GET, POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::createAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::createAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:add'
 
@@ -64,7 +64,7 @@ flavioski_salusperaquam_treatment_edit:
   path: /salusperaquam/treatments/{treatmentId}/edit
   methods: [GET, POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::editAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::editAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:update'
   requirements:
@@ -74,7 +74,7 @@ flavioski_salusperaquam_treatment_delete:
   path: /salusperaquam/treatments/{treatmentId}/delete
   methods: [DELETE]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::deleteAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::deleteAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:deletetreatment'
   requirements:
@@ -84,7 +84,7 @@ flavioski_salusperaquam_treatment_bulk_delete:
   path: /salusperaquam/treatments/bulkDelete
   methods: [POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::deleteBulkAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::deleteBulkAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:submitBulkdeletetreatment'
 
@@ -92,7 +92,7 @@ flavioski_salusperaquam_treatment_toggle_status:
   path: /salusperaquam/treatments/{treatmentId}/toggle-status
   methods: [POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentsController::toggleStatusAction'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::toggleStatusAction'
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:statustreatment'
     _legacy_parameters:

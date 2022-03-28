@@ -39,7 +39,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TreatmentsController extends FrameworkBundleAdminController
+class TreatmentController extends FrameworkBundleAdminController
 {
     /**
      * List treatments
@@ -65,7 +65,7 @@ class TreatmentsController extends FrameworkBundleAdminController
         $treatmentGrid = $treatmentGridFactory->getGrid($filters);
 
         return $this->render(
-            '@Modules/salusperaquam/views/templates/admin/index.html.twig',
+            '@Modules/salusperaquam/views/templates/admin/treatment/index.html.twig',
             [
                 'enableSidebar' => true,
                 'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
@@ -133,7 +133,7 @@ class TreatmentsController extends FrameworkBundleAdminController
         }
 
         return $this->render(
-            '@Modules/salusperaquam/views/templates/admin/generate.html.twig',
+            '@Modules/salusperaquam/views/templates/admin/treatment/generate.html.twig',
             [
                 'enableSidebar' => true,
                 'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
@@ -183,7 +183,7 @@ class TreatmentsController extends FrameworkBundleAdminController
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
 
-        return $this->render('@Modules/salusperaquam/views/templates/admin/create.html.twig', [
+        return $this->render('@Modules/salusperaquam/views/templates/admin/treatment/create.html.twig', [
             'treatmentForm' => $treatmentForm->createView(),
         ]);
     }
@@ -227,7 +227,7 @@ class TreatmentsController extends FrameworkBundleAdminController
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
 
-        return $this->render('@Modules/salusperaquam/views/templates/admin/edit.html.twig', [
+        return $this->render('@Modules/salusperaquam/views/templates/admin/treatment/edit.html.twig', [
             'treatmentForm' => $treatmentForm->createView(),
         ]);
     }
