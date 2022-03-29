@@ -29,7 +29,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class ConfigurationType extends TranslatorAwareType
 {
     private $protocolList = [
@@ -67,6 +66,7 @@ class ConfigurationType extends TranslatorAwareType
                         }
                         $disabled = true;
                     }
+
                     return $disabled === true ? $this->getErrorsMessages()[$value] : $choice;
                 },
                 'choice_attr' => function ($choice, $key, $value) {
@@ -78,6 +78,7 @@ class ConfigurationType extends TranslatorAwareType
                         }
                         $disabled = true;
                     }
+
                     return $disabled === true ? ['disabled' => $disabled] : [];
                 },
                 'expanded' => true,
@@ -125,6 +126,7 @@ class ConfigurationType extends TranslatorAwareType
                         }
                         $disabled = true;
                     }
+
                     return $disabled === true ? $this->getErrorsMessages()[$value] : $choice;
                 },
                 'choice_attr' => function ($choice, $key, $value) {
@@ -136,6 +138,7 @@ class ConfigurationType extends TranslatorAwareType
                         }
                         $disabled = true;
                     }
+
                     return $disabled === true ? ['disabled' => $disabled] : [];
                 },
                 'expanded' => true,

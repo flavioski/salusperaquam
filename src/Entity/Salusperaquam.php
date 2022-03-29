@@ -199,5 +199,4 @@ class Salusperaquam
             'date_upd' => $this->dateUpd->format(\DateTime::ATOM),
         ];
     }
-
 }

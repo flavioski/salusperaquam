@@ -28,7 +28,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class ConfigurationFormDataProvider implements FormDataProviderInterface
 {
-
     /**
      * @var DataConfigurationInterface
      */
@@ -38,6 +37,7 @@ class ConfigurationFormDataProvider implements FormDataProviderInterface
      * @var TranslatorInterface
      */
     private $translator;
+
     public function __construct(
         DataConfigurationInterface $generalDataConfiguration,
         TranslatorInterface $translator

@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 
 class SalusperaquamRepository extends EntityRepository
 {

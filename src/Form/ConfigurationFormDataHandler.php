@@ -42,6 +42,7 @@ final class ConfigurationFormDataHandler extends Handler
 
     /**
      * @param array $data
+     *
      * @return void
      */
     public function save(array $data)
