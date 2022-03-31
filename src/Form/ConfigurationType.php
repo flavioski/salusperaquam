@@ -50,7 +50,7 @@ class ConfigurationType extends TranslatorAwareType
             ])
             ->add('test_protocol', ChoiceType::class, [
                 'label' => $this->trans(
-                    '[Test] Protocol',
+                    'Protocol',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'choices' => [
@@ -88,9 +88,42 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-test-option',
                 ],
             ])
+            ->add('test_host', TextType::class, [
+                'label' => $this->trans(
+                    'Host',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_port', TextType::class, [
+                'label' => $this->trans(
+                    'Port',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_facility_id', TextType::class, [
+                'label' => $this->trans(
+                    'Facility Id',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
             ->add('test_username', TextType::class, [
                 'label' => $this->trans(
-                    '[Test] Username',
+                    'Username',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -101,7 +134,29 @@ class ConfigurationType extends TranslatorAwareType
             ])
             ->add('test_password', TextType::class, [
                 'label' => $this->trans(
-                    '[Test] Password',
+                    'Password',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_client_id', TextType::class, [
+                'label' => $this->trans(
+                    'Client Id',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_user_type', TextType::class, [
+                'label' => $this->trans(
+                    'User Type',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -119,7 +174,7 @@ class ConfigurationType extends TranslatorAwareType
             ])
             ->add('production_protocol', ChoiceType::class, [
                 'label' => $this->trans(
-                    '[Production] Protocol',
+                    'Protocol',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'choices' => [
@@ -157,9 +212,42 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-production-option',
                 ],
             ])
+            ->add('production_host', TextType::class, [
+                'label' => $this->trans(
+                    'Host',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_port', TextType::class, [
+                'label' => $this->trans(
+                    'Port',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_facility_id', TextType::class, [
+                'label' => $this->trans(
+                    'Facility Id',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
             ->add('production_username', TextType::class, [
                 'label' => $this->trans(
-                    '[Production] Username',
+                    'Username',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -170,7 +258,7 @@ class ConfigurationType extends TranslatorAwareType
             ])
             ->add('production_password', TextType::class, [
                 'label' => $this->trans(
-                    '[Production] Password',
+                    'Password',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -179,6 +267,28 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-production-option',
                 ],
             ])
+            ->add('production_client_id', TextType::class, [
+                'label' => $this->trans(
+                    'Client Id',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_user_type', TextType::class, [
+                'label' => $this->trans(
+                    'User Type',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ]);
         ;
     }
 
