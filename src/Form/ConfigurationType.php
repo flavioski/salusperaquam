@@ -84,6 +84,9 @@ class ConfigurationType extends TranslatorAwareType
                 'expanded' => true,
                 'required' => true,
                 'placeholder' => true,
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
             ])
             ->add('test_username', TextType::class, [
                 'label' => $this->trans(
@@ -92,6 +95,9 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
             ])
             ->add('test_password', TextType::class, [
                 'label' => $this->trans(
@@ -100,6 +106,9 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
             ])
             ->add('production', SwitchType::class, [
                 'label' => $this->trans(
@@ -144,6 +153,9 @@ class ConfigurationType extends TranslatorAwareType
                 'expanded' => true,
                 'required' => true,
                 'placeholder' => true,
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
             ])
             ->add('production_username', TextType::class, [
                 'label' => $this->trans(
@@ -152,6 +164,9 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
             ])
             ->add('production_password', TextType::class, [
                 'label' => $this->trans(
@@ -160,6 +175,9 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
             ])
         ;
     }

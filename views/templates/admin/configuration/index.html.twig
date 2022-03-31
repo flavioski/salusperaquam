@@ -26,3 +26,118 @@
   {% include '@Modules/salusperaquam/views/templates/admin/configuration/general.html.twig' %}
   {{ form_end(generalForm) }}
 {% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    var ParameterPageUI = {
+      displayConfiguration: function() {
+        var TEST_ENABLED = '1';
+        var PRODUCTION_ENABLED = '1';
+        var configurationTestSelected = document.querySelector('input[name="form[test]"]:checked');
+        var configurationProductionSelected = document.querySelector('input[name="form[production]"]:checked');
+        $('input[name="form[test]').on('change', function() {
+          if (configurationTestSelected && configurationTestSelected.value === TEST_ENABLED) {
+            document.getElementsByName('form[production]').checked = false;
+          } else {
+            document.getElementsByName('form[production]').checked = true;
+          }
+        });
+        $('input[name="form[production]').on('change', function() {
+          if (configurationProductionSelected && configurationProductionSelected.value === PRODUCTION_ENABLED) {
+            document.getElementsByName('form[test]').checked = false;
+          } else {
+            document.getElementsByName('form[test]').checked = true;
+          }
+        });
+      },
+      displayConfigurationTest: function() {
+
+        var TEST_ENABLED = '1';
+        var configurationTestSelected = document.querySelector('input[name="form[test]"]:checked');
+        var configurationTestOptions = document.querySelectorAll('.configuration-test-option');
+        if (configurationTestSelected && configurationTestSelected.value === TEST_ENABLED) {
+          for(var i = 0; i < configurationTestOptions.length; i++) {
+            configurationTestOptions[i].classList.remove('d-none');
+          }
+          return;
+        }
+        for(var i = 0; i < configurationTestOptions.length; i++){
+          configurationTestOptions[i].classList.add('d-none');
+        }
+      },
+      displayConfigurationProduction: function() {
+        var PRODUCTION_ENABLED = '1';
+        var configurationProductionSelected = document.querySelector('input[name="form[production]"]:checked');
+        var configurationProductionOptions = document.querySelectorAll('.configuration-production-option');
+        if (configurationProductionSelected && configurationProductionSelected.value === PRODUCTION_ENABLED) {
+          for(var i = 0; i < configurationProductionOptions.length; i++) {
+            configurationProductionOptions[i].classList.remove('d-none');
+          }
+          return;
+        }
+        for(var i = 0; i < configurationProductionOptions.length; i++){
+          configurationProductionOptions[i].classList.add('d-none');
+        }
+      }
+    };
+
+    /**
+     * Animations on form values.
+     */
+    window.addEventListener('load', function() {
+      ParameterPageUI.displayConfigurationTest();
+      ParameterPageUI.displayConfigurationProduction();
+    });
+    window.addEventListener('change', function() {
+      ParameterPageUI.displayConfiguration();
+    });
+
+    var cacheSystemInputs = document.querySelectorAll('input[type=radio]');
+    var length = cacheSystemInputs.length;
+
+    while(length--) {
+      cacheSystemInputs[length].addEventListener('change', function(e) {
+        var name = e.target.getAttribute('name');
+        if ('form[test]' === name) {
+          /* Nascondo elementi di configurazione PRODUCTION */
+          var elements = document.getElementsByClassName('configuration-production-option');
+          for(var i = 0; i < elements.length; i++){
+            elements[i].classList.add('d-none');
+          }
+          /* Scambio radio button da ON a OFF*/
+          var radiobtnProd = document.getElementsByName("form[production]");
+          for (var i = 0, length = radiobtnProd.length; i < length; i++) {
+            if (radiobtnProd[i].checked) {
+              if(radiobtnProd[i].value==1){
+                radiobtnProd[i].checked = 0;
+              }
+              break;
+            }
+          }
+          /* ./ Nascondo elementi di configurazione PRODUCTION */
+          return ParameterPageUI.displayConfigurationTest();
+        }
+        if ('form[production]' === name) {
+          /* Nascondo elementi di configurazione TEST */
+          var elements = document.getElementsByClassName('configuration-test-option');
+          for(var i = 0; i < elements.length; i++){
+            elements[i].classList.add('d-none');
+          }
+          /* Scambio radio button da ON a OFF*/
+          var radiosTest = document.getElementsByName('form[test]');
+          for (var i = 0, length = radiosTest.length; i < length; i++) {
+            if (radiosTest[i].checked) {
+              if(radiosTest[i].value==1){
+                radiosTest[i].checked = 0;
+              }
+              break;
+            }
+          }
+          /* ./ Nascondo elementi di configurazione TEST */
+          return ParameterPageUI.displayConfigurationProduction();
+        }
+      });
+    }
+  </script>
+{% endblock %}
