@@ -1,4 +1,5 @@
-{#**
+<?php
+/**
  * Salus per Aquam
  * Copyright since 2021 Flavio Pellizzer and Contributors
  * <Flavio Pellizzer> Property
@@ -13,23 +14,35 @@
  * obtain it through the world-wide-web, please send an email
  * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
  *
- * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
+ * @author    Flavio Pellizzer
  * @copyright Since 2021 Flavio Pellizzer
  * @license   https://opensource.org/licenses/MIT
- *#}
+ */
+declare(strict_types=1);
 
-{% extends 'PrestaShopBundle:Admin:layout.html.twig' %}
+namespace Flavioski\Module\SalusPerAquam\Repository;
 
-{% block content %}
-  <div class="row justify-content-center">
-    <div class="col">
-      {% include '@Modules/salusperaquam/views/templates/admin/form.html.twig' %}
-    </div>
-  </div>
-{% endblock %}
+use Doctrine\ORM\EntityRepository;
 
-{% block javascripts %}
-  {{ parent() }}
+class SalusperaquamRepository extends EntityRepository
+{
+    /**
+     * Find one item by ID.
+     *
+     * @param int $id
+     *
+     * @return array
+     */
+    public function findOneById($id)
+    {
+        $qb = $this->createQueryBuilder('q')
+            ->addSelect('q')
+        ;
+        $qb
+            ->andWhere('q.id = :id')
+            ->setParameter('id', $id)
+        ;
 
-  <script src="{{ asset('../modules/salusperaquam/views/js/treatment_form.bundle.js') }}"></script>
-{% endblock %}
+        return $qb->getQuery()->getResult()[0];
+    }
+}

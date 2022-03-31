@@ -82,7 +82,7 @@ export default class ProductAttributeSelectionToggler {
           this.$productAttributeSelector.append(
             $('<option></option>')
               .attr('value', response.combinations[value])
-              .text(value),
+              .text(value)
           );
         });
 

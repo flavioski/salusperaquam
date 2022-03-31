@@ -43,7 +43,11 @@
     }
   ],
   "require": {
-    "php": "^5.6|^7.4|^8.0"
+    "php": "^5.6|^7.4|^8.0",
+    "ext-mbstring": "*",
+    "ext-soap": "*",
+    "spatie/array-to-xml": "^2.16",
+    "wsdltophp/packagebase": "^5.0"
   },
   "require-dev": {
     "phpstan/extension-installer": "^1.1",

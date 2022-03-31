@@ -32,15 +32,27 @@ use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory;
 use Flavioski\Module\SalusPerAquam\Grid\Filters\TreatmentFilters;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
+use PrestaShopBundle\Security\Annotation\AdminSecurity;
+use PrestaShopBundle\Security\Annotation\DemoRestricted;
 use PrestaShopBundle\Service\Grid\ResponseBuilder;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TreatmentsController extends FrameworkBundleAdminController
+class TreatmentController extends FrameworkBundleAdminController
 {
     /**
      * List treatments
+     *
+     * @AdminSecurity(
+     *     "is_granted(['read'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
      *
      * @param Request $request
      * @param TreatmentFilters $filters
@@ -53,7 +65,7 @@ class TreatmentsController extends FrameworkBundleAdminController
         $treatmentGrid = $treatmentGridFactory->getGrid($filters);
 
         return $this->render(
-            '@Modules/salusperaquam/views/templates/admin/index.html.twig',
+            '@Modules/salusperaquam/views/templates/admin/treatment/index.html.twig',
             [
                 'enableSidebar' => true,
                 'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
@@ -65,6 +77,16 @@ class TreatmentsController extends FrameworkBundleAdminController
 
     /**
      * Provides filters functionality.
+     *
+     * @AdminSecurity(
+     *     "is_granted(['read'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
      *
      * @param Request $request
      *
@@ -86,6 +108,16 @@ class TreatmentsController extends FrameworkBundleAdminController
     /**
      * Generate treatments
      *
+     * @AdminSecurity(
+     *     "is_granted(['read','update'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
+     *
      * @param Request $request
      *
      * @return Response
@@ -101,7 +133,7 @@ class TreatmentsController extends FrameworkBundleAdminController
         }
 
         return $this->render(
-            '@Modules/salusperaquam/views/templates/admin/generate.html.twig',
+            '@Modules/salusperaquam/views/templates/admin/treatment/generate.html.twig',
             [
                 'enableSidebar' => true,
                 'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
@@ -113,6 +145,16 @@ class TreatmentsController extends FrameworkBundleAdminController
     /**
      * Create treatment
      *
+     * @AdminSecurity(
+     *     "is_granted(['create', 'update'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
+     *
      * @param Request $request
      *
      * @return Response
@@ -120,7 +162,13 @@ class TreatmentsController extends FrameworkBundleAdminController
     public function createAction(Request $request)
     {
         $treatmentFormBuilder = $this->get('flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_form_builder');
-        $treatmentForm = $treatmentFormBuilder->getForm();
+        $formData = [];
+        // Product needs to be preset before building form type because it is used to build combinations field choices
+        if ($request->request->has('treatment') && isset($request->request->get('treatment')['id_product'])) {
+            $formProductId = (int) $request->request->get('treatment')['id_product'];
+            $formData['id_product'] = $formProductId;
+        }
+        $treatmentForm = $treatmentFormBuilder->getForm($formData);
         $treatmentForm->handleRequest($request);
 
         $treatmentFormHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_form_handler');
@@ -135,13 +183,23 @@ class TreatmentsController extends FrameworkBundleAdminController
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
 
-        return $this->render('@Modules/salusperaquam/views/templates/admin/create.html.twig', [
+        return $this->render('@Modules/salusperaquam/views/templates/admin/treatment/create.html.twig', [
             'treatmentForm' => $treatmentForm->createView(),
         ]);
     }
 
     /**
      * Edit treatment
+     *
+     * @AdminSecurity(
+     *     "is_granted(['update'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
      *
      * @param Request $request
      * @param int $treatmentId
@@ -169,13 +227,23 @@ class TreatmentsController extends FrameworkBundleAdminController
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
 
-        return $this->render('@Modules/salusperaquam/views/templates/admin/edit.html.twig', [
+        return $this->render('@Modules/salusperaquam/views/templates/admin/treatment/edit.html.twig', [
             'treatmentForm' => $treatmentForm->createView(),
         ]);
     }
 
     /**
      * Delete treatment
+     *
+     * @AdminSecurity(
+     *     "is_granted(['delete'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
      *
      * @param int $treatmentId
      *
@@ -217,6 +285,16 @@ class TreatmentsController extends FrameworkBundleAdminController
     /**
      * Delete bulk treatments
      *
+     * @AdminSecurity(
+     *     "is_granted(['delete'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
+     *
      * @param Request $request
      *
      * @return Response
@@ -249,6 +327,16 @@ class TreatmentsController extends FrameworkBundleAdminController
 
     /**
      * Toggles status.
+     *
+     * @AdminSecurity(
+     *     "is_granted(['update'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
      *
      * @param int $treatmentId
      *

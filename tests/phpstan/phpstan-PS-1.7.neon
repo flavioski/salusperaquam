@@ -17,6 +17,9 @@ parameters:
 		- '#Result of method Doctrine\\Persistence\\ObjectManager::flush\(\) \(void\) is used.#'
 		- '#Strict comparison using === between false and void will always evaluate to false.#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\Type\\ProductChoiceType::\$productsAttr is never read, only written.#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataProvider::\$translator is never read, only written.#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataHandler::\$tabRepository is never read, only written.#'
+		- '#Return type \(void\) of method Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataHandler::.#'
 		- '#Cannot call method [a-zA-Z0-9\\_<>]+\(\) on array.#'
 
 	level: 5

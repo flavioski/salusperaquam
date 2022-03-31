@@ -4,8 +4,156 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6e435bbc5b7eb55fc4d145a606af308",
-    "packages": [],
+    "content-hash": "f56d3bb251c22efbe4f4cf2cfd11b7b9",
+    "packages": [
+        {
+            "name": "spatie/array-to-xml",
+            "version": "2.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/array-to-xml.git",
+                "reference": "db39308c5236b69b89cadc3f44f191704814eae2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/db39308c5236b69b89cadc3f44f191704814eae2",
+                "reference": "db39308c5236b69b89cadc3f44f191704814eae2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2",
+                "phpunit/phpunit": "^9.0",
+                "spatie/phpunit-snapshot-assertions": "^4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ArrayToXml\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://freek.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Convert an array to xml",
+            "homepage": "https://github.com/spatie/array-to-xml",
+            "keywords": [
+                "array",
+                "convert",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/array-to-xml/issues",
+                "source": "https://github.com/spatie/array-to-xml/tree/2.16.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-11-18T22:03:17+00:00"
+        },
+        {
+            "name": "wsdltophp/packagebase",
+            "version": "5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WsdlToPhp/PackageBase.git",
+                "reference": "3575e50d3163dd76641bbb5398d356e310170724"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WsdlToPhp/PackageBase/zipball/3575e50d3163dd76641bbb5398d356e310170724",
+                "reference": "3575e50d3163dd76641bbb5398d356e310170724",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-soap": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.0",
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WsdlToPhp\\PackageBase\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikaël DELSOL",
+                    "email": "contact@wsdltophp.com",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Luke Rodgers",
+                    "email": "lukerodgers90@gmail.com",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Arthur Moore",
+                    "email": "github@cd-net.net",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Necati Yared Ozal",
+                    "email": "mail@necatiozal.com",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Gemorroj",
+                    "email": "wapinet@mail.ru",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "hordijk",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Jacob Dreesen",
+                    "email": "jacob.dreesen@gmail.com",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Contains the base classes to be used by classes generated by wsdltophp/packagegenerator",
+            "homepage": "https://github.com/WsdlToPhp/PackageBase",
+            "keywords": [
+                "models",
+                "php"
+            ],
+            "support": {
+                "email": "contact@wsdltophp.com",
+                "issues": "https://github.com/WsdlToPhp/PackageBase/issues",
+                "source": "https://github.com/WsdlToPhp/PackageBase/tree/5.0.1"
+            },
+            "time": "2021-02-09T14:01:25+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "composer/pcre",
@@ -2542,7 +2690,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^5.6|^7.4|^8.0"
+        "php": "^5.6|^7.4|^8.0",
+        "ext-mbstring": "*",
+        "ext-soap": "*"
     },
     "platform-dev": [],
     "platform-overrides": {

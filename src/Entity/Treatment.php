@@ -70,9 +70,9 @@ class Treatment
     private $code;
 
     /**
-     * @var int
+     * @var float
      *
-     * @ORM\Column(name="price", type="integer", nullable=false)
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=false, options={"default":"0.00"})
      */
     private $price;
 
@@ -201,19 +201,19 @@ class Treatment
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getPrice(): int
+    public function getPrice(): float
     {
-        return $this->price;
+        return (float) $this->price;
     }
 
     /**
-     * @param int $price
+     * @param float $price
      *
      * @return Treatment
      */
-    public function setPrice(int $price): Treatment
+    public function setPrice(float $price): Treatment
     {
         $this->price = $price;
 

@@ -32,6 +32,19 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 
 class SalusPerAquam extends Module
 {
+    public $configurationList = [
+        'SALUSPERAQUAM_CONFIGURATION_TEST' => '1',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_PROTOCOL' => 'https',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_HOST' => 'host-test',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME' => 'username-test',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD' => 'password-test',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT' => '0',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_PROTOCOL' => 'https',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_HOST' => '',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_USERNAME' => '',
+        'SALUSPERAQUAM_CONFIGURATION_PRODUCT_PASSWORD' => '',
+    ];
+
     public function __construct($name = null, Context $context = null)
     {
         $this->name = 'salusperaquam';
@@ -56,7 +69,7 @@ class SalusPerAquam extends Module
             );
 
         $this->ps_versions_compliancy = [
-            'min' => '1.7.7.0',
+            'min' => '1.7.8.4',
             'max' => _PS_VERSION_,
         ];
     }
@@ -80,7 +93,8 @@ class SalusPerAquam extends Module
      */
     public function install()
     {
-        return $this->installTables() && parent::install() &&
+        return $this->installTables() &&
+            $this->installConfiguration() && parent::install() &&
             $this->installTab()
             ;
     }
@@ -92,6 +106,10 @@ class SalusPerAquam extends Module
      */
     public function uninstall()
     {
+        foreach (array_keys($this->configurationList) as $name) {
+            Configuration::deleteByName($name);
+        }
+
         return $this->removeTables() && parent::uninstall() &&
             $this->uninstallTab()
             ;
@@ -205,56 +223,22 @@ class SalusPerAquam extends Module
         $MainTab->module = $this->name;
         $MainTab->save();
 
-        // Sub for "Parameters"
-        $ParamTabId = (int) Tab::getIdFromClassName('ParameterController');
-        if (!$ParamTabId) {
-            $ParamTab = null;
-        }
-
-        $ParamTab = new Tab($ParamTabId);
-        $ParamTab->active = true;
-        $ParamTab->class_name = 'ParameterController';
-        $ParamTab->name = [];
-        foreach (Language::getLanguages(true) as $lang) {
-            $ParamTab->name[$lang['id_lang']] = 'Parameters';
-        }
-        $ParamTab->id_parent = $MainTab->id;
-        $ParamTab->module = $this->name;
-        $ParamTab->save();
-
         // Sub for "Configuration"
-        $ConfigurationTabId = (int) Tab::getIdFromClassName('ConfigurationController');
+        $ConfigurationTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfiguration');
         if (!$ConfigurationTabId) {
             $ConfigurationTab = null;
         }
 
         $ConfigurationTab = new Tab($ConfigurationTabId);
         $ConfigurationTab->active = true;
-        $ConfigurationTab->class_name = 'ConfigurationController';
+        $ConfigurationTab->class_name = 'AdminSalusperaquamConfiguration';
         $ConfigurationTab->name = [];
         foreach (Language::getLanguages(true) as $lang) {
-            $ConfigurationTab->name[$lang['id_lang']] = 'Configurations';
+            $ConfigurationTab->name[$lang['id_lang']] = 'Configuration';
         }
         $ConfigurationTab->id_parent = $MainTab->id;
         $ConfigurationTab->module = $this->name;
         $ConfigurationTab->save();
-
-        // Sub for "Access"
-        $AccessTabId = (int) Tab::getIdFromClassName('AccessController');
-        if (!$AccessTabId) {
-            $AccessTab = null;
-        }
-
-        $AccessTab = new Tab($AccessTabId);
-        $AccessTab->active = true;
-        $AccessTab->class_name = 'AccessController';
-        $AccessTab->name = [];
-        foreach (Language::getLanguages(true) as $lang) {
-            $AccessTab->name[$lang['id_lang']] = 'Accesses';
-        }
-        $AccessTab->id_parent = $MainTab->id;
-        $AccessTab->module = $this->name;
-        $AccessTab->save();
 
         // Sub for "Treatment"
         $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
@@ -293,28 +277,14 @@ class SalusPerAquam extends Module
             $Maintab->delete();
         }
 
-        $ParamTabId = (int) Tab::getIdFromClassName('ParameterController');
-        if (!$ParamTabId) {
-            return true;
-        }
-        $ParamTab = new Tab($ParamTabId);
-        $ParamTab->delete();
-
-        $ConfigurationTabId = (int) Tab::getIdFromClassName('ConfigurationController');
+        $ConfigurationTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfiguration');
         if (!$ConfigurationTabId) {
             return true;
         }
         $ConfigurationTab = new Tab($ConfigurationTabId);
         $ConfigurationTab->delete();
 
-        $AccessTabId = (int) Tab::getIdFromClassName('AccessController');
-        if (!$AccessTabId) {
-            return true;
-        }
-        $AccessTab = new Tab($AccessTabId);
-        $AccessTab->delete();
-
-        $TreatmentTabId = (int) Tab::getIdFromClassName('TreatmentsController');
+        $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
         if (!$TreatmentTabId) {
             return true;
         }
@@ -322,5 +292,31 @@ class SalusPerAquam extends Module
         $TreatmentTab->delete();
 
         return true;
+    }
+
+    /**
+     * Install configuration for each shop
+     *
+     * @return bool
+     */
+    public function installConfiguration()
+    {
+        $result = true;
+
+        foreach (\Shop::getShops(false, null, true) as $shopId) {
+            foreach ($this->configurationList as $name => $value) {
+                if (false === Configuration::hasKey($name, null, null, (int) $shopId)) {
+                    $result = $result && (bool) Configuration::updateValue(
+                            $name,
+                            $value,
+                            false,
+                            null,
+                            (int) $shopId
+                        );
+                }
+            }
+        }
+
+        return $result;
     }
 }

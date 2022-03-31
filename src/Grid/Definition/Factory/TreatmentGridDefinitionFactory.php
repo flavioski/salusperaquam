@@ -131,7 +131,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ])
             )
             ->add((new DataColumn('product_attribute'))
-                ->setName($this->trans('Attribute', [], 'Admin.Global'))
+                ->setName($this->trans('Combination', [], 'Admin.Global'))
                 ->setOptions([
                     'field' => 'product_attribute_name',
                     'sortable' => false,
@@ -199,7 +199,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Search name', [], 'Admin.Actions'),
+                        'placeholder' => $this->trans('Name', [], 'Admin.Global'),
                     ],
                 ])
                 ->setAssociatedColumn('name')
@@ -208,7 +208,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Search code', [], 'Admin.Actions'),
+                        'placeholder' => $this->trans('Code', [], 'Admin.Global'),
                     ],
                 ])
                 ->setAssociatedColumn('code')
@@ -226,7 +226,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Search name', [], 'Admin.Actions'),
+                        'placeholder' => $this->trans('Product', [], 'Admin.Global'),
                     ],
                 ])
                 ->setAssociatedColumn('product')
@@ -235,7 +235,7 @@ class TreatmentGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Search name', [], 'Admin.Actions'),
+                        'placeholder' => $this->trans('Combination', [], 'Admin.Global'),
                     ],
                 ])
                 ->setAssociatedColumn('product_attribute')

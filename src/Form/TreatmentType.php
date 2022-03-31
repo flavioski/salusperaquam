@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form;
 
+use Currency;
 use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProductAttributeRequired;
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration\TreatmentConstraint;
-use Flavioski\Module\SalusPerAquam\Form\DataTransformer\CentToEuroTransformer;
 use Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex;
@@ -49,6 +49,11 @@ class TreatmentType extends TranslatorAwareType
     private $productAttributeChoiceProvider;
 
     /**
+     * @var Currency
+     */
+    private $defaultCurrency;
+
+    /**
      * @var RouterInterface
      */
     private $router;
@@ -57,16 +62,19 @@ class TreatmentType extends TranslatorAwareType
      * @param TranslatorInterface $translator
      * @param array $locales
      * @param ConfigurableFormChoiceProviderInterface $productAttributeChoiceProvider
+     * @param Currency $defaultCurrency
      * @param RouterInterface $router
      */
     public function __construct(
         TranslatorInterface $translator,
         array $locales,
         ConfigurableFormChoiceProviderInterface $productAttributeChoiceProvider,
+        Currency $defaultCurrency,
         RouterInterface $router
     ) {
         parent::__construct($translator, $locales);
         $this->productAttributeChoiceProvider = $productAttributeChoiceProvider;
+        $this->defaultCurrency = $defaultCurrency;
         $this->router = $router;
     }
 
@@ -127,7 +135,7 @@ class TreatmentType extends TranslatorAwareType
                 'help' => 'Price treatment (e.g. 12.45).',
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'scale' => 2,
-                'currency' => null,
+                'currency' => $this->defaultCurrency->iso_code,
                 'attr' => [
                     'min' => TreatmentConstraint::MIN_PRICE_VALUE,
                     'max' => TreatmentConstraint::MAX_PRICE_VALUE,
@@ -150,7 +158,7 @@ class TreatmentType extends TranslatorAwareType
                 ],
             ])
             ->add('id_product_attribute', ChoiceType::class, [
-                'label' => $this->trans('Attribute', 'Admin.Global'),
+                'label' => $this->trans('Combination', 'Admin.Global'),
                 'required' => true,
                 'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'choices' => $productAttributeChoices,
@@ -173,8 +181,5 @@ class TreatmentType extends TranslatorAwareType
                 'required' => true,
             ])
         ;
-
-        $builder->get('price')
-            ->addModelTransformer(new CentToEuroTransformer());
     }
 }

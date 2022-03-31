@@ -18,18 +18,11 @@
  * @license   https://opensource.org/licenses/MIT
  *#}
 
-{% extends 'PrestaShopBundle:Admin:layout.html.twig' %}
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+{% trans_default_domain "Modules.Salusperaquam.Admin" %}
 
 {% block content %}
-  <div class="row justify-content-center">
-    <div class="col">
-      {% include '@Modules/salusperaquam/views/templates/admin/form.html.twig' %}
-    </div>
-  </div>
-{% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-
-  <script src="{{ asset('../modules/salusperaquam/views/js/treatment_form.bundle.js') }}"></script>
+  {{ form_start(generalForm, {'attr': {'class': 'form', 'id': 'configuration_form'}}) }}
+  {% include '@Modules/salusperaquam/views/templates/admin/configuration/general.html.twig' %}
+  {{ form_end(generalForm) }}
 {% endblock %}
