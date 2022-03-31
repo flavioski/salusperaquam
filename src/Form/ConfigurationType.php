@@ -288,7 +288,7 @@ class ConfigurationType extends TranslatorAwareType
                 'row_attr' => [
                     'class' => 'configuration-production-option',
                 ],
-            ]);
+            ])
         ;
     }
 
