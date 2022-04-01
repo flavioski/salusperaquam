@@ -38,6 +38,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -99,7 +100,6 @@ class TreatmentType extends TranslatorAwareType
                         'Invalid characters:',
                         'Admin.Notifications.Info'
                     ) . ' ' . TypedRegexValidator::NAME_CHARS,
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
                     new CleanHtml(),
                     new TypedRegex([
@@ -137,7 +137,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('code', TextType::class, [
                 'label' => $this->trans('Code', 'Admin.Global'),
                 'help' => 'Code treatment (e.g. Massage-12345).',
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
                     new Length([
                         'max' => TreatmentConstraint::MAX_CODE_LENGTH,
@@ -153,7 +152,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('price', MoneyType::class, [
                 'label' => $this->trans('Price', 'Admin.Global'),
                 'help' => 'Price treatment (e.g. 12.45).',
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'scale' => 2,
                 'currency' => $this->defaultCurrency->iso_code,
                 'attr' => [
@@ -165,7 +163,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('id_product', ProductChoiceType::class, [
                 'label' => $this->trans('Product', 'Admin.Global'),
                 'required' => true,
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
                     new NotBlank([
                         'message' => $this->trans(
@@ -180,7 +177,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('id_product_attribute', ChoiceType::class, [
                 'label' => $this->trans('Combination', 'Admin.Global'),
                 'required' => true,
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'choices' => $productAttributeChoices,
                 'constraints' => [
                     new TreatmentProductAttributeRequired([
@@ -197,9 +193,18 @@ class TreatmentType extends TranslatorAwareType
             ->add('active', SwitchType::class, [
                 'label' => $this->trans('Status', 'Admin.Global'),
                 'help' => 'Treatment is active?',
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'required' => true,
             ])
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'translation_domain' => 'Modules.Salusperaquam.Admin',
+        ]);
     }
 }
