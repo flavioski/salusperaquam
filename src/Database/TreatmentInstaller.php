@@ -94,6 +94,7 @@ class TreatmentInstaller
         $errors = [];
         $tableNames = [
             'treatment',
+            'treatment_lang',
             'salusperaquam',
         ];
         foreach ($tableNames as $tableName) {

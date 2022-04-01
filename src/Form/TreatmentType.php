@@ -27,10 +27,12 @@ use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProd
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration\TreatmentConstraint;
 use Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
+use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\TypedRegexValidator;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
+use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -112,6 +114,24 @@ class TreatmentType extends TranslatorAwareType
                         ),
                     ]),
                     new NotBlank(),
+                ],
+            ])
+            ->add('content', TranslatableType::class, [
+                'label' => $this->trans('Content', 'Admin.Global'),
+                'help' => 'Treatment content (e.g. All for one, one for all).',
+                'constraints' => [
+                    new DefaultLanguage([
+                        'message' => $this->trans(
+                            'The field %field_name% is required at least in your default language.',
+                            'Admin.Notifications.Error',
+                            [
+                                '%field_name%' => sprintf(
+                                    '"%s"',
+                                    $this->trans('Content', 'Modules.Salusperaquam.Admin')
+                                ),
+                            ]
+                        ),
+                    ]),
                 ],
             ])
             ->add('code', TextType::class, [

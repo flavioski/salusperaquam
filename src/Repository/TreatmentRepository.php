@@ -52,7 +52,16 @@ class TreatmentRepository extends EntityRepository
         /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('q')
             ->addSelect('q')
+            ->addSelect('ql')
+            ->leftJoin('q.treatmentLangs', 'ql')
         ;
+
+        if (0 !== $langId) {
+            $qb
+                ->andWhere('ql.lang = :langId')
+                ->setParameter('langId', $langId)
+            ;
+        }
 
         $ids = $this->getAllIds();
         shuffle($ids);

@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\Form;
 
+use Flavioski\Module\SalusPerAquam\Entity\Treatment;
+use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface;
 
@@ -57,6 +59,10 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'active' => $treatment->isActive(),
         ];
 
+        foreach ($treatment->getTreatmentLangs() as $treatmentLang) {
+            $treatmentData['content'][$treatmentLang->getLang()->getId()] = $treatmentLang->getContent();
+        }
+
         return $treatmentData;
     }
 
@@ -67,6 +73,7 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
     {
         return [
             'name' => '',
+            'content' => [],
             'code' => '',
             'price' => 0,
             'id_product' => 0,

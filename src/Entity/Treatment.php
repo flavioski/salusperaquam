@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +62,11 @@ class Treatment
      * @ORM\Column(name="name", type="string", length=128, nullable=false)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Flavioski\Module\SalusPerAquam\Entity\TreatmentLang", cascade={"persist", "remove"}, mappedBy="treatment")
+     */
+    private $treatmentLangs;
 
     /**
      * @var string
@@ -110,6 +116,7 @@ class Treatment
         $this->setDateUpd(new \DateTime());
         $this->setActive(true);
         $this->setDeleted(false);
+        $this->treatmentLangs = new ArrayCollection();
     }
 
     /**
@@ -118,6 +125,14 @@ class Treatment
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTreatmentLangs()
+    {
+        return $this->treatmentLangs;
     }
 
     /**
@@ -266,6 +281,47 @@ class Treatment
         $this->deleted = $deleted;
 
         return $this;
+    }
+
+    /**
+     * @param int $langId
+     * @return TreatmentLang|null
+     */
+    public function getTreatmentLangByLangId(int $langId)
+    {
+        foreach ($this->treatmentLangs as $treatmentLang) {
+            if ($langId === $treatmentLang->getLang()->getId()) {
+                return $treatmentLang;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param TreatmentLang $treatmentLang
+     * @return $this
+     */
+    public function addTreatmentLang(TreatmentLang $treatmentLang)
+    {
+        $treatmentLang->setTreatment($this);
+        $this->treatmentLangs->add($treatmentLang);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTreatmentContent()
+    {
+        if ($this->treatmentLangs->count() <= 0) {
+            return '';
+        }
+
+        $treatmentLang = $this->treatmentLangs->first();
+
+        return $treatmentLang->getContent();
     }
 
     /**
