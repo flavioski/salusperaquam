@@ -143,6 +143,41 @@ class TreatmentController extends FrameworkBundleAdminController
     }
 
     /**
+     * Sync treatments
+     *
+     * @AdminSecurity(
+     *     "is_granted(['update'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function syncAction(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $this->addFlash('success', $this->trans('Treatments were successfully syncronized.', 'Modules.Salusperaquam.Admin'));
+
+            return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
+        }
+
+        return $this->render(
+            '@Modules/salusperaquam/views/templates/admin/treatment/sync.html.twig',
+            [
+                'enableSidebar' => true,
+                'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
+                'layoutHeaderToolbarBtn' => $this->getToolbarButtons(),
+            ]
+        );
+    }
+
+    /**
      * Create treatment
      *
      * @AdminSecurity(
@@ -376,6 +411,11 @@ class TreatmentController extends FrameworkBundleAdminController
                 'icon' => 'add_circle_outline',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_generate'),
             ],
+            'sync' => [
+                'desc' => $this->trans('Sync treatments', 'Modules.Salusperaquam.Admin'),
+                'icon' => 'sync',
+                'href' => $this->generateUrl('flavioski_salusperaquam_treatment_sync'),
+            ]
         ];
     }
 

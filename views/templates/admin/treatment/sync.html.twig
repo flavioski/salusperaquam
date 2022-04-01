@@ -1,0 +1,59 @@
+{#**
+ * Salus per Aquam
+ * Copyright since 2021 Flavio Pellizzer and Contributors
+ * <Flavio Pellizzer> Property
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/MIT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
+ *
+ * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
+ * @copyright Since 2021 Flavio Pellizzer
+ * @license   https://opensource.org/licenses/MIT
+ *#}
+
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col">
+    <form method="post" class="form-horizontal">
+      <div class="card">
+        <h3 class="card-header">
+          <i class="material-icons">settings</i> {{ 'Sync treatments'|trans({}, 'Modules.Salusperaquam.Admin') }}
+        </h3>
+        <div class="card-block row">
+          <div class="card-text">
+            <div class="row">
+              <div class="col-sm">
+                <div class="alert alert-info" role="alert">
+                  <div class="alert-text">
+                    <p>{{ 'If you want to sync the demo treatments, please click on "%sync_button_label%".'|trans({'%sync_button_label%': 'Sync treatments'|trans({}, 'Modules.Salusperaquam.Admin')}, 'Modules.Saluperaquam.Admin') }}</p>
+                    <p>{{ 'If you don\'t want to sync the demo treatments, simple click on "%back_button_label%" to go back to the list.'|trans({'%back_button_label%': 'Go back to treatments list'|trans({}, 'Modules.Saluperaquam.Admin')}, 'Modules.Saluperaquam.Admin') }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-inline-flex">
+            <a class="btn btn-outline-secondary" href="{{ path('flavioski_salusperaquam_treatment_index') }}">
+              {{ 'Go back to treatments list'|trans({}, 'Modules.Salusperaquam.Admin') }}
+            </a>
+          </div>
+          <div class="d-inline-flex float-right">
+            <button class="btn btn-primary">{{ 'Sync treatments'|trans({}, 'Modules.Salusperaquam.Admin') }}</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

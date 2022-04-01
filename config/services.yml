@@ -134,6 +134,15 @@ services:
       - '@prestashop.core.admin.shop.repository'
       - '@doctrine.orm.default_entity_manager'
 
+  # Sync service
+  flavioski.module.salusperaquam.treatments.syn:
+    class: 'Flavioski\Module\SalusPerAquam\Database\TreatmentSync'
+    arguments:
+    - '@flavioski.module.salusperaquam.repository.treatment_repository'
+    - '@prestashop.core.admin.lang.repository'
+    - '@prestashop.core.admin.shop.repository'
+    - '@doctrine.orm.default_entity_manager'
+
   # CQRS pattern toggle status
   flavioski.module.salusperaquam.treatments.domain.treatment.query_handler.get_treatment_is_active_treatment_handler:
     class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler\GetTreatmentIsActiveHandler'

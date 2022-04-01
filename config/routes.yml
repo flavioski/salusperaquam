@@ -52,6 +52,14 @@ flavioski_salusperaquam_treatment_generate:
     _legacy_controller: 'AdminSalusperaquamTreatment'
     _legacy_link: 'AdminSalusperaquamTreatment:generate'
 
+flavioski_salusperaquam_treatment_sync:
+  path: /salusperaquam/syncronize
+  methods: [GET, POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\TreatmentController::syncAction'
+    _legacy_controller: 'AdminSalusperaquamTreatment'
+    _legacy_link: 'AdminSalusperaquamTreatment:sync'
+
 flavioski_salusperaquam_treatment_create:
   path: /salusperaquam/treatments/new
   methods: [GET, POST]
