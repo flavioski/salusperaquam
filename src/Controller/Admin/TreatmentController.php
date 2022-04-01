@@ -415,7 +415,7 @@ class TreatmentController extends FrameworkBundleAdminController
                 'desc' => $this->trans('Sync treatments', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'sync',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_sync'),
-            ]
+            ],
         ];
     }
 

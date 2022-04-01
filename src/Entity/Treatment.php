@@ -285,6 +285,7 @@ class Treatment
 
     /**
      * @param int $langId
+     *
      * @return TreatmentLang|null
      */
     public function getTreatmentLangByLangId(int $langId)
@@ -300,6 +301,7 @@ class Treatment
 
     /**
      * @param TreatmentLang $treatmentLang
+     *
      * @return $this
      */
     public function addTreatmentLang(TreatmentLang $treatmentLang)

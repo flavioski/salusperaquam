@@ -63,6 +63,7 @@ class TreatmentLang
 
     /**
      * @param Treatment $treatment
+     *
      * @return $this
      */
     public function setTreatment(Treatment $treatment)
@@ -82,6 +83,7 @@ class TreatmentLang
 
     /**
      * @param Lang $lang
+     *
      * @return $this
      */
     public function setLang(Lang $lang)
@@ -101,6 +103,7 @@ class TreatmentLang
 
     /**
      * @param string $content
+     *
      * @return $this
      */
     public function setContent(string $content)

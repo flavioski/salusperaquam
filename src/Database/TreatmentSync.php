@@ -54,5 +54,4 @@ class TreatmentSync
     {
         // Sync treatment
     }
-
 }
