@@ -21,5 +21,7 @@ parameters:
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataHandler::\$tabRepository is never read, only written.#'
 		- '#Return type \(void\) of method Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataHandler::.#'
 		- '#Cannot call method [a-zA-Z0-9\\_<>]+\(\) on array.#'
+		- '#Call to an undefined method PrestaShopBundle\\Entity\\Repository\\LangRepository::findOneById\(\).#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Database\\TreatmentSync::.#'
 
 	level: 5
