@@ -35,6 +35,7 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopBundle\Security\Annotation\AdminSecurity;
 use PrestaShopBundle\Security\Annotation\DemoRestricted;
 use PrestaShopBundle\Service\Grid\ResponseBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -375,24 +376,34 @@ class TreatmentController extends FrameworkBundleAdminController
      *
      * @param int $treatmentId
      *
-     * @return RedirectResponse
+     * @return JsonResponse
      */
     public function toggleStatusAction($treatmentId)
     {
+        if ($this->isDemoModeEnabled()) {
+            return $this->json([
+                'status' => false,
+                'message' => $this->getDemoModeErrorMessage(),
+            ]);
+        }
+
         try {
             $isActive = $this->getQueryBus()->handle(new GetTreatmentIsActive((int) $treatmentId));
 
             $this->getCommandBus()->handle(new ToggleIsActiveTreatmentCommand((int) $treatmentId, !$isActive));
 
-            $this->addFlash(
-                'success',
-                $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success')
-            );
+            $response = [
+                'status' => true,
+                'message' => $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success'),
+            ];
         } catch (TreatmentException $e) {
-            $this->addFlash('error', $this->getErrorMessageForException($e, $this->getErrorMessageMapping()));
+            $response = [
+                'status' => false,
+                'message' => $this->getErrorMessageForException($e, $this->getErrorMessageMapping()),
+            ];
         }
 
-        return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
+        return $this->json($response);
     }
 
     /**
