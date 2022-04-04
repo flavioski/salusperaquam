@@ -23,7 +23,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Flavioski\\Module\\SalusPerAquam\\": "src/"
+      "Flavioski\\Module\\SalusPerAquam\\": "src/",
+      "wsSalusPerAquam\\": "packages/wsSalusPerAquam/src/"
     },
     "classmap": [
       "salusperaquam.php",
