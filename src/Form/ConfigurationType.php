@@ -24,20 +24,12 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConfigurationType extends TranslatorAwareType
 {
-    private $protocolList = [
-        'http' => ['http'],
-        'https' => ['https'],
-    ];
-
-    private $protocolDefault = 'https';
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -48,71 +40,9 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => true,
             ])
-            ->add('test_protocol', ChoiceType::class, [
+            ->add('test_url', TextType::class, [
                 'label' => $this->trans(
-                    'Protocol',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'choices' => [
-                    'http' => 'http',
-                    'https' => 'https',
-                ],
-                'choice_label' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? $this->getErrorsMessages()[$value] : $choice;
-                },
-                'choice_attr' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? ['disabled' => $disabled] : [];
-                },
-                'expanded' => true,
-                'required' => true,
-                'placeholder' => true,
-                'row_attr' => [
-                    'class' => 'configuration-test-option',
-                ],
-            ])
-            ->add('test_host', TextType::class, [
-                'label' => $this->trans(
-                    'Host',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-test-option',
-                ],
-            ])
-            ->add('test_port', TextType::class, [
-                'label' => $this->trans(
-                    'Port',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-test-option',
-                ],
-            ])
-            ->add('test_facility_id', TextType::class, [
-                'label' => $this->trans(
-                    'Facility Id',
+                    'URL',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -143,9 +73,9 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-test-option',
                 ],
             ])
-            ->add('test_client_id', TextType::class, [
+            ->add('test_resource_get_treatment', TextType::class, [
                 'label' => $this->trans(
-                    'Client Id',
+                    'Resource GetTreatment',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -154,9 +84,9 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-test-option',
                 ],
             ])
-            ->add('test_user_type', TextType::class, [
+            ->add('test_resource_add_sale', TextType::class, [
                 'label' => $this->trans(
-                    'User Type',
+                    'Resource AddSale',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -172,71 +102,9 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => true,
             ])
-            ->add('production_protocol', ChoiceType::class, [
+            ->add('production_url', TextType::class, [
                 'label' => $this->trans(
-                    'Protocol',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'choices' => [
-                    'http' => 'http',
-                    'https' => 'https',
-                ],
-                'choice_label' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? $this->getErrorsMessages()[$value] : $choice;
-                },
-                'choice_attr' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? ['disabled' => $disabled] : [];
-                },
-                'expanded' => true,
-                'required' => true,
-                'placeholder' => true,
-                'row_attr' => [
-                    'class' => 'configuration-production-option',
-                ],
-            ])
-            ->add('production_host', TextType::class, [
-                'label' => $this->trans(
-                    'Host',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-production-option',
-                ],
-            ])
-            ->add('production_port', TextType::class, [
-                'label' => $this->trans(
-                    'Port',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-production-option',
-                ],
-            ])
-            ->add('production_facility_id', TextType::class, [
-                'label' => $this->trans(
-                    'Facility Id',
+                    'URL',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -267,9 +135,9 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-production-option',
                 ],
             ])
-            ->add('production_client_id', TextType::class, [
+            ->add('production_resource_get_treatment', TextType::class, [
                 'label' => $this->trans(
-                    'Client Id',
+                    'Resource GetTreatment',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -278,9 +146,9 @@ class ConfigurationType extends TranslatorAwareType
                     'class' => 'configuration-production-option',
                 ],
             ])
-            ->add('production_user_type', TextType::class, [
+            ->add('production_resource_add_sale', TextType::class, [
                 'label' => $this->trans(
-                    'User Type',
+                    'Resource AddSale',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
