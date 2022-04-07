@@ -7,6 +7,8 @@ services:
   flavioski.module.salusperaquam.type.configuration:
     class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationType'
     parent: 'form.type.translatable.aware'
+    arguments:
+      - '@=service("prestashop.adapter.multistore_feature").isUsed()'
     tags:
       - { name: form.type }
 

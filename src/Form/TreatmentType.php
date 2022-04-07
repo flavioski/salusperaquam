@@ -100,6 +100,9 @@ class TreatmentType extends TranslatorAwareType
                         'Invalid characters:',
                         'Admin.Notifications.Info'
                     ) . ' ' . TypedRegexValidator::NAME_CHARS,
+                'attr' => array(
+                    'readonly' => true,
+                ),
                 'constraints' => [
                     new CleanHtml(),
                     new TypedRegex([
@@ -119,6 +122,9 @@ class TreatmentType extends TranslatorAwareType
             ->add('content', TranslatableType::class, [
                 'label' => $this->trans('Content', 'Admin.Global'),
                 'help' => 'Treatment content (e.g. All for one, one for all).',
+                'attr' => array(
+                    'readonly' => true,
+                ),
                 'constraints' => [
                     new DefaultLanguage([
                         'message' => $this->trans(
@@ -137,6 +143,9 @@ class TreatmentType extends TranslatorAwareType
             ->add('code', TextType::class, [
                 'label' => $this->trans('Code', 'Admin.Global'),
                 'help' => 'Code treatment (e.g. Massage-12345).',
+                'attr' => array(
+                    'readonly' => true,
+                ),
                 'constraints' => [
                     new Length([
                         'max' => TreatmentConstraint::MAX_CODE_LENGTH,
@@ -155,6 +164,7 @@ class TreatmentType extends TranslatorAwareType
                 'scale' => 2,
                 'currency' => $this->defaultCurrency->iso_code,
                 'attr' => [
+                    'readonly' => true,
                     'min' => TreatmentConstraint::MIN_PRICE_VALUE,
                     'max' => TreatmentConstraint::MAX_PRICE_VALUE,
                     'step' => TreatmentConstraint::STEP_PRICE_VALUE,

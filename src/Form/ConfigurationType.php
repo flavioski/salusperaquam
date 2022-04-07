@@ -75,7 +75,7 @@ class ConfigurationType extends TranslatorAwareType
             ])
             ->add('test_resource_get_treatment', TextType::class, [
                 'label' => $this->trans(
-                    'Resource GetTreatment',
+                    'Resource when retrieve treatments',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -86,7 +86,7 @@ class ConfigurationType extends TranslatorAwareType
             ])
             ->add('test_resource_add_sale', TextType::class, [
                 'label' => $this->trans(
-                    'Resource AddSale',
+                    'Resource when add sale treatments',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
