@@ -47,12 +47,31 @@ class TreatmentRepository extends EntityRepository
         return $qb->getQuery()->getResult()[0];
     }
 
+    public function findOneByCode($code)
+    {
+        $code = $this->findOneBy(['code' => $code]);
+        if ($code) {
+            return $code->getId();
+        }
+
+        return null;
+    }
+
     public function getRandom($langId = 0, $limit = 0)
     {
         /** @var QueryBuilder $qb */
         $qb = $this->createQueryBuilder('q')
             ->addSelect('q')
+            ->addSelect('ql')
+            ->leftJoin('q.treatmentLangs', 'ql')
         ;
+
+        if (0 !== $langId) {
+            $qb
+                ->andWhere('ql.lang = :langId')
+                ->setParameter('langId', $langId)
+            ;
+        }
 
         $ids = $this->getAllIds();
         shuffle($ids);

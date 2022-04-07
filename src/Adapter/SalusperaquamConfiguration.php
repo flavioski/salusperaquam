@@ -44,15 +44,17 @@ class SalusperaquamConfiguration implements DataConfigurationInterface
     {
         return [
             'test' => $this->configuration->getBoolean('SALUSPERAQUAM_CONFIGURATION_TEST'),
-            'test_protocol' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_PROTOCOL'),
-            'test_host' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_HOST'),
+            'test_url' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_URL'),
             'test_username' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME'),
             'test_password' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD'),
-            'production' => $this->configuration->getBoolean('SALUSPERAQUAM_CONFIGURATION_PRODUCT'),
-            'production_protocol' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCT_PROTOCOL'),
-            'production_host' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCT_HOST'),
-            'production_username' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCT_USERNAME'),
-            'production_password' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCT_PASSWORD'),
+            'test_resource_get_treatment' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_GET_TREATMENT'),
+            'test_resource_add_sale' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_ADD_SALE'),
+            'production' => $this->configuration->getBoolean('SALUSPERAQUAM_CONFIGURATION_PRODUCTION'),
+            'production_url' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_URL'),
+            'production_username' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERNAME'),
+            'production_password' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_PASSWORD'),
+            'production_resource_get_treatment' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_GET_TREATMENT'),
+            'production_resource_add_sale' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_ADD_SALE'),
         ];
     }
 
@@ -63,15 +65,17 @@ class SalusperaquamConfiguration implements DataConfigurationInterface
     {
         if ($this->validateConfiguration($config)) {
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST', (int) $config['test']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_PROTOCOL', $config['test_protocol']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_HOST', $config['test_host']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_URL', $config['test_url']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME', $config['test_username']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD', $config['test_password']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCT', (int) $config['production']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCT_PROTOCOL', $config['production_protocol']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCT_HOST', $config['production_host']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCT_USERNAME', $config['production_username']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCT_PASSWORD', $config['production_password']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_GET_TREATMENT', $config['test_resource_get_treatment']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_ADD_SALE', $config['test_resource_add_sale']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION', (int) $config['production']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_URL', $config['production_url']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERNAME', $config['production_username']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_PASSWORD', $config['production_password']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_GET_TREATMENT', $config['production_resource_get_treatment']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_ADD_SALE', $config['production_resource_add_sale']);
         }
 
         return [];
@@ -84,15 +88,17 @@ class SalusperaquamConfiguration implements DataConfigurationInterface
     {
         return isset(
             $config['test'],
-            $config['test_protocol'],
-            $config['test_host'],
+            $config['test_url'],
             $config['test_username'],
             $config['test_password'],
+            $config['test_resource_get_treatment'],
+            $config['test_resource_add_sale'],
             $config['production'],
-            $config['production_protocol'],
-            $config['production_host'],
+            $config['production_url'],
             $config['production_username'],
-            $config['production_password']
+            $config['production_password'],
+            $config['production_resource_get_treatment'],
+            $config['production_resource_add_sale']
         );
     }
 }

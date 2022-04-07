@@ -27,15 +27,18 @@ use Flavioski\Module\SalusPerAquam\ConstraintValidator\Constraints\TreatmentProd
 use Flavioski\Module\SalusPerAquam\Domain\Treatment\Configuration\TreatmentConstraint;
 use Flavioski\Module\SalusPerAquam\Form\Type\ProductChoiceType;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
+use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\TypedRegexValidator;
 use PrestaShop\PrestaShop\Core\Form\ConfigurableFormChoiceProviderInterface;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
+use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -97,7 +100,9 @@ class TreatmentType extends TranslatorAwareType
                         'Invalid characters:',
                         'Admin.Notifications.Info'
                     ) . ' ' . TypedRegexValidator::NAME_CHARS,
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
+                'attr' => [
+                    'readonly' => true,
+                ],
                 'constraints' => [
                     new CleanHtml(),
                     new TypedRegex([
@@ -114,10 +119,33 @@ class TreatmentType extends TranslatorAwareType
                     new NotBlank(),
                 ],
             ])
+            ->add('content', TranslatableType::class, [
+                'label' => $this->trans('Content', 'Admin.Global'),
+                'help' => 'Treatment content (e.g. All for one, one for all).',
+                'attr' => [
+                    'readonly' => true,
+                ],
+                'constraints' => [
+                    new DefaultLanguage([
+                        'message' => $this->trans(
+                            'The field %field_name% is required at least in your default language.',
+                            'Admin.Notifications.Error',
+                            [
+                                '%field_name%' => sprintf(
+                                    '"%s"',
+                                    $this->trans('Content', 'Modules.Salusperaquam.Admin')
+                                ),
+                            ]
+                        ),
+                    ]),
+                ],
+            ])
             ->add('code', TextType::class, [
                 'label' => $this->trans('Code', 'Admin.Global'),
                 'help' => 'Code treatment (e.g. Massage-12345).',
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
+                'attr' => [
+                    'readonly' => true,
+                ],
                 'constraints' => [
                     new Length([
                         'max' => TreatmentConstraint::MAX_CODE_LENGTH,
@@ -133,10 +161,10 @@ class TreatmentType extends TranslatorAwareType
             ->add('price', MoneyType::class, [
                 'label' => $this->trans('Price', 'Admin.Global'),
                 'help' => 'Price treatment (e.g. 12.45).',
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'scale' => 2,
                 'currency' => $this->defaultCurrency->iso_code,
                 'attr' => [
+                    'readonly' => true,
                     'min' => TreatmentConstraint::MIN_PRICE_VALUE,
                     'max' => TreatmentConstraint::MAX_PRICE_VALUE,
                     'step' => TreatmentConstraint::STEP_PRICE_VALUE,
@@ -145,7 +173,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('id_product', ProductChoiceType::class, [
                 'label' => $this->trans('Product', 'Admin.Global'),
                 'required' => true,
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'constraints' => [
                     new NotBlank([
                         'message' => $this->trans(
@@ -160,7 +187,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('id_product_attribute', ChoiceType::class, [
                 'label' => $this->trans('Combination', 'Admin.Global'),
                 'required' => true,
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'choices' => $productAttributeChoices,
                 'constraints' => [
                     new TreatmentProductAttributeRequired([
@@ -177,9 +203,18 @@ class TreatmentType extends TranslatorAwareType
             ->add('active', SwitchType::class, [
                 'label' => $this->trans('Status', 'Admin.Global'),
                 'help' => 'Treatment is active?',
-                'translation_domain' => 'Modules.Salusperaquam.Admin',
                 'required' => true,
             ])
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'translation_domain' => 'Modules.Salusperaquam.Admin',
+        ]);
     }
 }

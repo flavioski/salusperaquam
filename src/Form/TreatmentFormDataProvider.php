@@ -57,6 +57,10 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'active' => $treatment->isActive(),
         ];
 
+        foreach ($treatment->getTreatmentLangs() as $treatmentLang) {
+            $treatmentData['content'][$treatmentLang->getLang()->getId()] = $treatmentLang->getContent();
+        }
+
         return $treatmentData;
     }
 
@@ -67,6 +71,7 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
     {
         return [
             'name' => '',
+            'content' => [],
             'code' => '',
             'price' => 0,
             'id_product' => 0,

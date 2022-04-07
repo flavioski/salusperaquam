@@ -20,29 +20,19 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Repository;
+namespace Flavioski\Module\SalusPerAquam\WebService;
 
-use Doctrine\ORM\EntityRepository;
-
-class SalusperaquamRepository extends EntityRepository
+interface MyWebServiceInterface
 {
-    /**
-     * Find one item by ID.
-     *
-     * @param int $id
-     *
-     * @return array
-     */
-    public function findOneById($id)
-    {
-        $qb = $this->createQueryBuilder('q')
-            ->addSelect('q')
-        ;
-        $qb
-            ->andWhere('q.id = :id')
-            ->setParameter('id', $id)
-        ;
+    public function connect();
 
-        return $qb->getQuery()->getResult()[0];
-    }
+    public function isTest();
+
+    public function isProduction();
+
+    public function getUrl();
+
+    public function getLogin();
+
+    public function getPassword();
 }

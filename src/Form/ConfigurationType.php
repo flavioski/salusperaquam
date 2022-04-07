@@ -24,20 +24,12 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConfigurationType extends TranslatorAwareType
 {
-    private $protocolList = [
-        'http' => ['http'],
-        'https' => ['https'],
-    ];
-
-    private $protocolDefault = 'https';
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -48,58 +40,60 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => true,
             ])
-            ->add('test_protocol', ChoiceType::class, [
+            ->add('test_url', TextType::class, [
                 'label' => $this->trans(
-                    '[Test] Protocol',
+                    'URL',
                     'Modules.Salusperaquam.Admin'
                 ),
-                'choices' => [
-                    'http' => 'http',
-                    'https' => 'https',
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
                 ],
-                'choice_label' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? $this->getErrorsMessages()[$value] : $choice;
-                },
-                'choice_attr' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? ['disabled' => $disabled] : [];
-                },
-                'expanded' => true,
-                'required' => true,
-                'placeholder' => true,
             ])
             ->add('test_username', TextType::class, [
                 'label' => $this->trans(
-                    '[Test] Username',
+                    'Username',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
             ])
             ->add('test_password', TextType::class, [
                 'label' => $this->trans(
-                    '[Test] Password',
+                    'Password',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_resource_get_treatment', TextType::class, [
+                'label' => $this->trans(
+                    'Resource when retrieve treatments',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_resource_add_sale', TextType::class, [
+                'label' => $this->trans(
+                    'Resource when add sale treatments',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
             ])
             ->add('production', SwitchType::class, [
                 'label' => $this->trans(
@@ -108,58 +102,60 @@ class ConfigurationType extends TranslatorAwareType
                 ),
                 'required' => true,
             ])
-            ->add('production_protocol', ChoiceType::class, [
+            ->add('production_url', TextType::class, [
                 'label' => $this->trans(
-                    '[Production] Protocol',
+                    'URL',
                     'Modules.Salusperaquam.Admin'
                 ),
-                'choices' => [
-                    'http' => 'http',
-                    'https' => 'https',
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
                 ],
-                'choice_label' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? $this->getErrorsMessages()[$value] : $choice;
-                },
-                'choice_attr' => function ($choice, $key, $value) {
-                    $disabled = false;
-                    foreach ($this->protocolList[$value] as $protocol) {
-                        if ($protocol === $this->protocolDefault) {
-                            $disabled = false;
-                            break;
-                        }
-                        $disabled = true;
-                    }
-
-                    return $disabled === true ? ['disabled' => $disabled] : [];
-                },
-                'expanded' => true,
-                'required' => true,
-                'placeholder' => true,
             ])
             ->add('production_username', TextType::class, [
                 'label' => $this->trans(
-                    '[Production] Username',
+                    'Username',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
             ])
             ->add('production_password', TextType::class, [
                 'label' => $this->trans(
-                    '[Production] Password',
+                    'Password',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
                 'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_resource_get_treatment', TextType::class, [
+                'label' => $this->trans(
+                    'Resource GetTreatment',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_resource_add_sale', TextType::class, [
+                'label' => $this->trans(
+                    'Resource AddSale',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
             ])
         ;
     }

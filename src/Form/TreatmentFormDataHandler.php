@@ -24,8 +24,10 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
+use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface;
+use PrestaShopBundle\Entity\Repository\LangRepository;
 
 class TreatmentFormDataHandler implements FormDataHandlerInterface
 {
@@ -35,19 +37,27 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
     private $treatmentRepository;
 
     /**
+     * @var LangRepository
+     */
+    private $langRepository;
+
+    /**
      * @var EntityManagerInterface
      */
     private $entityManager;
 
     /**
      * @param TreatmentRepository $treatmentRepository
+     * @param LangRepository $langRepository
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
         TreatmentRepository $treatmentRepository,
+        LangRepository $langRepository,
         EntityManagerInterface $entityManager
     ) {
         $this->treatmentRepository = $treatmentRepository;
+        $this->langRepository = $langRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -63,6 +73,15 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
         $treatment->setActive($data['active']);
         $treatment->setProductId((int) $data['id_product']);
         $treatment->setProductAttributeId($data['id_product_attribute']);
+        foreach ($data['content'] as $langId => $langContent) {
+            $lang = $this->langRepository->findOneById($langId);
+            $treatmentLang = new TreatmentLang();
+            $treatmentLang
+                ->setLang($lang)
+                ->setContent($langContent)
+            ;
+            $treatment->addTreatmentLang($treatmentLang);
+        }
 
         $this->entityManager->persist($treatment);
         $this->entityManager->flush();
@@ -82,7 +101,13 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
         $treatment->setActive($data['active']);
         $treatment->setProductId((int) $data['id_product']);
         $treatment->setProductAttributeId($data['id_product_attribute']);
-
+        foreach ($data['content'] as $langId => $content) {
+            $treatmentLang = $treatment->getTreatmentLangByLangId($langId);
+            if (null === $treatmentLang) {
+                continue;
+            }
+            $treatmentLang->setContent($content);
+        }
         $this->entityManager->flush();
 
         return $treatment->getId();

@@ -35,6 +35,7 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopBundle\Security\Annotation\AdminSecurity;
 use PrestaShopBundle\Security\Annotation\DemoRestricted;
 use PrestaShopBundle\Service\Grid\ResponseBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -134,6 +135,43 @@ class TreatmentController extends FrameworkBundleAdminController
 
         return $this->render(
             '@Modules/salusperaquam/views/templates/admin/treatment/generate.html.twig',
+            [
+                'enableSidebar' => true,
+                'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
+                'layoutHeaderToolbarBtn' => $this->getToolbarButtons(),
+            ]
+        );
+    }
+
+    /**
+     * Sync treatments
+     *
+     * @AdminSecurity(
+     *     "is_granted(['update'], request.get('_legacy_controller'))",
+     *     message="You do not have permission to read this.",
+     *     redirectRoute="flavioski_salusperaquam_treatment_index"
+     * )
+     * @DemoRestricted(redirectRoute="flavioski_salusperaquam_treatment_index",
+     *     message="You can't do this when demo mode is enabled.",
+     *     domain="Admin.Global"
+     * )
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function syncAction(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $sync = $this->get('flavioski.module.salusperaquam.treatments.sync');
+            $sync->syncTreatments();
+            $this->addFlash('success', $this->trans('Treatments were successfully syncronized.', 'Modules.Salusperaquam.Admin'));
+
+            return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
+        }
+
+        return $this->render(
+            '@Modules/salusperaquam/views/templates/admin/treatment/sync.html.twig',
             [
                 'enableSidebar' => true,
                 'layoutTitle' => $this->trans('Treatments', 'Modules.Salusperaquam.Admin'),
@@ -340,24 +378,34 @@ class TreatmentController extends FrameworkBundleAdminController
      *
      * @param int $treatmentId
      *
-     * @return RedirectResponse
+     * @return JsonResponse
      */
     public function toggleStatusAction($treatmentId)
     {
+        if ($this->isDemoModeEnabled()) {
+            return $this->json([
+                'status' => false,
+                'message' => $this->getDemoModeErrorMessage(),
+            ]);
+        }
+
         try {
             $isActive = $this->getQueryBus()->handle(new GetTreatmentIsActive((int) $treatmentId));
 
             $this->getCommandBus()->handle(new ToggleIsActiveTreatmentCommand((int) $treatmentId, !$isActive));
 
-            $this->addFlash(
-                'success',
-                $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success')
-            );
+            $response = [
+                'status' => true,
+                'message' => $this->trans('The status has been successfully updated.', 'Admin.Notifications.Success'),
+            ];
         } catch (TreatmentException $e) {
-            $this->addFlash('error', $this->getErrorMessageForException($e, $this->getErrorMessageMapping()));
+            $response = [
+                'status' => false,
+                'message' => $this->getErrorMessageForException($e, $this->getErrorMessageMapping()),
+            ];
         }
 
-        return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
+        return $this->json($response);
     }
 
     /**
@@ -366,7 +414,7 @@ class TreatmentController extends FrameworkBundleAdminController
     private function getToolbarButtons()
     {
         return [
-            'add' => [
+            /*'add' => [
                 'desc' => $this->trans('Add new treatment', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'add_circle_outline',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_create'),
@@ -375,6 +423,11 @@ class TreatmentController extends FrameworkBundleAdminController
                 'desc' => $this->trans('Generate treatments', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'add_circle_outline',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_generate'),
+            ],*/
+            'sync' => [
+                'desc' => $this->trans('Sync treatments', 'Modules.Salusperaquam.Admin'),
+                'icon' => 'sync',
+                'href' => $this->generateUrl('flavioski_salusperaquam_treatment_sync'),
             ],
         ];
     }

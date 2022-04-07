@@ -18,7 +18,9 @@
  * @license   https://opensource.org/licenses/MIT
  *#}
 
+{% trans_default_domain "Modules.Salusperaquam.Admin" %}
 {% import '@PrestaShop/Admin/macros.html.twig' as ps %}
+{% form_theme treatmentForm 'PrestaShopBundle:Admin/TwigTemplateForm:prestashop_ui_kit.html.twig' %}
 
 {% block treatment_form %}
   {{ form_start(treatmentForm) }}

@@ -7,6 +7,8 @@ services:
   flavioski.module.salusperaquam.type.configuration:
     class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationType'
     parent: 'form.type.translatable.aware'
+    arguments:
+      - '@=service("prestashop.adapter.multistore_feature").isUsed()'
     tags:
       - { name: form.type }
 
@@ -77,6 +79,7 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataHandler'
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_repository'
+      - '@prestashop.core.admin.lang.repository'
       - '@doctrine.orm.default_entity_manager'
 
   flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_form_handler:
@@ -133,6 +136,15 @@ services:
       - '@prestashop.core.admin.shop.repository'
       - '@doctrine.orm.default_entity_manager'
 
+  # Sync service
+  flavioski.module.salusperaquam.treatments.sync:
+    class: 'Flavioski\Module\SalusPerAquam\Database\TreatmentSync'
+    arguments:
+    - '@flavioski.module.salusperaquam.repository.treatment_repository'
+    - '@prestashop.core.admin.lang.repository'
+    - '@doctrine.orm.default_entity_manager'
+    - '@flavioski.module.salusperaquam.webservice.get.treatment'
+
   # CQRS pattern toggle status
   flavioski.module.salusperaquam.treatments.domain.treatment.query_handler.get_treatment_is_active_treatment_handler:
     class: 'Flavioski\Module\SalusPerAquam\Domain\Treatment\QueryHandler\GetTreatmentIsActiveHandler'
@@ -167,3 +179,25 @@ services:
     tags:
       - name: tactician.handler
         command: 'Flavioski\Module\SalusPerAquam\Domain\Product\Query\GetProductRequiredFields'
+
+  # Web Service
+  flavioski.module.salusperaquam.webservice.my_web_service:
+    class: 'Flavioski\Module\SalusPerAquam\WebService\MyWebService'
+    arguments: #['@prestashop.adapter.legacy.configuration']
+      - "@=service('prestashop.adapter.legacy.configuration').getBoolean('SALUSPERAQUAM_CONFIGURATION_TEST')"
+      - "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_TEST_URL')"
+      - "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME')"
+      - "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD')"
+      #- "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_GET_TREATMENT')"
+      #- "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_ADD_SALE')"
+      - "@=service('prestashop.adapter.legacy.configuration').getBoolean('SALUSPERAQUAM_CONFIGURATION_PRODUCTION')"
+      - "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_URL')"
+      - "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERNAME')"
+      - "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_PASSWORD')"
+      #- "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_GET_TREATMENT')"
+      #- "@=service('prestashop.adapter.legacy.configuration').get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_ADD_SALE')"
+
+  flavioski.module.salusperaquam.webservice.get.treatment:
+    class: 'Flavioski\Module\SalusPerAquam\WebService\GetTreatment'
+    arguments:
+      - '@flavioski.module.salusperaquam.webservice.my_web_service'
