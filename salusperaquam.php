@@ -34,7 +34,7 @@ class SalusPerAquam extends Module
 {
     public $configurationList = [
         'SALUSPERAQUAM_CONFIGURATION_TEST' => '1',
-        'SALUSPERAQUAM_CONFIGURATION_TEST_URL' => 'https://wcf.test:8443/soap-service.php',
+        'SALUSPERAQUAM_CONFIGURATION_TEST_URL' => 'https://wcf.test:8443/wsdl.php?WSDL',
         'SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME' => 'demo',
         'SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD' => 'demo',
         'SALUSPERAQUAM_CONFIGURATION_TEST_RESOURCE_GET_TREATMENT' => 'GetTreatment',
