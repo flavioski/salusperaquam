@@ -38,15 +38,15 @@ require_once __DIR__ . '/vendor/autoload.php';
 /**
  * Minimal options
  */
-$options = array(
+$options = [
     \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_URL => 'main.wsdl',
     \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_CLASSMAP => \wsSalusPerAquam\ClassMap::get(),
-);
+];
 /**
  * Samples for Get ServiceType
  */
 $get = new \wsSalusPerAquam\ServiceType\Get($options);
-/**
+/*
  * Sample call for GetTreatment operation/method
  */
 if ($get->GetTreatment(new \wsSalusPerAquam\StructType\GetTreatmentRequest()) !== false) {
@@ -58,7 +58,7 @@ if ($get->GetTreatment(new \wsSalusPerAquam\StructType\GetTreatmentRequest()) !=
  * Samples for Add ServiceType
  */
 $add = new \wsSalusPerAquam\ServiceType\Add($options);
-/**
+/*
  * Sample call for AddSale operation/method
  */
 if ($add->AddSale(new \wsSalusPerAquam\StructType\AddSaleRequest()) !== false) {

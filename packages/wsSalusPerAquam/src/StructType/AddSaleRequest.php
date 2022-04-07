@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace wsSalusPerAquam\StructType;
 
-use \WsdlToPhp\PackageBase\AbstractStructBase;
+use WsdlToPhp\PackageBase\AbstractStructBase;
 
 /**
  * This class stands for AddSaleRequest StructType
- * @subpackage Structs
+ *
  * @version 1.0
  * @date 2022/04/01
  */
@@ -37,6 +37,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $username;
@@ -45,6 +46,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $password;
@@ -53,6 +55,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $customer_firstname;
@@ -61,6 +64,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $customer_lastname;
@@ -69,6 +73,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $customer_dni;
@@ -77,6 +82,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $customer_email;
@@ -85,6 +91,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $sale_code;
@@ -93,6 +100,7 @@ class AddSaleRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $sale_total;
@@ -100,11 +108,14 @@ class AddSaleRequest extends AbstractStructBase
      * The sale_detail
      * Meta information extracted from the WSDL
      * - minOccurs: 1
+     *
      * @var \wsSalusPerAquam\StructType\Sale_detail
      */
     public $sale_detail;
+
     /**
      * Constructor method for AddSaleRequest
+     *
      * @uses AddSaleRequest::setUsername()
      * @uses AddSaleRequest::setPassword()
      * @uses AddSaleRequest::setCustomer_firstname()
@@ -114,6 +125,7 @@ class AddSaleRequest extends AbstractStructBase
      * @uses AddSaleRequest::setSale_code()
      * @uses AddSaleRequest::setSale_total()
      * @uses AddSaleRequest::setSale_detail()
+     *
      * @param string $username
      * @param string $password
      * @param string $customer_firstname
@@ -124,7 +136,7 @@ class AddSaleRequest extends AbstractStructBase
      * @param string $sale_total
      * @param \wsSalusPerAquam\StructType\Sale_detail $sale_detail
      */
-    public function __construct($username = null, $password = null, $customer_firstname = null, $customer_lastname = null, $customer_dni = null, $customer_email = null, $sale_code = null, $sale_total = null, \wsSalusPerAquam\StructType\Sale_detail $sale_detail = null)
+    public function __construct($username = null, $password = null, $customer_firstname = null, $customer_lastname = null, $customer_dni = null, $customer_email = null, $sale_code = null, $sale_total = null, Sale_detail $sale_detail = null)
     {
         $this
             ->setUsername($username)
@@ -137,17 +149,22 @@ class AddSaleRequest extends AbstractStructBase
             ->setSale_total($sale_total)
             ->setSale_detail($sale_detail);
     }
+
     /**
      * Get username value
+     *
      * @return string
      */
     public function getUsername()
     {
         return $this->username;
     }
+
     /**
      * Set username value
+     *
      * @param string $username
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setUsername($username = null)
@@ -157,19 +174,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($username, true), gettype($username)), __LINE__);
         }
         $this->username = $username;
+
         return $this;
     }
+
     /**
      * Get password value
+     *
      * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
+
     /**
      * Set password value
+     *
      * @param string $password
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setPassword($password = null)
@@ -179,19 +202,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($password, true), gettype($password)), __LINE__);
         }
         $this->password = $password;
+
         return $this;
     }
+
     /**
      * Get customer_firstname value
+     *
      * @return string
      */
     public function getCustomer_firstname()
     {
         return $this->customer_firstname;
     }
+
     /**
      * Set customer_firstname value
+     *
      * @param string $customer_firstname
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setCustomer_firstname($customer_firstname = null)
@@ -201,19 +230,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($customer_firstname, true), gettype($customer_firstname)), __LINE__);
         }
         $this->customer_firstname = $customer_firstname;
+
         return $this;
     }
+
     /**
      * Get customer_lastname value
+     *
      * @return string
      */
     public function getCustomer_lastname()
     {
         return $this->customer_lastname;
     }
+
     /**
      * Set customer_lastname value
+     *
      * @param string $customer_lastname
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setCustomer_lastname($customer_lastname = null)
@@ -223,19 +258,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($customer_lastname, true), gettype($customer_lastname)), __LINE__);
         }
         $this->customer_lastname = $customer_lastname;
+
         return $this;
     }
+
     /**
      * Get customer_dni value
+     *
      * @return string
      */
     public function getCustomer_dni()
     {
         return $this->customer_dni;
     }
+
     /**
      * Set customer_dni value
+     *
      * @param string $customer_dni
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setCustomer_dni($customer_dni = null)
@@ -245,19 +286,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($customer_dni, true), gettype($customer_dni)), __LINE__);
         }
         $this->customer_dni = $customer_dni;
+
         return $this;
     }
+
     /**
      * Get customer_email value
+     *
      * @return string
      */
     public function getCustomer_email()
     {
         return $this->customer_email;
     }
+
     /**
      * Set customer_email value
+     *
      * @param string $customer_email
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setCustomer_email($customer_email = null)
@@ -267,19 +314,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($customer_email, true), gettype($customer_email)), __LINE__);
         }
         $this->customer_email = $customer_email;
+
         return $this;
     }
+
     /**
      * Get sale_code value
+     *
      * @return string
      */
     public function getSale_code()
     {
         return $this->sale_code;
     }
+
     /**
      * Set sale_code value
+     *
      * @param string $sale_code
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setSale_code($sale_code = null)
@@ -289,19 +342,25 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($sale_code, true), gettype($sale_code)), __LINE__);
         }
         $this->sale_code = $sale_code;
+
         return $this;
     }
+
     /**
      * Get sale_total value
+     *
      * @return string
      */
     public function getSale_total()
     {
         return $this->sale_total;
     }
+
     /**
      * Set sale_total value
+     *
      * @param string $sale_total
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
     public function setSale_total($sale_total = null)
@@ -311,24 +370,31 @@ class AddSaleRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($sale_total, true), gettype($sale_total)), __LINE__);
         }
         $this->sale_total = $sale_total;
+
         return $this;
     }
+
     /**
      * Get sale_detail value
+     *
      * @return \wsSalusPerAquam\StructType\Sale_detail
      */
     public function getSale_detail()
     {
         return $this->sale_detail;
     }
+
     /**
      * Set sale_detail value
+     *
      * @param \wsSalusPerAquam\StructType\Sale_detail $sale_detail
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
-    public function setSale_detail(\wsSalusPerAquam\StructType\Sale_detail $sale_detail = null)
+    public function setSale_detail(Sale_detail $sale_detail = null)
     {
         $this->sale_detail = $sale_detail;
+
         return $this;
     }
 }

@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace wsSalusPerAquam\StructType;
 
-use \WsdlToPhp\PackageBase\AbstractStructBase;
+use WsdlToPhp\PackageBase\AbstractStructBase;
 
 /**
  * This class stands for sale_detail StructType
- * @subpackage Structs
+ *
  * @version 1.0
  * @date 2022/04/01
  */
@@ -36,35 +36,45 @@ class Sale_detail extends AbstractStructBase
      * The detail
      * Meta information extracted from the WSDL
      * - minOccurs: 1
+     *
      * @var \wsSalusPerAquam\StructType\Detail
      */
     public $detail;
+
     /**
      * Constructor method for sale_detail
+     *
      * @uses Sale_detail::setDetail()
+     *
      * @param \wsSalusPerAquam\StructType\Detail $detail
      */
-    public function __construct(\wsSalusPerAquam\StructType\Detail $detail = null)
+    public function __construct(Detail $detail = null)
     {
         $this
             ->setDetail($detail);
     }
+
     /**
      * Get detail value
+     *
      * @return \wsSalusPerAquam\StructType\Detail
      */
     public function getDetail()
     {
         return $this->detail;
     }
+
     /**
      * Set detail value
+     *
      * @param \wsSalusPerAquam\StructType\Detail $detail
+     *
      * @return \wsSalusPerAquam\StructType\Sale_detail
      */
-    public function setDetail(\wsSalusPerAquam\StructType\Detail $detail = null)
+    public function setDetail(Detail $detail = null)
     {
         $this->detail = $detail;
+
         return $this;
     }
 }

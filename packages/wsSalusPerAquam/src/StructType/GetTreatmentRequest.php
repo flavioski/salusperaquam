@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace wsSalusPerAquam\StructType;
 
-use \WsdlToPhp\PackageBase\AbstractStructBase;
+use WsdlToPhp\PackageBase\AbstractStructBase;
 
 /**
  * This class stands for GetTreatmentRequest StructType
- * @subpackage Structs
+ *
  * @version 1.0
  * @date 2022/04/01
  */
@@ -37,6 +37,7 @@ class GetTreatmentRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $username;
@@ -45,13 +46,17 @@ class GetTreatmentRequest extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var string
      */
     public $password;
+
     /**
      * Constructor method for GetTreatmentRequest
+     *
      * @uses GetTreatmentRequest::setUsername()
      * @uses GetTreatmentRequest::setPassword()
+     *
      * @param string $username
      * @param string $password
      */
@@ -61,17 +66,22 @@ class GetTreatmentRequest extends AbstractStructBase
             ->setUsername($username)
             ->setPassword($password);
     }
+
     /**
      * Get username value
+     *
      * @return string
      */
     public function getUsername()
     {
         return $this->username;
     }
+
     /**
      * Set username value
+     *
      * @param string $username
+     *
      * @return \wsSalusPerAquam\StructType\GetTreatmentRequest
      */
     public function setUsername($username = null)
@@ -81,19 +91,25 @@ class GetTreatmentRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($username, true), gettype($username)), __LINE__);
         }
         $this->username = $username;
+
         return $this;
     }
+
     /**
      * Get password value
+     *
      * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
+
     /**
      * Set password value
+     *
      * @param string $password
+     *
      * @return \wsSalusPerAquam\StructType\GetTreatmentRequest
      */
     public function setPassword($password = null)
@@ -103,6 +119,7 @@ class GetTreatmentRequest extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a string, %s given', var_export($password, true), gettype($password)), __LINE__);
         }
         $this->password = $password;
+
         return $this;
     }
 }

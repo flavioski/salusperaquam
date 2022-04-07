@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace wsSalusPerAquam\ServiceType;
 
-use \WsdlToPhp\PackageBase\AbstractSoapClientBase;
+use WsdlToPhp\PackageBase\AbstractSoapClientBase;
 
 /**
  * This class stands for Add ServiceType
- * @subpackage Services
+ *
  * @version 1.0
  * @date 2022/04/01
  */
@@ -36,26 +36,34 @@ class Add extends AbstractSoapClientBase
      * Method to call the operation originally named AddSale
      * Meta information extracted from the WSDL
      * - documentation: Add sale to web service.
+     *
      * @uses AbstractSoapClientBase::getSoapClient()
      * @uses AbstractSoapClientBase::setResult()
      * @uses AbstractSoapClientBase::getResult()
      * @uses AbstractSoapClientBase::saveLastError()
+     *
      * @param \wsSalusPerAquam\StructType\AddSaleRequest $parameters
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleResponse|bool
      */
     public function AddSale(\wsSalusPerAquam\StructType\AddSaleRequest $parameters)
     {
         try {
             $this->setResult($this->getSoapClient()->AddSale($parameters));
+
             return $this->getResult();
         } catch (\SoapFault $soapFault) {
             $this->saveLastError(__METHOD__, $soapFault);
+
             return false;
         }
     }
+
     /**
      * Returns the result
+     *
      * @see AbstractSoapClientBase::getResult()
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleResponse
      */
     public function getResult()

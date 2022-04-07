@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace wsSalusPerAquam\ServiceType;
 
-use \WsdlToPhp\PackageBase\AbstractSoapClientBase;
+use WsdlToPhp\PackageBase\AbstractSoapClientBase;
 
 /**
  * This class stands for Get ServiceType
- * @subpackage Services
+ *
  * @version 1.0
  * @date 2022/04/01
  */
@@ -36,26 +36,34 @@ class Get extends AbstractSoapClientBase
      * Method to call the operation originally named GetTreatment
      * Meta information extracted from the WSDL
      * - documentation: Get treatments list.
+     *
      * @uses AbstractSoapClientBase::getSoapClient()
      * @uses AbstractSoapClientBase::setResult()
      * @uses AbstractSoapClientBase::getResult()
      * @uses AbstractSoapClientBase::saveLastError()
+     *
      * @param \wsSalusPerAquam\StructType\GetTreatmentRequest $parameters
+     *
      * @return \wsSalusPerAquam\StructType\GetTreatmentResponse|bool
      */
     public function GetTreatment(\wsSalusPerAquam\StructType\GetTreatmentRequest $parameters)
     {
         try {
             $this->setResult($this->getSoapClient()->GetTreatment($parameters));
+
             return $this->getResult();
         } catch (\SoapFault $soapFault) {
             $this->saveLastError(__METHOD__, $soapFault);
+
             return false;
         }
     }
+
     /**
      * Returns the result
+     *
      * @see AbstractSoapClientBase::getResult()
+     *
      * @return \wsSalusPerAquam\StructType\GetTreatmentResponse
      */
     public function getResult()

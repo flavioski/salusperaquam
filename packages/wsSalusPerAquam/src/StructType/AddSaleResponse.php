@@ -22,11 +22,11 @@ declare(strict_types=1);
 
 namespace wsSalusPerAquam\StructType;
 
-use \WsdlToPhp\PackageBase\AbstractStructBase;
+use WsdlToPhp\PackageBase\AbstractStructBase;
 
 /**
  * This class stands for AddSaleResponse StructType
- * @subpackage Structs
+ *
  * @version 1.0
  * @date 2022/04/01
  */
@@ -37,6 +37,7 @@ class AddSaleResponse extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var complexType
      */
     public $Result;
@@ -45,13 +46,17 @@ class AddSaleResponse extends AbstractStructBase
      * Meta information extracted from the WSDL
      * - maxOccurs: 1
      * - minOccurs: 1
+     *
      * @var bool
      */
     public $Success;
+
     /**
      * Constructor method for AddSaleResponse
+     *
      * @uses AddSaleResponse::setResult()
      * @uses AddSaleResponse::setSuccess()
+     *
      * @param complexType $result
      * @param bool $success
      */
@@ -61,35 +66,46 @@ class AddSaleResponse extends AbstractStructBase
             ->setResult($result)
             ->setSuccess($success);
     }
+
     /**
      * Get Result value
+     *
      * @return complexType
      */
     public function getResult()
     {
         return $this->Result;
     }
+
     /**
      * Set Result value
+     *
      * @param complexType $result
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleResponse
      */
     public function setResult(complexType $result = null)
     {
         $this->Result = $result;
+
         return $this;
     }
+
     /**
      * Get Success value
+     *
      * @return bool
      */
     public function getSuccess()
     {
         return $this->Success;
     }
+
     /**
      * Set Success value
+     *
      * @param bool $success
+     *
      * @return \wsSalusPerAquam\StructType\AddSaleResponse
      */
     public function setSuccess($success = null)
@@ -99,6 +115,7 @@ class AddSaleResponse extends AbstractStructBase
             throw new \InvalidArgumentException(sprintf('Invalid value %s, please provide a bool, %s given', var_export($success, true), gettype($success)), __LINE__);
         }
         $this->Success = $success;
+
         return $this;
     }
 }
