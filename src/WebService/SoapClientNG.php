@@ -22,7 +22,9 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\WebService;
 
-class SoapClientNG extends \SoapClient
+use SoapClient;
+
+class SoapClientNG extends SoapClient
 {
     public function __doRequest($request, $location, $action, $version = SOAP_1_1, $oneWay = false)
     {
