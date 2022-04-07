@@ -414,7 +414,7 @@ class TreatmentController extends FrameworkBundleAdminController
     private function getToolbarButtons()
     {
         return [
-            'add' => [
+            /*'add' => [
                 'desc' => $this->trans('Add new treatment', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'add_circle_outline',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_create'),
@@ -423,7 +423,7 @@ class TreatmentController extends FrameworkBundleAdminController
                 'desc' => $this->trans('Generate treatments', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'add_circle_outline',
                 'href' => $this->generateUrl('flavioski_salusperaquam_treatment_generate'),
-            ],
+            ],*/
             'sync' => [
                 'desc' => $this->trans('Sync treatments', 'Modules.Salusperaquam.Admin'),
                 'icon' => 'sync',
