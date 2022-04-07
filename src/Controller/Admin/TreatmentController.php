@@ -163,6 +163,8 @@ class TreatmentController extends FrameworkBundleAdminController
     public function syncAction(Request $request)
     {
         if ($request->isMethod('POST')) {
+            $sync = $this->get('flavioski.module.salusperaquam.treatments.sync');
+            $sync->syncTreatments();
             $this->addFlash('success', $this->trans('Treatments were successfully syncronized.', 'Modules.Salusperaquam.Admin'));
 
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
