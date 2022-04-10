@@ -201,3 +201,23 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\WebService\GetTreatment'
     arguments:
       - '@flavioski.module.salusperaquam.webservice.my_web_service'
+
+  flavioski.module.salusperaquam.webservice.add.sale:
+    class: 'Flavioski\Module\SalusPerAquam\WebService\AddSale'
+    arguments:
+      - '@flavioski.module.salusperaquam.webservice.my_web_service'
+      #- [ setCustomerFirstname, ['@=service("foo").foo() ~ (container.hasParameter("customer_firstname") ? parameter("foo") : "default")']]
+      #- [ setCustomerFirstname, ["@=container.hasParameter('customer_firstname') ? parameter('customer_firstname') : 'default_value'"]]
+    #calls:
+          #- [ "setEmployeeId", ["@=service('prestashop.adapter.legacy.context').getContext().employee?service('prestashop.adapter.legacy.context').getContext().employee.id:0"]]
+
+  # Command
+  flavioski.module.salusperaquam.command.web_service_add_sale_command:
+    class: Flavioski\Module\SalusPerAquam\Command\WebServiceAddSaleCommand
+    arguments:
+      - "@prestashop.adapter.legacy.logger"
+      - "@translator"
+      - "@doctrine.orm.entity_manager"
+      - '@flavioski.module.salusperaquam.webservice.add.sale'
+    tags:
+        - { name: 'console.command' }
