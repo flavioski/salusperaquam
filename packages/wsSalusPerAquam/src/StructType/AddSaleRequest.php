@@ -136,7 +136,7 @@ class AddSaleRequest extends AbstractStructBase
      * @param string $sale_total
      * @param \wsSalusPerAquam\StructType\Sale_detail $sale_detail
      */
-    public function __construct($username = null, $password = null, $customer_firstname = null, $customer_lastname = null, $customer_dni = null, $customer_email = null, $sale_code = null, $sale_total = null, Sale_detail $sale_detail = null)
+    public function __construct($username = null, $password = null, $customer_firstname = null, $customer_lastname = null, $customer_dni = null, $customer_email = null, $sale_code = null, $sale_total = null, \wsSalusPerAquam\StructType\Sale_detail $sale_detail = null)
     {
         $this
             ->setUsername($username)
@@ -377,7 +377,7 @@ class AddSaleRequest extends AbstractStructBase
     /**
      * Get sale_detail value
      *
-     * @return \wsSalusPerAquam\StructType\Sale_detail
+     * @return \wsSalusPerAquam\StructType\Sale_detail|null
      */
     public function getSale_detail()
     {
@@ -391,7 +391,7 @@ class AddSaleRequest extends AbstractStructBase
      *
      * @return \wsSalusPerAquam\StructType\AddSaleRequest
      */
-    public function setSale_detail(Sale_detail $sale_detail = null)
+    public function setSale_detail(\wsSalusPerAquam\StructType\Sale_detail $sale_detail = null)
     {
         $this->sale_detail = $sale_detail;
 
