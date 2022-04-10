@@ -228,6 +228,7 @@ class AddSale implements ServiceInterface
 
     /**
      * @param Sale_detail $sale_detail
+     *
      * @return $this
      */
     public function setSaleDetail(Sale_detail $sale_detail)
@@ -247,6 +248,7 @@ class AddSale implements ServiceInterface
 
     /**
      * @param Detail $detail
+     *
      * @return $this
      */
     public function setDetail(Detail $detail)
@@ -266,6 +268,7 @@ class AddSale implements ServiceInterface
 
     /**
      * @param array $detail
+     *
      * @return $this
      */
     public function addTotalDetail(array $detail)
