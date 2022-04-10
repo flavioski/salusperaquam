@@ -50,7 +50,7 @@ class Sale_detail extends AbstractStructBase
      *
      * @param \wsSalusPerAquam\StructType\Detail[] $detail
      */
-    public function __construct(array $detail = array())
+    public function __construct(array $detail = [])
     {
         $this
             ->setDetail($detail);
@@ -72,10 +72,12 @@ class Sale_detail extends AbstractStructBase
     /**
      * This method is responsible for validating the values passed to the setDetail method
      * This method is willingly generated in order to preserve the one-line inline validation within the setDetail method
+     *
      * @param array $values
+     *
      * @return string A non-empty message if the values does not match the validation rules
      */
-    public static function validateDetailForArrayConstraintsFromSetDetail(array $values = array())
+    public static function validateDetailForArrayConstraintsFromSetDetail(array $values = [])
     {
         $message = '';
         $invalidValues = [];
@@ -89,19 +91,22 @@ class Sale_detail extends AbstractStructBase
             $message = sprintf('The detail property can only contain items of type \wsSalusPerAquam\StructType\Detail, %s given', is_object($invalidValues) ? get_class($invalidValues) : (is_array($invalidValues) ? implode(', ', $invalidValues) : gettype($invalidValues)));
         }
         unset($invalidValues);
+
         return $message;
     }
+
     /**
      * Set detail value
      * This property is removable from request (nillable=true+minOccurs=0), therefore
      * if the value assigned to this property is null, it is removed from this object
      *
      * @throws \InvalidArgumentException
+     *
      * @param \wsSalusPerAquam\StructType\Detail[] $detail
      *
      * @return \wsSalusPerAquam\StructType\Sale_detail
      */
-    public function setDetail(array $detail = array())
+    public function setDetail(array $detail = [])
     {
         // validation for constraint: array
         if ('' !== ($detailArrayErrorMessage = self::validateDetailForArrayConstraintsFromSetDetail($detail))) {
@@ -112,22 +117,27 @@ class Sale_detail extends AbstractStructBase
         } else {
             $this->detail = $detail;
         }
+
         return $this;
     }
 
     /**
      * Add item to detail value
+     *
      * @throws \InvalidArgumentException
+     *
      * @param \wsSalusPerAquam\StructType\Detail $item
+     *
      * @return \wsSalusPerAquam\StructType\Sale_detail
      */
-    public function addToDetail(\wsSalusPerAquam\StructType\Detail $item)
+    public function addToDetail(Detail $item)
     {
         // validation for constraint: itemType
         if (!$item instanceof \wsSalusPerAquam\StructType\Detail) {
             throw new \InvalidArgumentException(sprintf('The detail property can only contain items of type \wsSalusPerAquam\StructType\Detail, %s given', is_object($item) ? get_class($item) : (is_array($item) ? implode(', ', $item) : gettype($item))), __LINE__);
         }
         $this->detail[] = $item;
+
         return $this;
     }
 }
