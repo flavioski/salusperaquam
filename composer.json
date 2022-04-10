@@ -48,7 +48,7 @@
     "ext-mbstring": "*",
     "ext-soap": "*",
     "spatie/array-to-xml": "^2.16",
-    "wsdltophp/packagebase": "^5.0"
+    "wsdltophp/packagebase": "~2.0"
   },
   "require-dev": {
     "phpstan/extension-installer": "^1.1",
