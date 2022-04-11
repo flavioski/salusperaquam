@@ -23,5 +23,6 @@ parameters:
 		- '#Cannot call method [a-zA-Z0-9\\_<>]+\(\) on array.#'
 		- '#Call to an undefined method PrestaShopBundle\\Entity\\Repository\\LangRepository::findOneById\(\).#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Database\\TreatmentSync::.#'
+		- '#Parameter \$logger of method Flavioski\\Module\\SalusPerAquam\\Command\\WebServiceAddSaleCommand::.#'
 
 	level: 5

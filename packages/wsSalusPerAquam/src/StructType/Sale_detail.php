@@ -35,9 +35,11 @@ class Sale_detail extends AbstractStructBase
     /**
      * The detail
      * Meta information extracted from the WSDL
-     * - minOccurs: 1
+     * - maxOccurs: unbounded
+     * - minOccurs: 0
+     * - nillable: true
      *
-     * @var \wsSalusPerAquam\StructType\Detail
+     * @var \wsSalusPerAquam\StructType\Detail[]
      */
     public $detail;
 
@@ -46,9 +48,9 @@ class Sale_detail extends AbstractStructBase
      *
      * @uses Sale_detail::setDetail()
      *
-     * @param \wsSalusPerAquam\StructType\Detail $detail
+     * @param \wsSalusPerAquam\StructType\Detail[] $detail
      */
-    public function __construct(Detail $detail = null)
+    public function __construct(array $detail = [])
     {
         $this
             ->setDetail($detail);
@@ -56,24 +58,85 @@ class Sale_detail extends AbstractStructBase
 
     /**
      * Get detail value
+     * An additional test has been added (isset) before returning the property value as
+     * this property may have been unset before, due to the fact that this property is
+     * removable from the request (nillable=true+minOccurs=0)
      *
-     * @return \wsSalusPerAquam\StructType\Detail
+     * @return \wsSalusPerAquam\StructType\Detail[]|null
      */
     public function getDetail()
     {
-        return $this->detail;
+        return isset($this->detail) ? $this->detail : null;
+    }
+
+    /**
+     * This method is responsible for validating the values passed to the setDetail method
+     * This method is willingly generated in order to preserve the one-line inline validation within the setDetail method
+     *
+     * @param array $values
+     *
+     * @return string A non-empty message if the values does not match the validation rules
+     */
+    public static function validateDetailForArrayConstraintsFromSetDetail(array $values = [])
+    {
+        $message = '';
+        $invalidValues = [];
+        foreach ($values as $sale_detailDetailItem) {
+            // validation for constraint: itemType
+            if (!$sale_detailDetailItem instanceof \wsSalusPerAquam\StructType\Detail) {
+                $invalidValues[] = is_object($sale_detailDetailItem) ? get_class($sale_detailDetailItem) : sprintf('%s(%s)', gettype($sale_detailDetailItem), var_export($sale_detailDetailItem, true));
+            }
+        }
+        if (!empty($invalidValues)) {
+            $message = sprintf('The detail property can only contain items of type \wsSalusPerAquam\StructType\Detail, %s given', is_object($invalidValues) ? get_class($invalidValues) : (is_array($invalidValues) ? implode(', ', $invalidValues) : gettype($invalidValues)));
+        }
+        unset($invalidValues);
+
+        return $message;
     }
 
     /**
      * Set detail value
+     * This property is removable from request (nillable=true+minOccurs=0), therefore
+     * if the value assigned to this property is null, it is removed from this object
      *
-     * @param \wsSalusPerAquam\StructType\Detail $detail
+     * @throws \InvalidArgumentException
+     *
+     * @param \wsSalusPerAquam\StructType\Detail[] $detail
      *
      * @return \wsSalusPerAquam\StructType\Sale_detail
      */
-    public function setDetail(Detail $detail = null)
+    public function setDetail(array $detail = [])
     {
-        $this->detail = $detail;
+        // validation for constraint: array
+        if ('' !== ($detailArrayErrorMessage = self::validateDetailForArrayConstraintsFromSetDetail($detail))) {
+            throw new \InvalidArgumentException($detailArrayErrorMessage, __LINE__);
+        }
+        if (is_null($detail) || (is_array($detail) && empty($detail))) {
+            unset($this->detail);
+        } else {
+            $this->detail = $detail;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add item to detail value
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @param \wsSalusPerAquam\StructType\Detail $item
+     *
+     * @return \wsSalusPerAquam\StructType\Sale_detail
+     */
+    public function addToDetail(Detail $item)
+    {
+        // validation for constraint: itemType
+        if (!$item instanceof \wsSalusPerAquam\StructType\Detail) {
+            throw new \InvalidArgumentException(sprintf('The detail property can only contain items of type \wsSalusPerAquam\StructType\Detail, %s given', is_object($item) ? get_class($item) : (is_array($item) ? implode(', ', $item) : gettype($item))), __LINE__);
+        }
+        $this->detail[] = $item;
 
         return $this;
     }

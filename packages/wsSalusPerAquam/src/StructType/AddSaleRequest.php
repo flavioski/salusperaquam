@@ -377,7 +377,7 @@ class AddSaleRequest extends AbstractStructBase
     /**
      * Get sale_detail value
      *
-     * @return \wsSalusPerAquam\StructType\Sale_detail
+     * @return \wsSalusPerAquam\StructType\Sale_detail|null
      */
     public function getSale_detail()
     {

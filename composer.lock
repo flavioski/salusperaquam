@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de8edacc9819b68d30f338c44426ae61",
+    "content-hash": "10a7fa7dac3d54b6d9bdd16ee95712e3",
     "packages": [
         {
             "name": "spatie/array-to-xml",
@@ -72,27 +72,25 @@
         },
         {
             "name": "wsdltophp/packagebase",
-            "version": "5.0.1",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WsdlToPhp/PackageBase.git",
-                "reference": "3575e50d3163dd76641bbb5398d356e310170724"
+                "reference": "1175889721ecfe9be7a48225a3f878dec13ee86a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WsdlToPhp/PackageBase/zipball/3575e50d3163dd76641bbb5398d356e310170724",
-                "reference": "3575e50d3163dd76641bbb5398d356e310170724",
+                "url": "https://api.github.com/repos/WsdlToPhp/PackageBase/zipball/1175889721ecfe9be7a48225a3f878dec13ee86a",
+                "reference": "1175889721ecfe9be7a48225a3f878dec13ee86a",
                 "shasum": ""
             },
             "require": {
-                "ext-dom": "*",
-                "ext-json": "*",
                 "ext-soap": "*",
-                "php": ">=7.4"
+                "php": ">=5.4"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "~2.0",
-                "phpunit/phpunit": "^9"
+                "phpunit/phpunit": "^4.8 || ^6.0"
             },
             "type": "library",
             "autoload": {
@@ -149,9 +147,9 @@
             "support": {
                 "email": "contact@wsdltophp.com",
                 "issues": "https://github.com/WsdlToPhp/PackageBase/issues",
-                "source": "https://github.com/WsdlToPhp/PackageBase/tree/5.0.1"
+                "source": "https://github.com/WsdlToPhp/PackageBase/tree/2.2.3"
             },
-            "time": "2021-02-09T14:01:25+00:00"
+            "time": "2021-07-11T05:43:29+00:00"
         }
     ],
     "packages-dev": [
