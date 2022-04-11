@@ -217,7 +217,6 @@ services:
     arguments:
       - "@prestashop.adapter.legacy.logger"
       - "@translator"
-      - "@doctrine.orm.entity_manager"
       - '@flavioski.module.salusperaquam.webservice.add.sale'
     tags:
         - { name: 'console.command' }
