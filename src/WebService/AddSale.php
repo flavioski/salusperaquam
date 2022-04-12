@@ -69,31 +69,7 @@ class AddSale implements ServiceInterface
     {
         $wsdl = $this->myWebService->connect();
 
-        $opts = [
-            'ssl' => [
-                'ciphers' => 'RC4-SHA',
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ],
-        ];
-
-        $params = [
-            'encoding' => 'UTF-8',
-            'debug' => false,
-            'verifypeer' => false,
-            'verifyhost' => false,
-            'soap_version' => SOAP_1_2,
-            'trace' => 1,
-            'exceptions' => 0,
-            'connection_timeout' => 180,
-            'keep_alive' => true,
-            'cache_wsdl' => WSDL_CACHE_NONE,
-            'stream_context' => stream_context_create($opts),
-        ];
-
-        $soapclient = new SoapClient($this->myWebService->getUrl(), $params);
-        $soapclient->SoapClient($this->myWebService->getUrl(), $params);
+        $soapclient = new SoapClient($this->myWebService->getUrl(), $this->myWebService->getParams());
 
         $saleDetail = new Sale_detail();
         if (count($this->total_detail)) {

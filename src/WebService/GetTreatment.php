@@ -57,32 +57,12 @@ class GetTreatment implements ServiceInterface
     {
         $wsdl = $this->myWebService->connect();
 
-        $opts = [
-            'ssl' => [
-                'ciphers' => 'RC4-SHA',
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ],
-        ];
+        $soapclient = new SoapClient($this->myWebService->getUrl(), $this->myWebService->getParams());
 
-        $params = [
-            'encoding' => 'UTF-8',
-            'debug' => false,
-            'verifypeer' => false,
-            'verifyhost' => false,
-            'soap_version' => SOAP_1_2,
-            'trace' => 1,
-            'exceptions' => 0,
-            'connection_timeout' => 180,
-            'keep_alive' => true,
-            'cache_wsdl' => WSDL_CACHE_NONE,
-            'stream_context' => stream_context_create($opts),
-        ];
+        $username = $wsdl['wsdl']['wsdl_login'];
+        $password = $wsdl['wsdl']['wsdl_password'];
 
-        $soapclient = new SoapClient($this->myWebService->getUrl(), $params);
-
-        $treatmentRequest = new GetTreatmentRequest($wsdl['wsdl']['wsdl_login'], $wsdl['wsdl']['wsdl_password']);
+        $treatmentRequest = new GetTreatmentRequest($username, $password);
 
         $get = new ServiceGetTreatment($wsdl['wsdlOption']);
         $get->setSoapClient($soapclient);

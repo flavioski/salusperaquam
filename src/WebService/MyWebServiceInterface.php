@@ -30,6 +30,8 @@ interface MyWebServiceInterface
 
     public function isProduction();
 
+    public function getParams();
+
     public function getUrl();
 
     public function getLogin();
