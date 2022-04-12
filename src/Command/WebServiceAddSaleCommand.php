@@ -26,7 +26,6 @@ use Address;
 use Customer;
 use Doctrine\ORM\EntityManager;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
-use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use Flavioski\Module\SalusPerAquam\WebService\AddSale;
 use Order;
 use Psr\Log\LoggerAwareTrait;
@@ -145,7 +144,6 @@ class WebServiceAddSaleCommand extends Command
         // this is a demo of implement
         $output->writeln('WebServiceAddSaleCommand::execute begin');
 
-
         $optionValueDateFrom = $input->getOption('datefrom');
         $optionValueDateTo = $input->getOption('dateto');
         $optionValueIdOrderStatus = $input->getOption('idorderstatus');
@@ -210,7 +208,7 @@ class WebServiceAddSaleCommand extends Command
                             [$order_id],
                             'Modules.Salusperaquam.Notification'
                         ));
-                        $output->writeln('Added Sale to Web Service done for Order no. '.$order_id.'!');
+                        $output->writeln('Added Sale to Web Service done for Order no. ' . $order_id . '!');
                     }
                 }
             }

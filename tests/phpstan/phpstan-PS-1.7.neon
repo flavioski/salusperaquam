@@ -24,5 +24,6 @@ parameters:
 		- '#Call to an undefined method PrestaShopBundle\\Entity\\Repository\\LangRepository::findOneById\(\).#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Database\\TreatmentSync::.#'
 		- '#Parameter \$logger of method Flavioski\\Module\\SalusPerAquam\\Command\\WebServiceAddSaleCommand::.#'
+		- '#Parameter \#5 \$default of method Symfony\\Component\\Console\\Command\\Command::addOption\(\) expects#'
 
 	level: 5
