@@ -218,7 +218,6 @@ services:
       - "@prestashop.adapter.legacy.logger"
       - "@translator"
       - "@doctrine.orm.entity_manager"
-      - '@=service("prestashop.adapter.legacy.configuration").get("PS_LANG_DEFAULT")'
       - '@flavioski.module.salusperaquam.webservice.add.sale'
     tags:
         - { name: 'console.command' }

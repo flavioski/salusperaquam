@@ -59,11 +59,6 @@ class WebServiceAddSaleCommand extends Command
     private $entityManager;
 
     /**
-     * @var int
-     */
-    private $defaultLanguageId;
-
-    /**
      * @var AddSale
      */
     private $addSale;
@@ -72,17 +67,15 @@ class WebServiceAddSaleCommand extends Command
      * @param LoggerInterface|null $logger
      * @param TranslatorInterface $translator
      * @param EntityManager $entityManager
-     * @param int $defaultLanguageId
      * @param AddSale $addSale
      */
     public function __construct(LoggerInterface $logger = null, TranslatorInterface $translator,
-                                EntityManager $entityManager = null, $defaultLanguageId, AddSale $addSale)
+                                EntityManager $entityManager = null, AddSale $addSale)
     {
         parent::__construct();
         $this->logger = null !== $logger ? $logger : new NullLogger();
         $this->translator = $translator;
         $this->entityManager = $entityManager;
-        $this->defaultLanguageId = $defaultLanguageId;
         $this->addSale = $addSale;
     }
 
