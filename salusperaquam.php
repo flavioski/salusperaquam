@@ -181,7 +181,7 @@ class SalusPerAquam extends Module
     private function getInstaller()
     {
         try {
-            $installer = $this->get('prestashop.module.saluperaquam.treatment.install');
+            $installer = $this->get('flavioski.module.saluperaquam.treatment.install');
         } catch (Exception $e) {
             // Catch exception in case container is not available, or service is not available
             $installer = null;
