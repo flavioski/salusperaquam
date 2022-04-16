@@ -21,8 +21,22 @@
 declare(strict_types=1);
 
 use Flavioski\Module\SalusPerAquam\Database\TreatmentInstaller;
+use Flavioski\Module\SalusPerAquam\MailTemplate\Transformation\CustomMessageColorTransformation;
+use PrestaShop\PrestaShop\Core\MailTemplate\Layout\Layout;
+use PrestaShop\PrestaShop\Core\MailTemplate\Layout\LayoutInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\Layout\LayoutVariablesBuilderInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\MailTemplateInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\MailTemplateRendererInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\ThemeCollectionInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface;
+use PrestaShop\PrestaShop\Core\MailTemplate\Transformation\TransformationCollectionInterface;
 
 if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+if (!defined('_CAN_LOAD_FILES_')) {
     exit;
 }
 
@@ -47,7 +61,10 @@ class SalusPerAquam extends Module
         'SALUSPERAQUAM_CONFIGURATION_PRODUCTION_RESOURCE_ADD_SALE' => '',
     ];
 
-    public function __construct($name = null, Context $context = null)
+    /** @var array */
+    private $hookList;
+
+    public function __construct()
     {
         $this->name = 'salusperaquam';
         $this->tab = 'administrator';
@@ -55,7 +72,7 @@ class SalusPerAquam extends Module
         $this->author = 'Flavio Pellizzer';
         $this->need_instance = 0;
 
-        parent::__construct($name, $context);
+        parent::__construct();
 
         $this->displayName = $this->getTranslator()->trans(
             'Salus Per Aquam',
@@ -73,6 +90,12 @@ class SalusPerAquam extends Module
         $this->ps_versions_compliancy = [
             'min' => '1.7.8.4',
             'max' => _PS_VERSION_,
+        ];
+
+        $this->hookList = [
+            ThemeCatalogInterface::LIST_MAIL_THEMES_HOOK,
+            LayoutVariablesBuilderInterface::BUILD_MAIL_LAYOUT_VARIABLES_HOOK,
+            MailTemplateRendererInterface::GET_MAIL_LAYOUT_TRANSFORMATIONS,
         ];
     }
 
@@ -97,6 +120,7 @@ class SalusPerAquam extends Module
     {
         return $this->installTables() &&
             $this->installConfiguration() && parent::install() &&
+            $this->registerHooks() &&
             $this->installTab()
             ;
     }
@@ -113,6 +137,7 @@ class SalusPerAquam extends Module
         }
 
         return $this->removeTables() && parent::uninstall() &&
+            $this->unregisterHooks() &&
             $this->uninstallTab()
             ;
     }
@@ -130,6 +155,7 @@ class SalusPerAquam extends Module
     public function enable($force_all = false)
     {
         return parent::enable($force_all)
+            && $this->registerHooks()
             && $this->installTab()
             ;
     }
@@ -147,6 +173,7 @@ class SalusPerAquam extends Module
     public function disable($force_all = false)
     {
         return parent::disable($force_all)
+            && $this->unregisterHooks()
             && $this->uninstallTab()
             ;
     }
@@ -181,7 +208,7 @@ class SalusPerAquam extends Module
     private function getInstaller()
     {
         try {
-            $installer = $this->get('prestashop.module.saluperaquam.treatment.install');
+            $installer = $this->get('flavioski.module.saluperaquam.treatment.install');
         } catch (Exception $e) {
             // Catch exception in case container is not available, or service is not available
             $installer = null;
@@ -297,6 +324,34 @@ class SalusPerAquam extends Module
     }
 
     /**
+     * @return bool
+     */
+    private function registerHooks()
+    {
+        foreach ($this->hookList as $hookName) {
+            if (!$this->registerHook($hookName)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private function unregisterHooks()
+    {
+        foreach ($this->hookList as $hookName) {
+            if (!$this->unregisterHook($hookName)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Install configuration for each shop
      *
      * @return bool
@@ -320,5 +375,128 @@ class SalusPerAquam extends Module
         }
 
         return $result;
+    }
+
+    /**
+     * @return void
+     */
+    public function getContent()
+    {
+        // This controller actually does not exist, it is used in the tab
+        // and is accessible thanks to routing settings with _legacy_link
+        Tools::redirectAdmin(
+            Context::getContext()->link->getAdminLink('AdminSalusperaquamConfiguration')
+        );
+    }
+
+    /**
+     * @param array $hookParams
+     */
+    public function hookActionListMailThemes(array $hookParams)
+    {
+        if (!isset($hookParams['mailThemes'])) {
+            return;
+        }
+
+        /** @var ThemeCollectionInterface $themes */
+        $themes = $hookParams['mailThemes'];
+
+        $this->addAdditionalLayout($themes);
+        $this->extendOrderConfLayout($themes);
+    }
+
+    /**
+     * @param ThemeCollectionInterface $themes
+     */
+    private function addAdditionalLayout(ThemeCollectionInterface $themes)
+    {
+        /** @var ThemeInterface $theme */
+        foreach ($themes as $theme) {
+            if (!in_array($theme->getName(), ['classic', 'modern'])) {
+                continue;
+            }
+
+            // Add a layout to each theme (don't forget to specify the module name)
+            $theme->getLayouts()->add(new Layout(
+                'spa_template',
+                __DIR__ . '/mails/layouts/spa_' . $theme->getName() . '_layout.html.twig',
+                '',
+                $this->name
+            ));
+        }
+    }
+
+    /**
+     * @param ThemeCollectionInterface $themes
+     */
+    private function extendOrderConfLayout(ThemeCollectionInterface $themes)
+    {
+        /** @var ThemeInterface $theme */
+        foreach ($themes as $theme) {
+            if (!in_array($theme->getName(), ['modern'])) {
+                continue;
+            }
+
+            // First parameter is the layout name, second one is the module name (empty value matches the core layouts)
+            $orderConfLayout = $theme->getLayouts()->getLayout('order_conf', '');
+            if (null === $orderConfLayout) {
+                return;
+            }
+
+            // The layout collection extends from ArrayCollection, so it has more feature than it seems.
+            // It allows to REPLACE the existing layout easily
+            $orderIndex = $theme->getLayouts()->indexOf($orderConfLayout);
+            $theme->getLayouts()->offsetSet($orderIndex, new Layout(
+                $orderConfLayout->getName(),
+                __DIR__ . '/mails/layouts/extended_' . $theme->getName() . '_order_conf_layout.html.twig',
+                ''
+            ));
+        }
+    }
+
+    /**
+     * @param array $hookParams
+     */
+    public function hookActionBuildMailLayoutVariables(array $hookParams)
+    {
+        if (!isset($hookParams['mailLayout'])) {
+            return;
+        }
+
+        /** @var LayoutInterface $mailLayout */
+        $mailLayout = $hookParams['mailLayout'];
+        if ($mailLayout->getModuleName() != $this->name || $mailLayout->getName() != 'spa_template') {
+            return;
+        }
+
+        $locale = $hookParams['mailLayoutVariables']['locale'];
+        if (strpos($locale, 'it') === 0) {
+            $hookParams['mailLayoutVariables']['customMessage'] = 'Non dimenticarti di stampare l\'ordine e portartelo appresso quando verrai da noi.';
+        } else {
+            $hookParams['mailLayoutVariables']['customMessage'] = 'Don\'t forget to print your order and bring it to us.';
+        }
+    }
+
+    /**
+     * @param array $hookParams
+     */
+    public function hookActionGetMailLayoutTransformations(array $hookParams)
+    {
+        if (!isset($hookParams['templateType']) ||
+            MailTemplateInterface::HTML_TYPE !== $hookParams['templateType'] ||
+            !isset($hookParams['mailLayout']) ||
+            !isset($hookParams['layoutTransformations'])) {
+            return;
+        }
+
+        /** @var LayoutInterface $mailLayout */
+        $mailLayout = $hookParams['mailLayout'];
+        if ($mailLayout->getModuleName() != $this->name) {
+            return;
+        }
+
+        /** @var TransformationCollectionInterface $transformations */
+        $transformations = $hookParams['layoutTransformations'];
+        $transformations->add(new CustomMessageColorTransformation('#FF0000'));
     }
 }

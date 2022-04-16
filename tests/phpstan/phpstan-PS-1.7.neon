@@ -25,5 +25,6 @@ parameters:
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Database\\TreatmentSync::.#'
 		- '#Parameter \$logger of method Flavioski\\Module\\SalusPerAquam\\Command\\WebServiceAddSaleCommand::.#'
 		- '#Parameter \#5 \$default of method Symfony\\Component\\Console\\Command\\Command::addOption\(\) expects#'
+		- '#Call to an undefined method PrestaShop\\PrestaShop\\Core\\MailTemplate\\Layout\\LayoutCollectionInterface::.#'
 
 	level: 5
