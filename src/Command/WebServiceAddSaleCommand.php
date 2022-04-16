@@ -182,7 +182,7 @@ class WebServiceAddSaleCommand extends Command
                     foreach ($order_details as $order_detail) {
                         $treatment = $treatmentEntityRepository->findOneBy([
                             'productId' => $order_detail['product_id'],
-                            'productAttributeId' => $order_detail['product_attribute_id'],
+                            'productAttributeId' => $order_detail['product_attribute_id'] ?: null,
                             'active' => 1,
                         ]);
 
