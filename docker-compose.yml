@@ -1,8 +1,26 @@
+# Examples architectures:
+# - https://github.com/LouisBertin/prestashop1.7-docker-lamp
+#
+# Useful commands
+#
+# run container: docker-compose up -d
+# stop container: docker-compose down
+# rebuild container: docker-compose up -d --build
+# enter into web container: docker exec -it CONTAINER_NAME bash
+# install npm dependencies: docker exec -it CONTAINER_NAME npm i --prefix YOUR/FOLDER/PATH
+# build assets with npm: docker exec -it CONTAINER_NAME run build --prefix YOUR/FOLDER/PATH
+# watch assets with npm: docker exec -it CONTAINER_NAME run build --prefix YOUR/FOLDER/PATH
+# database dump: docker exec -it CONTAINER_NAME mysqldump --single-transaction -u root --password=root YOUR_DB_NAME > YOUR_BACKUP.sql
+#
 version: '3.3'
 
+#networks:
+#  prestashop-network:
+#    driver: bridge
 services:
   db:
     image: mysql:5.7
+    container_name: salusperaquam-db
     volumes:
       - db_data:/var/lib/mysql
     environment:
@@ -10,14 +28,21 @@ services:
       - MYSQL_DATABASE=presta
       - MYSQL_USER=presta
       - MYSQL_PASSWORD=presta
+    #networks:
+    #  - prestashop-network
 
   php:
-    image: phpdockerio/php72-cli
+    image: phpdockerio/php74-cli
+    container_name: salusperaquam-php
     volumes:
       - ./:/var/www/html/modules/salusperaquam
     working_dir: /var/www/html/modules/salusperaquam
     environment:
       _PS_ROOT_DIR_: /var/www/html
+    #networks:
+    #  - prestashop-network
+    depends_on:
+      - prestashop
 
   node:
     image: node:13.1
@@ -29,17 +54,50 @@ services:
 
   phpmyadmin:
     image: phpmyadmin:latest
+    container_name: salusperaquam-phpmyadmin
     ports:
-      - 8080:80
+      - '9080:80'
+      - '9943:443'
+    #networks:
+    #  - prestashop-network
     environment:
       - PMA_HOST=db
     depends_on:
       - db
 
+  mailcatcher:
+    #restart: on-failure:10
+    image: dockage/mailcatcher:0.7.1
+    container_name: salusperaquam-mailcatcher
+    ports:
+      - '1080:1080'
+      - '1025:1025'
+    #networks:
+    #  - prestashop-network
+    depends_on:
+      - prestashop
+      - php
+
   prestashop:
     image: prestashop/prestashop:latest
+    container_name: salusperaquam-prestashop
     ports:
-      - 80:80
+      - '80:80'
+      - '443:443'
+    #networks:
+    #  - prestashop-network
+    # https://stackoverflow.com/questions/70725881/what-is-the-equivalent-of-add-host-host-docker-internalhost-gateway-in-a-comp
+    # https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container
+    # https://github.com/docker/for-linux/issues/264#issuecomment-965465879
+    #command: "/bin/bash -c 'apt update && apt -y install netcat'"
+    #(inside docker container) $ nc -vz host.docker.internal 80
+    #(inside docker container) $  curl --cacert /var/www/html/modules/saluperaquam/Resources/data/cacert.pem -I https://wcf.test:8443/wsdl.php
+    #(inside docker container) $  curl -k -I https://wcf.test:8443/wsdl.php
+    #network_mode: bridge
+    extra_hosts:
+      #- "host.docker.internal:host-gateway"
+      #- "docker.for.mac.host.internal:host-gateway"
+      - "wcf.test:host-gateway"
     restart: always
     environment:
       - PS_DEV_MODE=true
@@ -65,8 +123,11 @@ services:
 
   filebrowser:
     image: filebrowser/filebrowser:latest
+    container_name: salusperaquam-filebrowser
     ports:
       - 9090:80
+    #networks:
+    #  - prestashop-network
     volumes:
       - presta:/srv
 volumes:

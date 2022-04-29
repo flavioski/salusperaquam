@@ -23,10 +23,13 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Command;
 
 use Address;
+use Context;
 use Customer;
 use Doctrine\ORM\EntityManager;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\WebService\AddSale;
+use Language;
+use Mail;
 use Order;
 use Psr\Log\LoggerAwareTrait;
 use PSR\Log\LoggerInterface;
@@ -208,6 +211,15 @@ class WebServiceAddSaleCommand extends Command
                             [$order_id],
                             'Modules.Salusperaquam.Notification'
                         ));
+
+                        $params = [
+                            'firstname' => $customer_address_invoice->firstname,
+                            'lastname' => $customer_address_invoice->lastname,
+                            'id_language' => (int) $order->id_lang,
+                            'id_shop' => (int) $order->id_shop,
+                        ];
+                        $this->sendVoucher($customer->email, $order->reference, $params);
+
                         $output->writeln('Added Sale to Web Service done for Order no. ' . $order_id . '!');
                     }
                 }
@@ -221,5 +233,33 @@ class WebServiceAddSaleCommand extends Command
         $this->release();
 
         return 0;
+    }
+
+    protected function sendVoucher($email, $code, $params)
+    {
+        $language = new Language($params['id_language']);
+
+        return Mail::send(
+            $params['id_language'],
+            'spa',
+            Context::getContext()->getTranslator()->trans(
+                'SPA voucher',
+                [],
+                'Emails.Subject',
+                $language->locale
+            ),
+            [
+                '{code}' => $code,
+            ],
+            $email,
+            null,
+            null,
+            null,
+            null,
+            null,
+            dirname(__FILE__) . '/mails/',
+            false,
+            $params['id_shop']
+        );
     }
 }
