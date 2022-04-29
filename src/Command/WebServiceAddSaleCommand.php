@@ -215,8 +215,8 @@ class WebServiceAddSaleCommand extends Command
                         $params = [
                             'firstname' => $customer_address_invoice->firstname,
                             'lastname' => $customer_address_invoice->lastname,
-                            'id_language' => (int)$order->id_lang,
-                            'id_shop' => (int)$order->id_shop,
+                            'id_language' => (int) $order->id_lang,
+                            'id_shop' => (int) $order->id_shop,
                         ];
                         $this->sendVoucher($customer->email, $order->reference, $params);
 
