@@ -418,7 +418,7 @@ class SalusPerAquam extends Module
 
             // Add a layout to each theme (don't forget to specify the module name)
             $theme->getLayouts()->add(new Layout(
-                'spa_template',
+                'spa',
                 __DIR__ . '/mails/layouts/spa_' . $theme->getName() . '_layout.html.twig',
                 '',
                 $this->name
@@ -465,15 +465,15 @@ class SalusPerAquam extends Module
 
         /** @var LayoutInterface $mailLayout */
         $mailLayout = $hookParams['mailLayout'];
-        if ($mailLayout->getModuleName() != $this->name || $mailLayout->getName() != 'spa_template') {
+        if ($mailLayout->getModuleName() != $this->name || $mailLayout->getName() != 'spa') {
             return;
         }
 
         $locale = $hookParams['mailLayoutVariables']['locale'];
         if (strpos($locale, 'it') === 0) {
-            $hookParams['mailLayoutVariables']['customMessage'] = 'Non dimenticarti di stampare l\'ordine e portartelo appresso quando verrai da noi.';
+            $hookParams['mailLayoutVariables']['customMessage'] = 'I nostri sistemi hanno aggiunto la tua prenotazione. Non dimenticarti di stampare l\'ordine e portartelo appresso quando verrai da noi.';
         } else {
-            $hookParams['mailLayoutVariables']['customMessage'] = 'Don\'t forget to print your order and bring it to us.';
+            $hookParams['mailLayoutVariables']['customMessage'] = 'Our system has added your reservation. Don\'t forget to print your order and bring it to us.';
         }
     }
 
