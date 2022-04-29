@@ -14,6 +14,9 @@
 #
 version: '3.3'
 
+#networks:
+#  prestashop-network:
+#    driver: bridge
 services:
   db:
     image: mysql:5.7
@@ -25,6 +28,8 @@ services:
       - MYSQL_DATABASE=presta
       - MYSQL_USER=presta
       - MYSQL_PASSWORD=presta
+    #networks:
+    #  - prestashop-network
 
   php:
     image: phpdockerio/php74-cli
@@ -34,6 +39,8 @@ services:
     working_dir: /var/www/html/modules/salusperaquam
     environment:
       _PS_ROOT_DIR_: /var/www/html
+    #networks:
+    #  - prestashop-network
     depends_on:
       - prestashop
 
@@ -51,6 +58,8 @@ services:
     ports:
       - '9080:80'
       - '9943:443'
+    #networks:
+    #  - prestashop-network
     environment:
       - PMA_HOST=db
     depends_on:
@@ -63,6 +72,8 @@ services:
     ports:
       - '1080:1080'
       - '1025:1025'
+    #networks:
+    #  - prestashop-network
     depends_on:
       - prestashop
       - php
@@ -73,6 +84,8 @@ services:
     ports:
       - '80:80'
       - '443:443'
+    #networks:
+    #  - prestashop-network
     # https://stackoverflow.com/questions/70725881/what-is-the-equivalent-of-add-host-host-docker-internalhost-gateway-in-a-comp
     # https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container
     # https://github.com/docker/for-linux/issues/264#issuecomment-965465879
@@ -113,6 +126,8 @@ services:
     container_name: salusperaquam-filebrowser
     ports:
       - 9090:80
+    #networks:
+    #  - prestashop-network
     volumes:
       - presta:/srv
 volumes:
