@@ -61,6 +61,21 @@ class WebServiceAddSaleCommand extends Command
     private $entityManager;
 
     /**
+     * @var int
+     */
+    private $defaultLanguageId;
+
+    /**
+     * @var string
+     */
+    private $shopEmail;
+
+    /**
+     * @var int
+     */
+    private $defaultShopId;
+
+    /**
      * @var AddSale
      */
     private $addSale;
@@ -69,15 +84,25 @@ class WebServiceAddSaleCommand extends Command
      * @param LoggerInterface|null $logger
      * @param TranslatorInterface $translator
      * @param EntityManager $entityManager
+     * @param int $defaultLanguageId
+     * @param string $shopEmail
+     * @param int $defaultShopId
      * @param AddSale $addSale
      */
     public function __construct(LoggerInterface $logger = null, TranslatorInterface $translator,
-                                EntityManager $entityManager = null, AddSale $addSale)
+                                EntityManager   $entityManager = null,
+                                $defaultLanguageId,
+                                $shopEmail,
+                                $defaultShopId,
+                                AddSale $addSale)
     {
         parent::__construct();
         $this->logger = null !== $logger ? $logger : new NullLogger();
         $this->translator = $translator;
         $this->entityManager = $entityManager;
+        $this->defaultLanguageId = $defaultLanguageId;
+        $this->shopEmail = $shopEmail;
+        $this->defaultShopId = $defaultShopId;
         $this->addSale = $addSale;
     }
 
@@ -205,20 +230,30 @@ class WebServiceAddSaleCommand extends Command
                     }
 
                     if ($this->addSale->getTotalDetail()) {
-                        $this->addSale->Request();
-                        $this->logger->info($this->translator->trans(
-                            'Added Sale to Web Service done for Order no. %d!',
-                            [$order_id],
-                            'Modules.Salusperaquam.Notification'
-                        ));
+                        $response = $this->addSale->Request();
+                        if ($response->Success == 1) {
+                            $this->logger->info($this->translator->trans(
+                                'Added Sale to Web Service done for Order no. %d!',
+                                [$order_id],
+                                'Modules.Salusperaquam.Notification'
+                            ));
 
-                        $params = [
-                            'firstname' => $customer_address_invoice->firstname,
-                            'lastname' => $customer_address_invoice->lastname,
-                            'id_language' => (int) $order->id_lang,
-                            'id_shop' => (int) $order->id_shop,
-                        ];
-                        $this->sendVoucher($customer->email, $order->reference, $params);
+                            $params = [
+                                'firstname' => $customer_address_invoice->firstname,
+                                'lastname' => $customer_address_invoice->lastname,
+                                'id_language' => (int) $order->id_lang,
+                                'id_shop' => (int) $order->id_shop,
+                            ];
+                            $this->sendVoucher($customer->email, $order->reference, $params);
+                        } else {
+                            $this->logger->warning($this->translator->trans(
+                                'Added Sale to Web Service problem for Order no. %d!',
+                                [$order_id],
+                                'Modules.Salusperaquam.Notification'
+                            ));
+
+                            $this->sendError($order_id, $order->reference);
+                        }
 
                         $output->writeln('Added Sale to Web Service done for Order no. ' . $order_id . '!');
                     }
@@ -260,6 +295,34 @@ class WebServiceAddSaleCommand extends Command
             dirname(__FILE__) . '/mails/',
             false,
             $params['id_shop']
+        );
+    }
+
+    protected function sendError($orderId, $code)
+    {
+        $language = new Language((int) $this->defaultLanguageId);
+
+        return Mail::send(
+            (int) $this->defaultLanguageId,
+            'spa_error',
+            Context::getContext()->getTranslator()->trans(
+                'SPA Error for Order id %d',
+                [$orderId],
+                'Emails.Subject',
+                $language->locale
+            ),
+            [
+                '{reference}' => $code,
+            ],
+            $this->shopEmail,
+            null,
+            null,
+            null,
+            null,
+            null,
+            dirname(__FILE__) . '/mails/',
+            false,
+            (int) $this->defaultShopId
         );
     }
 }
