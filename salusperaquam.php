@@ -64,6 +64,9 @@ class SalusPerAquam extends Module
     /** @var array */
     private $hookList;
 
+    /** @var array */
+    private $layoutList;
+
     public function __construct()
     {
         $this->name = 'salusperaquam';
@@ -96,6 +99,11 @@ class SalusPerAquam extends Module
             ThemeCatalogInterface::LIST_MAIL_THEMES_HOOK,
             LayoutVariablesBuilderInterface::BUILD_MAIL_LAYOUT_VARIABLES_HOOK,
             MailTemplateRendererInterface::GET_MAIL_LAYOUT_TRANSFORMATIONS,
+        ];
+
+        $this->layoutList = [
+            'spa',
+            'spa_error',
         ];
     }
 
@@ -417,12 +425,14 @@ class SalusPerAquam extends Module
             }
 
             // Add a layout to each theme (don't forget to specify the module name)
-            $theme->getLayouts()->add(new Layout(
-                'spa',
-                __DIR__ . '/mails/layouts/spa_' . $theme->getName() . '_layout.html.twig',
-                '',
-                $this->name
-            ));
+            foreach ($this->layoutList as $layoutName) {
+                $theme->getLayouts()->add(new Layout(
+                    $layoutName,
+                    __DIR__ . '/mails/layouts/' . $layoutName . '_' . $theme->getName() . '_layout.html.twig',
+                    '',
+                    $this->name
+                ));
+            }
         }
     }
 
@@ -465,15 +475,17 @@ class SalusPerAquam extends Module
 
         /** @var LayoutInterface $mailLayout */
         $mailLayout = $hookParams['mailLayout'];
-        if ($mailLayout->getModuleName() != $this->name || $mailLayout->getName() != 'spa') {
+        if ($mailLayout->getModuleName() != $this->name || ($mailLayout->getName() != 'spa' && $mailLayout->getName() != 'spa_error')) {
             return;
         }
 
         $locale = $hookParams['mailLayoutVariables']['locale'];
         if (strpos($locale, 'it') === 0) {
             $hookParams['mailLayoutVariables']['customMessage'] = 'I nostri sistemi hanno aggiunto la tua prenotazione. Non dimenticarti di stampare l\'ordine e portartelo appresso quando verrai da noi.';
+            $hookParams['mailLayoutVariables']['customErrorMessage'] = 'Codice Ordine: {reference}';
         } else {
             $hookParams['mailLayoutVariables']['customMessage'] = 'Our system has added your reservation. Don\'t forget to print your order and bring it to us.';
+            $hookParams['mailLayoutVariables']['customErrorMessage'] = 'Order Reference: {reference}';
         }
     }
 
