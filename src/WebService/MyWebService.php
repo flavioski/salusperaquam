@@ -100,7 +100,7 @@ class MyWebService implements MyWebServiceInterface
     /**
      * @return array[]
      */
-    public function connect()
+    public function handle()
     {
         $wsdl[AbstractSoapClientBase::WSDL_URL] = $this->getUrl() ? $this->getUrl() : AbstractSoapClientBase::WSDL_URL;
         $wsdl[AbstractSoapClientBase::WSDL_CACHE_WSDL] = WSDL_CACHE_NONE;

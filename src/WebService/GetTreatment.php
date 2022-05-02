@@ -54,7 +54,7 @@ class GetTreatment implements ServiceInterface
      */
     public function Request()
     {
-        $wsdl = $this->myWebService->connect();
+        $wsdl = $this->myWebService->handle();
 
         try {
             $soapclient = new SoapClient($this->myWebService->getUrl(), $this->myWebService->getParams());
