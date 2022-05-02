@@ -26,6 +26,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
+use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use Flavioski\Module\SalusPerAquam\WebService\GetTreatment;
 use PrestaShopBundle\Entity\Repository\LangRepository;
 
@@ -69,15 +70,31 @@ class TreatmentSync
         $this->getTreatment = $getTreatment;
     }
 
+    /**
+     * @return WebServiceException|void
+     *
+     * @throws \SoapFault
+     */
     public function syncTreatments()
     {
         $webServiceResponse = $this->getTreatment->Request();
 
         if (isset($webServiceResponse->Success) && is_object($webServiceResponse->Result)) {
             $this->updateOrInsertTreatments($webServiceResponse->Result);
+        } else {
+            return new WebServiceException(sprintf(
+                'Invalid call web service: "%s"',
+                $webServiceResponse->getMessage()
+            ), $webServiceResponse->getCode()
+            );
         }
     }
 
+    /**
+     * @param $treatmentsData
+     *
+     * @return void
+     */
     private function updateOrInsertTreatments($treatmentsData)
     {
         foreach ($treatmentsData->Map as $key => $treatmentsDatum) {
@@ -96,6 +113,12 @@ class TreatmentSync
         }
     }
 
+    /**
+     * @param Treatment $treatment
+     * @param $treatmentsDatum
+     *
+     * @return void
+     */
     private function updateTreatment(Treatment $treatment, $treatmentsDatum)
     {
         $languages = $this->langRepository->findAll();
@@ -119,6 +142,11 @@ class TreatmentSync
         $this->entityManager->flush();
     }
 
+    /**
+     * @param $treatmentsDatum
+     *
+     * @return void
+     */
     private function insertTreatment($treatmentsDatum)
     {
         $languages = $this->langRepository->findAll();

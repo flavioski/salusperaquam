@@ -31,6 +31,7 @@ use Flavioski\Module\SalusPerAquam\Domain\Treatment\Query\GetTreatmentIsActive;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Grid\Definition\Factory\TreatmentGridDefinitionFactory;
 use Flavioski\Module\SalusPerAquam\Grid\Filters\TreatmentFilters;
+use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopBundle\Security\Annotation\AdminSecurity;
 use PrestaShopBundle\Security\Annotation\DemoRestricted;
@@ -158,14 +159,20 @@ class TreatmentController extends FrameworkBundleAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return mixed|Response
      */
     public function syncAction(Request $request)
     {
         if ($request->isMethod('POST')) {
             $sync = $this->get('flavioski.module.salusperaquam.treatments.sync');
-            $sync->syncTreatments();
-            $this->addFlash('success', $this->trans('Treatments were successfully syncronized.', 'Modules.Salusperaquam.Admin'));
+
+            $result = $sync->syncTreatments();
+
+            if ($result instanceof WebServiceException) {
+                $this->addFlash('error', $this->getErrorMessageForException($result, $this->getErrorMessageMapping()));
+            } else {
+                $this->addFlash('success', $this->trans('Treatments were successfully syncronized.', 'Modules.Salusperaquam.Admin'));
+            }
 
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');
         }
@@ -442,6 +449,24 @@ class TreatmentController extends FrameworkBundleAdminController
                 ),
                 CannotToggleActiveTreatmentStatusException::FAILED_BULK_TOGGLE => $this->trans(
                     'An error occurred while updating the status.',
+                    'Admin.Notifications.Error'
+                ),
+            ],
+            WebServiceException::class => [
+                WebServiceException::FAILED_CONNECT => $this->trans(
+                    'An error occurred while connect with web service.',
+                    'Admin.Notifications.Error'
+                ),
+                WebServiceException::FAILED_SYNC_DATA => $this->trans(
+                    'An error occurred while sync data with web service.',
+                    'Admin.Notifications.Error'
+                ),
+                WebServiceException::FAILED_SEND_DATA => $this->trans(
+                    'An error occurred while send data to web service.',
+                    'Admin.Notifications.Error'
+                ),
+                WebServiceException::FAILED_GET_DATA => $this->trans(
+                    'An error occurred while get data from web service.',
                     'Admin.Notifications.Error'
                 ),
             ],
