@@ -24,7 +24,7 @@ namespace Flavioski\Module\SalusPerAquam\WebService;
 
 interface MyWebServiceInterface
 {
-    public function connect();
+    public function handle();
 
     public function isTest();
 
