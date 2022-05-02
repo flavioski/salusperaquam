@@ -91,11 +91,11 @@ class TreatmentSync
     }
 
     /**
-     * @param $treatmentsData
+     * @param object $treatmentsData
      *
      * @return void
      */
-    private function updateOrInsertTreatments($treatmentsData)
+    private function updateOrInsertTreatments(object $treatmentsData)
     {
         foreach ($treatmentsData->Map as $key => $treatmentsDatum) {
             foreach ($treatmentsDatum->item as $item) {
@@ -115,11 +115,11 @@ class TreatmentSync
 
     /**
      * @param Treatment $treatment
-     * @param $treatmentsDatum
+     * @param object $treatmentsDatum
      *
      * @return void
      */
-    private function updateTreatment(Treatment $treatment, $treatmentsDatum)
+    private function updateTreatment(Treatment $treatment, object $treatmentsDatum)
     {
         $languages = $this->langRepository->findAll();
 
@@ -143,11 +143,11 @@ class TreatmentSync
     }
 
     /**
-     * @param $treatmentsDatum
+     * @param object $treatmentsDatum
      *
      * @return void
      */
-    private function insertTreatment($treatmentsDatum)
+    private function insertTreatment(object $treatmentsDatum)
     {
         $languages = $this->langRepository->findAll();
 
