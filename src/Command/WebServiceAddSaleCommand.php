@@ -239,11 +239,7 @@ class WebServiceAddSaleCommand extends Command
                                 [$order_id],
                                 'Modules.Salusperaquam.Notification'
                             ));
-                            throw new WebServiceException(sprintf(
-                                'Some problems with web Service "%s"',
-                                $response->getMessage()
-                            ), $response->getCode()
-                            );
+                            throw new WebServiceException(sprintf('Some problems with web Service "%s"', $response->getMessage()), $response->getCode());
                         }
 
                         if ($response->Success == 1) {
