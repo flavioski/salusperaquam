@@ -122,9 +122,6 @@ class TreatmentType extends TranslatorAwareType
             ->add('content', TranslatableType::class, [
                 'label' => $this->trans('Content', 'Admin.Global'),
                 'help' => 'Treatment content (e.g. All for one, one for all).',
-                'attr' => [
-                    'readonly' => true,
-                ],
                 'constraints' => [
                     new DefaultLanguage([
                         'message' => $this->trans(
