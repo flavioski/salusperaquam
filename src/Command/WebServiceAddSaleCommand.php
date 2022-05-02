@@ -90,7 +90,7 @@ class WebServiceAddSaleCommand extends Command
      * @param AddSale $addSale
      */
     public function __construct(LoggerInterface $logger = null, TranslatorInterface $translator,
-                                EntityManager   $entityManager = null,
+                                EntityManager $entityManager = null,
                                 $defaultLanguageId,
                                 $shopEmail,
                                 $defaultShopId,
