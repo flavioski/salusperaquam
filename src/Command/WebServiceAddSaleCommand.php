@@ -28,6 +28,7 @@ use Customer;
 use Doctrine\ORM\EntityManager;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\WebService\AddSale;
+use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use Language;
 use Mail;
 use Order;
@@ -231,6 +232,20 @@ class WebServiceAddSaleCommand extends Command
 
                     if ($this->addSale->getTotalDetail()) {
                         $response = $this->addSale->Request();
+
+                        if ($response instanceof WebServiceException) {
+                            $this->logger->error($this->translator->trans(
+                                'There are some problems with Web Service while handle Order no. %d!',
+                                [$order_id],
+                                'Modules.Salusperaquam.Notification'
+                            ));
+                            throw new WebServiceException(sprintf(
+                                'Some problems with web Service "%s"',
+                                $response->getMessage()
+                            ), $response->getCode()
+                            );
+                        }
+
                         if ($response->Success == 1) {
                             $this->logger->info($this->translator->trans(
                                 'Added Sale to Web Service done for Order no. %d!',
