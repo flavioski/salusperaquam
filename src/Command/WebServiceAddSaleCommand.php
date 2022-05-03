@@ -118,7 +118,7 @@ class WebServiceAddSaleCommand extends Command
 
             ->addOption(
                 'datefrom',
-                'from',
+                'f',
                 InputOption::VALUE_OPTIONAL,
                 'Date from get order (Y-m-d)',
                 date('Y-m-d', time())
@@ -126,7 +126,7 @@ class WebServiceAddSaleCommand extends Command
 
             ->addOption(
                 'dateto',
-                'to',
+                't',
                 InputOption::VALUE_OPTIONAL,
                 'Date to get order (Y-m-d)',
                 date('Y-m-d', time())
@@ -134,7 +134,7 @@ class WebServiceAddSaleCommand extends Command
 
             ->addOption(
                 'idorderstatus',
-                'status',
+                null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Id of order status',
                 [2, 11]
@@ -142,14 +142,14 @@ class WebServiceAddSaleCommand extends Command
 
             ->addOption(
                 'idcustomer',
-                'customer',
+                null,
                 InputOption::VALUE_OPTIONAL,
                 'Id customer'
             )
 
             ->addOption(
                 'typeorder',
-                'type',
+                null,
                 InputOption::VALUE_OPTIONAL,
                 'Type order (like shipping)'
             )
