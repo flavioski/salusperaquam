@@ -241,7 +241,10 @@ class WebServiceAddSaleCommand extends Command
                                 'There are some problems with Web Service while handle Order no. %d!',
                                 [$order_id],
                                 'Modules.Salusperaquam.Notification'
-                            ));
+                            ), ['object_type' => 'WebServiceAddSaleCommand']);
+
+                            $this->sendError($order_id, $order->reference, $response->getMessage());
+
                             throw new WebServiceException(sprintf('Some problems with web Service "%s"', $response->getMessage()), $response->getCode());
                         }
 
@@ -321,7 +324,7 @@ class WebServiceAddSaleCommand extends Command
         );
     }
 
-    protected function sendError($orderId, $code)
+    protected function sendError($orderId, $code, $details = '')
     {
         $language = new Language((int) $this->defaultLanguageId);
 
@@ -336,6 +339,7 @@ class WebServiceAddSaleCommand extends Command
             ),
             [
                 '{reference}' => $code,
+                '{details}' => $details,
             ],
             $this->shopEmail,
             null,

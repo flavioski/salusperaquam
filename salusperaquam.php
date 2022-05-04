@@ -482,10 +482,10 @@ class SalusPerAquam extends Module
         $locale = $hookParams['mailLayoutVariables']['locale'];
         if (strpos($locale, 'it') === 0) {
             $hookParams['mailLayoutVariables']['customMessage'] = 'I nostri sistemi hanno aggiunto la tua prenotazione. Non dimenticarti di stampare l\'ordine e portartelo appresso quando verrai da noi.';
-            $hookParams['mailLayoutVariables']['customErrorMessage'] = 'Codice Ordine: {reference}';
+            $hookParams['mailLayoutVariables']['customErrorMessage'] = 'Codice Ordine: {reference}' . "\r\n" . 'Dettagli: {details}';
         } else {
             $hookParams['mailLayoutVariables']['customMessage'] = 'Our system has added your reservation. Don\'t forget to print your order and bring it to us.';
-            $hookParams['mailLayoutVariables']['customErrorMessage'] = 'Order Reference: {reference}';
+            $hookParams['mailLayoutVariables']['customErrorMessage'] = 'Order Reference: {reference}' . "\r\n" . 'Details: {details}';
         }
     }
 
