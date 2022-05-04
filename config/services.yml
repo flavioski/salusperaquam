@@ -220,3 +220,11 @@ services:
       - '@flavioski.module.salusperaquam.webservice.add.sale'
     tags:
         - { name: 'console.command' }
+
+  flavioski.module.salusperaquam.command.web_service_change_order_status_command:
+    class: Flavioski\Module\SalusPerAquam\Command\WebServiceChangeOrderStatusCommand
+    arguments:
+      - "@prestashop.adapter.legacy.logger"
+      - "@prestashop.adapter.legacy.context"
+    tags:
+      - { name: 'console.command' }
