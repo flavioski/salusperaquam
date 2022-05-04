@@ -37,6 +37,7 @@ use PSR\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LockableTrait;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -185,6 +186,8 @@ class WebServiceAddSaleCommand extends Command
         // $idCustomer = ($optionValueIdCustomer !== false);
         // $typeOrder = ($optionValueTypeOrder !== false);
 
+        $commandChangeOrderStatus = $this->getApplication()->find('salusperaquam:webservice:changeorderstatus');
+
         $orders = Order::getOrdersIdByDate($optionValueDateFrom, $optionValueDateTo, $optionValueIdCustomer, $optionValueTypeOrder);
         $treatmentEntityRepository = $this->entityManager->getRepository(Treatment::class);
 
@@ -248,6 +251,15 @@ class WebServiceAddSaleCommand extends Command
                                 [$order_id],
                                 'Modules.Salusperaquam.Notification'
                             ));
+
+                            $arguments = [
+                                'command' => 'salusperaquam:webservice:changeorderstatus',
+                                'idorder' => $order_id,
+                            ];
+
+                            $orderInput = new ArrayInput($arguments);
+
+                            $returnCode = $commandChangeOrderStatus->run($orderInput, $output);
 
                             $params = [
                                 'firstname' => $customer_address_invoice->firstname,
