@@ -26,5 +26,7 @@ parameters:
 		- '#Parameter \$logger of method Flavioski\\Module\\SalusPerAquam\\Command\\WebServiceAddSaleCommand::.#'
 		- '#Parameter \#5 \$default of method Symfony\\Component\\Console\\Command\\Command::addOption\(\) expects#'
 		- '#Call to an undefined method PrestaShop\\PrestaShop\\Core\\MailTemplate\\Layout\\LayoutCollectionInterface::.#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Command\\WebServiceChangeOrderStatusCommand::.#'
+		- '#Access to an undefined property PrestaShop\\PrestaShop\\Adapter\\LegacyContext::.#'
 
 	level: 5

@@ -33,11 +33,8 @@ use Language;
 use Order;
 use OrderHistory;
 use OrderState;
-use PrestaShop\PrestaShop\Adapter\Shop\Context as ShopContext;
 use PrestaShop\PrestaShop\Adapter\LegacyContext as ContextAdapter;
 use PrestaShop\PrestaShop\Core\Domain\Order\Exception\ChangeOrderStatusException;
-use PrestaShop\PrestaShop\Core\Domain\Order\Exception\OrderException;
-use PrestaShop\PrestaShop\Core\Domain\Order\Exception\OrderNotFoundException;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -70,7 +67,6 @@ class WebServiceChangeOrderStatusCommand extends Command
         parent::__construct();
         $this->logger = null !== $logger ? $logger : new NullLogger();
         $this->context = $contextAdapter->getContext();
-
     }
 
     protected function configure()
@@ -119,18 +115,21 @@ class WebServiceChangeOrderStatusCommand extends Command
         // ...
         $output->writeln('WebServiceChangeOrderStatusCommand::execute begin');
 
-        $orderId = $input->getArgument('idorder');
+        $orderId = $input->getArgument('idorder') ? $input->getArgument('idorder') : 0;
         $optionValueIdOrderStatus = $input->getOption('idorderstatus');
         $optionValueIdEmployee = $input->getOption('idemployee');
 
-        $this->context->employee = new Employee($optionValueIdEmployee);
+        $this->context->employee = new Employee((int) $optionValueIdEmployee);
 
-        if ($orderId && is_int($orderId)) {
+        $ordersWithFailedToUpdateStatus = [];
+        $ordersWithFailedToSendEmail = [];
+        $ordersWithAssignedStatus = [];
+
+        if ($orderId) {
             $order = new Order($orderId);
 
             if ($order->current_state !== $optionValueIdOrderStatus) {
-
-                $orderState = new OrderState($optionValueIdOrderStatus);
+                $orderState = new OrderState((int) $optionValueIdOrderStatus);
                 $currentOrderState = $order->getCurrentOrderState();
 
                 if ($currentOrderState->id === $orderState->id) {
@@ -138,15 +137,15 @@ class WebServiceChangeOrderStatusCommand extends Command
                 }
 
                 if ($currentOrderState->id != $orderState->id) {
-                    $this->context->language = new Language((int) $order->id_lang);
-                    $this->context->cart = new Cart((int) $order->id_cart);
-                    $this->context->shop = new Shop((int) $this->context->cart->id_shop);
-                    $this->context->customer = new Customer((int) $this->context->cart->id_customer);
-                    $this->context->currency = new Currency((int) $this->context->cart->id_currency, null, (int) $this->context->shop->id);
+                    // $this->context->language = new Language((int) $order->id_lang);
+                    // $this->context->cart = new Cart((int) $order->id_cart);
+                    // $this->context->shop = new Shop((int) $this->context->cart->id_shop);
+                    // $this->context->customer = new Customer((int) $this->context->cart->id_customer);
+                    $this->context->currency = new Currency((int) $order->id_currency, null, (int) $this->context->shop->id);
 
                     $history = new OrderHistory();
                     $history->id_order = $order->id;
-                    $history->id_employee = (int) Context::getContext()->employee->id;
+                    $history->id_employee = (int) $this->context->employee->id;
 
                     $useExistingPayment = !$order->hasInvoice();
                     $history->changeIdOrderState((int) $orderState->id, $order, $useExistingPayment);
