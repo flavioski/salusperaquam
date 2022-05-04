@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace Flavioski\Module\SalusPerAquam\WebService;
 
+use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use SoapClient;
 use SoapFault;
 use wsSalusPerAquam\ServiceType\Add as ServiceAddSale;
@@ -61,15 +62,21 @@ class AddSale implements ServiceInterface
     }
 
     /**
-     * @return array|AddSaleResponse
-     *
-     * @throws SoapFault
+     * @return WebServiceException|AddSaleResponse
      */
     public function Request()
     {
-        $wsdl = $this->myWebService->connect();
+        $wsdl = $this->myWebService->handle();
 
-        $soapclient = new SoapClient($this->myWebService->getUrl(), $this->myWebService->getParams());
+        try {
+            $soapclient = new SoapClient($this->myWebService->getUrl(), $this->myWebService->getParams());
+        } catch (SoapFault $fault) {
+            return new WebServiceException(sprintf(
+                'Invalid call web service: "%s"',
+                $fault->getMessage()
+            ), WebServiceException::FAILED_CONNECT
+            );
+        }
 
         $saleDetail = new Sale_detail();
         if (count($this->total_detail)) {
@@ -95,7 +102,11 @@ class AddSale implements ServiceInterface
         if ($add->AddSale($saleRequest) !== false) {
             return $add->getResult();
         } else {
-            return $add->getLastError();
+            return new WebServiceException(sprintf(
+                'There are some errors: "%s',
+                implode(',', $add->getLastError())
+            ), WebServiceException::FAILED_SEND_DATA
+            );
         }
     }
 

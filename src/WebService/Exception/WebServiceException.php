@@ -20,21 +20,29 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\WebService;
+namespace Flavioski\Module\SalusPerAquam\WebService\Exception;
 
-interface MyWebServiceInterface
+use Exception;
+
+class WebServiceException extends Exception
 {
-    public function handle();
+    /**
+     * When fails to connect web service
+     */
+    public const FAILED_CONNECT = 10;
 
-    public function isTest();
+    /**
+     * When fails to sync data's
+     */
+    public const FAILED_SYNC_DATA = 20;
 
-    public function isProduction();
+    /**
+     * When fails to send data's
+     */
+    public const FAILED_SEND_DATA = 30;
 
-    public function getParams();
-
-    public function getUrl();
-
-    public function getLogin();
-
-    public function getPassword();
+    /**
+     * When fails to get data's
+     */
+    public const FAILED_GET_DATA = 40;
 }

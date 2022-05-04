@@ -26,6 +26,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
+use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use Flavioski\Module\SalusPerAquam\WebService\GetTreatment;
 use PrestaShopBundle\Entity\Repository\LangRepository;
 
@@ -69,16 +70,32 @@ class TreatmentSync
         $this->getTreatment = $getTreatment;
     }
 
+    /**
+     * @return WebServiceException|void
+     *
+     * @throws \SoapFault
+     */
     public function syncTreatments()
     {
         $webServiceResponse = $this->getTreatment->Request();
 
         if (isset($webServiceResponse->Success) && is_object($webServiceResponse->Result)) {
             $this->updateOrInsertTreatments($webServiceResponse->Result);
+        } else {
+            return new WebServiceException(sprintf(
+                'Invalid call web service: "%s"',
+                $webServiceResponse->getMessage()
+            ), $webServiceResponse->getCode()
+            );
         }
     }
 
-    private function updateOrInsertTreatments($treatmentsData)
+    /**
+     * @param object $treatmentsData
+     *
+     * @return void
+     */
+    private function updateOrInsertTreatments(object $treatmentsData)
     {
         foreach ($treatmentsData->Map as $key => $treatmentsDatum) {
             foreach ($treatmentsDatum->item as $item) {
@@ -96,7 +113,13 @@ class TreatmentSync
         }
     }
 
-    private function updateTreatment(Treatment $treatment, $treatmentsDatum)
+    /**
+     * @param Treatment $treatment
+     * @param object $treatmentsDatum
+     *
+     * @return void
+     */
+    private function updateTreatment(Treatment $treatment, object $treatmentsDatum)
     {
         $languages = $this->langRepository->findAll();
 
@@ -119,7 +142,12 @@ class TreatmentSync
         $this->entityManager->flush();
     }
 
-    private function insertTreatment($treatmentsDatum)
+    /**
+     * @param object $treatmentsDatum
+     *
+     * @return void
+     */
+    private function insertTreatment(object $treatmentsDatum)
     {
         $languages = $this->langRepository->findAll();
 
