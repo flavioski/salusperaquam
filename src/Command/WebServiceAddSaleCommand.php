@@ -33,7 +33,7 @@ use Language;
 use Mail;
 use Order;
 use Psr\Log\LoggerAwareTrait;
-use PSR\Log\LoggerInterface;
+use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LockableTrait;

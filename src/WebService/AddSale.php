@@ -44,7 +44,7 @@ class AddSale implements ServiceInterface
     private $myWebService;
 
     private $customer_firstname;
-    private $customer_lastaname;
+    private $customer_lastname;
     private $customer_dni;
     private $customer_email;
     private $sale_code;
@@ -92,7 +92,7 @@ class AddSale implements ServiceInterface
         $password = $wsdl['wsdl']['wsdl_password'];
 
         $saleRequest = new AddSaleRequest(
-            $username, $password, $this->customer_firstname, $this->customer_lastaname,
+            $username, $password, $this->customer_firstname, $this->customer_lastname,
             $this->customer_dni, $this->customer_email, $this->sale_code, $this->sale_total, $saleDetail
         );
 
@@ -135,12 +135,12 @@ class AddSale implements ServiceInterface
      */
     public function getCustomerLastname()
     {
-        return $this->customer_lastaname;
+        return $this->customer_lastname;
     }
 
     public function setCustomerLastname($customer_lastname)
     {
-        $this->customer_lastaname = $customer_lastname;
+        $this->customer_lastname = $customer_lastname;
 
         return $this;
     }
