@@ -23,10 +23,7 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Command;
 
 use Context;
-use Doctrine\ORM\EntityManager;
 use Flavioski\Module\SalusPerAquam\Database\TreatmentSync;
-use Flavioski\Module\SalusPerAquam\Entity\Treatment;
-use Flavioski\Module\SalusPerAquam\WebService\GetTreatment;
 use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use Language;
 use Mail;
@@ -53,13 +50,6 @@ class WebServiceGetTreatmentCommand extends Command
     private $translator;
 
     /**
-     * EntityManager for module treatment.
-     *
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    /**
      * @var int
      */
     private $defaultLanguageId;
@@ -75,11 +65,6 @@ class WebServiceGetTreatmentCommand extends Command
     private $defaultShopId;
 
     /**
-     * @var GetTreatment
-     */
-    private $getTreatment;
-
-    /**
      * @var TreatmentSync
      */
     private $treatmentSync;
@@ -87,29 +72,23 @@ class WebServiceGetTreatmentCommand extends Command
     /**
      * @param LoggerInterface|null $logger
      * @param TranslatorInterface $translator
-     * @param EntityManager $entityManager
      * @param int $defaultLanguageId
      * @param string $shopEmail
      * @param int $defaultShopId
-     * @param GetTreatment $getTreatment
      * @param TreatmentSync $treatmentSync
      */
     public function __construct(LoggerInterface $logger = null, TranslatorInterface $translator,
-                                EntityManager $entityManager = null,
                                 $defaultLanguageId,
                                 $shopEmail,
                                 $defaultShopId,
-                                GetTreatment $getTreatment,
                                 TreatmentSync $treatmentSync)
     {
         parent::__construct();
         $this->logger = null !== $logger ? $logger : new NullLogger();
         $this->translator = $translator;
-        $this->entityManager = $entityManager;
         $this->defaultLanguageId = $defaultLanguageId;
         $this->shopEmail = $shopEmail;
         $this->defaultShopId = $defaultShopId;
-        $this->getTreatment = $getTreatment;
         $this->treatmentSync = $treatmentSync;
     }
 
