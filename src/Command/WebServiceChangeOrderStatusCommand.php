@@ -73,17 +73,17 @@ class WebServiceChangeOrderStatusCommand extends Command
     {
         $this
             // The name of the command (the part after "bin/console")
-            ->setName('salusperaquam:webservice:changeorderstatus')
+            ->setName('salusperaquam:webservice:change-order-status')
 
             // the short description shown while running "php bin/console list"
             ->setDescription('Change order status. Please use \'-h\' to display option params.')
 
             ->addArgument(
-                'idorder', InputArgument::REQUIRED, 'The Id of the Order that you desire change status.'
+                'idOrder', InputArgument::REQUIRED, 'The Id of the Order that you desire change status.'
             )
 
             ->addOption(
-                'idorderstatus',
+                'idOrderStatus',
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Id of Order Status',
@@ -91,7 +91,7 @@ class WebServiceChangeOrderStatusCommand extends Command
             )
 
             ->addOption(
-                'idemployee',
+                'idEmployee',
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Id of Employee',
@@ -115,9 +115,9 @@ class WebServiceChangeOrderStatusCommand extends Command
         // ...
         $output->writeln('WebServiceChangeOrderStatusCommand::execute begin');
 
-        $orderId = $input->getArgument('idorder') ? $input->getArgument('idorder') : 0;
-        $optionValueIdOrderStatus = $input->getOption('idorderstatus');
-        $optionValueIdEmployee = $input->getOption('idemployee');
+        $orderId = $input->getArgument('idOrder') ? $input->getArgument('idOrder') : 0;
+        $optionValueIdOrderStatus = $input->getOption('idOrderStatus');
+        $optionValueIdEmployee = $input->getOption('idEmployee');
 
         $this->context->employee = new Employee((int) $optionValueIdEmployee);
 

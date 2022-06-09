@@ -186,7 +186,7 @@ class WebServiceAddSaleCommand extends Command
         // $idCustomer = ($optionValueIdCustomer !== false);
         // $typeOrder = ($optionValueTypeOrder !== false);
 
-        $commandChangeOrderStatus = $this->getApplication()->find('salusperaquam:webservice:changeorderstatus');
+        $commandChangeOrderStatus = $this->getApplication()->find('salusperaquam:webservice:change-order-status');
 
         $orders = Order::getOrdersIdByDate($optionValueDateFrom, $optionValueDateTo, $optionValueIdCustomer, $optionValueTypeOrder);
         $treatmentEntityRepository = $this->entityManager->getRepository(Treatment::class);
@@ -256,8 +256,8 @@ class WebServiceAddSaleCommand extends Command
                             ));
 
                             $arguments = [
-                                'command' => 'salusperaquam:webservice:changeorderstatus',
-                                'idorder' => $order_id,
+                                'command' => 'salusperaquam:webservice:change-order-status',
+                                'idOrder' => $order_id,
                             ];
 
                             $orderInput = new ArrayInput($arguments);
