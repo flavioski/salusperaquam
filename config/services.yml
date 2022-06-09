@@ -221,6 +221,18 @@ services:
     tags:
         - { name: 'console.command' }
 
+  flavioski.module.salusperaquam.command.web_service_get_treatment_command:
+    class: Flavioski\Module\SalusPerAquam\Command\WebServiceGetTreatmentCommand
+    arguments:
+      - "@prestashop.adapter.legacy.logger"
+      - "@translator"
+      - '@=service("prestashop.adapter.legacy.configuration").get("PS_LANG_DEFAULT")'
+      - '@=service("prestashop.adapter.legacy.configuration").get("PS_SHOP_EMAIL")'
+      - '@=service("prestashop.adapter.legacy.configuration").get("PS_SHOP_DEFAULT")'
+      - '@flavioski.module.salusperaquam.treatments.sync'
+    tags:
+      - { name: 'console.command' }
+
   flavioski.module.salusperaquam.command.web_service_change_order_status_command:
     class: Flavioski\Module\SalusPerAquam\Command\WebServiceChangeOrderStatusCommand
     arguments:
