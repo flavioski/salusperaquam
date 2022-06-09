@@ -112,13 +112,13 @@ class WebServiceAddSaleCommand extends Command
     {
         $this
             // The name of the command (the part after "bin/console")
-            ->setName('salusperaquam:webservice:addsale')
+            ->setName('salusperaquam:webservice:add-sale')
 
             // the short description shown while running "php bin/console list"
             ->setDescription('Add sales to web service. Please use \'-h\' to display option params.')
 
             ->addOption(
-                'datefrom',
+                'dateFrom',
                 'f',
                 InputOption::VALUE_OPTIONAL,
                 'Date from get order (Y-m-d)',
@@ -126,7 +126,7 @@ class WebServiceAddSaleCommand extends Command
             )
 
             ->addOption(
-                'dateto',
+                'dateTo',
                 't',
                 InputOption::VALUE_OPTIONAL,
                 'Date to get order (Y-m-d)',
@@ -134,7 +134,7 @@ class WebServiceAddSaleCommand extends Command
             )
 
             ->addOption(
-                'idorderstatus',
+                'idOrderStatus',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Id of order status',
@@ -142,14 +142,14 @@ class WebServiceAddSaleCommand extends Command
             )
 
             ->addOption(
-                'idcustomer',
+                'idCustomer',
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Id customer'
             )
 
             ->addOption(
-                'typeorder',
+                'typeOrder',
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Type order (like shipping)'
@@ -174,11 +174,11 @@ class WebServiceAddSaleCommand extends Command
         // this is a demo of implement
         $output->writeln('WebServiceAddSaleCommand::execute begin');
 
-        $optionValueDateFrom = $input->getOption('datefrom');
-        $optionValueDateTo = $input->getOption('dateto');
-        $optionValueIdOrderStatus = $input->getOption('idorderstatus');
-        $optionValueIdCustomer = $input->getOption('idcustomer');
-        $optionValueTypeOrder = $input->getOption('typeorder');
+        $optionValueDateFrom = $input->getOption('dateFrom');
+        $optionValueDateTo = $input->getOption('dateTo');
+        $optionValueIdOrderStatus = $input->getOption('idOrderStatus');
+        $optionValueIdCustomer = $input->getOption('idCustomer');
+        $optionValueTypeOrder = $input->getOption('typeOrder');
 
         // $dateFrom = ($optionValueDateFrom !== false);
         // $dateTo = ($optionValueDateTo !== false);
