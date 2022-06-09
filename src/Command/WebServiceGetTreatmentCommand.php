@@ -24,6 +24,7 @@ namespace Flavioski\Module\SalusPerAquam\Command;
 
 use Context;
 use Doctrine\ORM\EntityManager;
+use Flavioski\Module\SalusPerAquam\Database\TreatmentSync;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\WebService\GetTreatment;
 use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
@@ -78,12 +79,28 @@ class WebServiceGetTreatmentCommand extends Command
      */
     private $getTreatment;
 
+    /**
+     * @var TreatmentSync
+     */
+    private $treatmentSync;
+
+    /**
+     * @param LoggerInterface|null $logger
+     * @param TranslatorInterface $translator
+     * @param EntityManager $entityManager
+     * @param int $defaultLanguageId
+     * @param string $shopEmail
+     * @param int $defaultShopId
+     * @param GetTreatment $getTreatment
+     * @param TreatmentSync $treatmentSync
+     */
     public function __construct(LoggerInterface $logger = null, TranslatorInterface $translator,
                                 EntityManager $entityManager = null,
                                 $defaultLanguageId,
                                 $shopEmail,
                                 $defaultShopId,
-                                GetTreatment $getTreatment)
+                                GetTreatment $getTreatment,
+                                TreatmentSync $treatmentSync)
     {
         parent::__construct();
         $this->logger = null !== $logger ? $logger : new NullLogger();
@@ -93,6 +110,7 @@ class WebServiceGetTreatmentCommand extends Command
         $this->shopEmail = $shopEmail;
         $this->defaultShopId = $defaultShopId;
         $this->getTreatment = $getTreatment;
+        $this->treatmentSync = $treatmentSync;
     }
 
     protected function configure()
@@ -113,6 +131,9 @@ class WebServiceGetTreatmentCommand extends Command
         ;
     }
 
+    /**
+     * @throws \SoapFault
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (!$this->lock()) {
@@ -132,6 +153,25 @@ class WebServiceGetTreatmentCommand extends Command
 
         $optionValueTreatmentCode = $input->getOption('treatmentCode');
 
+        $result = $this->treatmentSync->syncTreatments();
+
+        if ($result instanceof WebServiceException) {
+            $this->logger->error($this->translator->trans(
+                'There are some problems with Web Service while handle get Treatment!',
+                [],
+                'Modules.Salusperaquam.Notification'
+            ), ['object_type' => 'WebServiceAddSaleCommand']);
+
+            $this->sendError($treatmentCode = 'generic', 'generic', $result->getMessage());
+
+            throw new WebServiceException(sprintf('Some problems with web Service "%s"', $result->getMessage()), $result->getCode());
+        } else {
+            $this->logger->info($this->translator->trans(
+                'Treatments were successfully syncronized.',
+                [],
+                'Modules.Salusperaquam.Admin'
+            ));
+        }
 
         $output->writeln('WebServiceGetTreatmentCommand::execute end');
 

@@ -231,6 +231,7 @@ services:
       - '@=service("prestashop.adapter.legacy.configuration").get("PS_SHOP_EMAIL")'
       - '@=service("prestashop.adapter.legacy.configuration").get("PS_SHOP_DEFAULT")'
       - '@flavioski.module.salusperaquam.webservice.get.treatment'
+      - '@flavioski.module.salusperaquam.treatments.sync'
     tags:
       - { name: 'console.command' }
 
