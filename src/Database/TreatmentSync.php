@@ -153,7 +153,7 @@ class TreatmentSync
 
         $treatment = new Treatment();
 
-        $treatment->setActive(true);
+        $treatment->setActive(false);
         $treatment->setProductId(0);
         $treatment->setProductAttributeId(0);
 
