@@ -393,7 +393,7 @@ class SalusPerAquam extends Module
      */
     public function uninstallConfiguration()
     {
-        foreach($this->configurationList as $name => $value) {
+        foreach ($this->configurationList as $name => $value) {
             if (!Configuration::deleteByName($name)) {
                 return false;
             }
