@@ -76,6 +76,34 @@ class Treatment
     private $code;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="bookable", type="boolean")
+     */
+    private bool $bookable;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="single_sale", type="boolean")
+     */
+    private bool $singleSale;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="type", type="integer", options={"unsigned"=true}, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="package_type", type="integer", options={"unsigned"=true}, nullable=true)
+     */
+    private $packageType;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=false, options={"default":"0.00"})
@@ -112,6 +140,8 @@ class Treatment
 
     public function __construct()
     {
+        $this->setBookable(false);
+        $this->setSingleSale(true);
         $this->setDateAdd(new \DateTime());
         $this->setDateUpd(new \DateTime());
         $this->setActive(true);
@@ -211,6 +241,94 @@ class Treatment
     public function setCode(string $code): Treatment
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Is bookable.
+     *
+     * @return bool
+     */
+    public function isBookable(): bool
+    {
+        return $this->bookable;
+    }
+
+    /**
+     * Set bookale.
+     *
+     * @param bool $bookable
+     *
+     * @return Treatment
+     */
+    public function setBookable(bool $bookable): Treatment
+    {
+        $this->bookable = $bookable;
+
+        return $this;
+    }
+
+    /**
+     * Is single sale.
+     *
+     * @return bool
+     */
+    public function isSingleSale(): bool
+    {
+        return $this->singleSale;
+    }
+
+    /**
+     * Set single sale.
+     *
+     * @param bool $singleSale
+     *
+     * @return Treatment
+     */
+    public function setSingleSale(bool $singleSale): Treatment
+    {
+        $this->singleSale = $singleSale;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): ?int
+    {
+        return (int) $this->type;
+    }
+
+    /**
+     * @param int|null $type
+     *
+     * @return Treatment
+     */
+    public function setType(?int $type): Treatment
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPackageType(): ?int
+    {
+        return (int) $this->packageType;
+    }
+
+    /**
+     * @param int|null $packageType
+     *
+     * @return Treatment
+     */
+    public function setPackageType(?int $packageType): Treatment
+    {
+        $this->packageType = $packageType;
 
         return $this;
     }
@@ -400,6 +518,10 @@ class Treatment
             'id_product_attribute' => $this->getProductAttributeId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
+            'bookable' => $this->isBookable(),
+            'single_sale' => $this->isSingleSale(),
+            'type' => $this->getType(),
+            'package_type' => $this->getPackageType(),
             'price' => $this->getPrice(),
             'active' => $this->isActive(),
             'deleted' => $this->isDeleted(),
