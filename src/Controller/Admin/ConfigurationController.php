@@ -55,7 +55,7 @@ class ConfigurationController extends FrameworkBundleAdminController
         ]);
     }
 
-    /*
+    /**
      * Process the Parameter form.
      *
      * @AdminSecurity("is_granted(['read','update','create','delete'], request.get('_legacy_controller'))", message="You do not have permission to update this.")
