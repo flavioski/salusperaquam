@@ -69,6 +69,11 @@ class Treatment
     private $treatmentLangs;
 
     /**
+     * @ORM\OneToMany(targetEntity="Flavioski\Module\SalusPerAquam\Entity\TreatmentRate", cascade={"persist", "remove"}, mappedBy="treatment")
+     */
+    private $treatmentRates;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=128, nullable=false)
@@ -147,6 +152,7 @@ class Treatment
         $this->setActive(true);
         $this->setDeleted(false);
         $this->treatmentLangs = new ArrayCollection();
+        $this->treatmentRates = new ArrayCollection();
     }
 
     /**
@@ -163,6 +169,14 @@ class Treatment
     public function getTreatmentLangs()
     {
         return $this->treatmentLangs;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTreatmentRates()
+    {
+        return $this->treatmentRates;
     }
 
     /**
@@ -426,6 +440,35 @@ class Treatment
     {
         $treatmentLang->setTreatment($this);
         $this->treatmentLangs->add($treatmentLang);
+
+        return $this;
+    }
+
+    /**
+     * @param int $rateId
+     *
+     * @return TreatmentRate|null
+     */
+    public function getTreatmentRateByRateId(int $rateId)
+    {
+        foreach ($this->treatmentRates as $treatmentRate) {
+            if ($rateId === $treatmentRate->getId()) {
+                return $treatmentRate;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param TreatmentRate $treatmentRate
+     *
+     * @return $this
+     */
+    public function addTreatmentRate(TreatmentRate $treatmentRate)
+    {
+        $treatmentRate->setTreatment($this);
+        $this->treatmentRates->add($treatmentRate);
 
         return $this;
     }
