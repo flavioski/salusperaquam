@@ -242,7 +242,7 @@ class TreatmentSync
      * @return void
      * @throws \Exception
      */
-    private function updateTreatmentRate (Treatment $treatment, TreatmentRate $treatmentRate, object $treatmentRatesDatum)
+    private function updateTreatmentRate(Treatment $treatment, TreatmentRate $treatmentRate, object $treatmentRatesDatum)
     {
         foreach ($treatmentRatesDatum->item as $item) {
             if ($item->key == 'Price') {
@@ -306,9 +306,11 @@ class TreatmentSync
      * @return void
      * @throws \Exception
      */
-    private function insertTreatmentRate (Treatment $treatment, object $treatmentRatesDatum)
+    private function insertTreatmentRate(Treatment $treatment, object $treatmentRatesDatum)
     {
         $treatmentRate = new TreatmentRate();
+        $treatmentRate->setProductId(0);
+        $treatmentRate->setProductAttributeId(0);
 
         foreach ($treatmentRatesDatum->item as $item) {
             if ($item->key == 'Id') {

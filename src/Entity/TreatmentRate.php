@@ -50,6 +50,20 @@ class TreatmentRate
     private $treatment;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id_product", type="integer", options={"unsigned"=true}, nullable=false)
+     */
+    private $productId;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_product_attribute", type="integer", options={"unsigned"=true}, nullable=true)
+     */
+    private $productAttributeId;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="to_date", type="datetime", nullable=false)
      */
@@ -182,6 +196,46 @@ class TreatmentRate
     public function setTreatment(Treatment $treatment)
     {
         $this->treatment = $treatment;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @param int $productId
+     *
+     * @return TreatmentRate
+     */
+    public function setProductId(int $productId): TreatmentRate
+    {
+        $this->productId = $productId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductAttributeId(): ?int
+    {
+        return $this->productAttributeId;
+    }
+
+    /**
+     * @param int|null $productAttributeId
+     *
+     * @return TreatmentRate
+     */
+    public function setProductAttributeId(?int $productAttributeId): self
+    {
+        $this->productAttributeId = $productAttributeId;
 
         return $this;
     }
@@ -531,5 +585,34 @@ class TreatmentRate
         if ($this->getDateAdd() == null) {
             $this->setDateAdd(new DateTime());
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'id_treatment_rate' => $this->getId(),
+            'id_treatment' => $this->getTreatment()->getId(),
+            'id_product' => $this->getProductId(),
+            'id_product_attribute' => $this->getProductAttributeId(),
+            'to_date' => $this->getToDate(),
+            'to_time' => $this->getToTime(),
+            'from_date' => $this->getFromDate(),
+            'from_time' => $this->getFromTime(),
+            'description' => $this->getDescription(),
+            'weekdays' => $this->getWeekdays(),
+            'weekend' => $this->getWeekend(),
+            'internal_id' => $this->getInternalId(),
+            'internal_id_rate' => $this->getInternalIdRate(),
+            'price' => $this->getPrice(),
+            'installment_payment_plan' => $this->isInstallmentPaymentPlan(),
+            'discount' => $this->isDiscount(),
+            'active' => $this->isActive(),
+            'deleted' => $this->isDeleted(),
+            'date_add' => $this->dateAdd->format(\DateTime::ATOM),
+            'date_upd' => $this->dateUpd->format(\DateTime::ATOM),
+        ];
     }
 }
