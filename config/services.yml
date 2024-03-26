@@ -141,6 +141,7 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Database\TreatmentSync'
     arguments:
     - '@flavioski.module.salusperaquam.repository.treatment_repository'
+    - '@flavioski.module.salusperaquam.repository.treatment_rate_repository'
     - '@prestashop.core.admin.lang.repository'
     - '@doctrine.orm.default_entity_manager'
     - '@flavioski.module.salusperaquam.webservice.get.treatment'
