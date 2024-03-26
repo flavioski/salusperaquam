@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace Flavioski\Module\SalusPerAquam\Entity;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -243,7 +242,7 @@ class TreatmentRate
     /**
      * @return \DateTime
      */
-    public function getToDate(): \DateTime
+    public function getToDate(): DateTime
     {
         return $this->toDate;
     }
@@ -263,7 +262,7 @@ class TreatmentRate
     /**
      * @return \DateTime
      */
-    public function getToTime(): \DateTime
+    public function getToTime(): DateTime
     {
         return $this->toTime;
     }
@@ -283,7 +282,7 @@ class TreatmentRate
     /**
      * @return \DateTime
      */
-    public function getFromDate(): \DateTime
+    public function getFromDate(): DateTime
     {
         return $this->fromDate;
     }
@@ -303,7 +302,7 @@ class TreatmentRate
     /**
      * @return \DateTime
      */
-    public function getFromTime()
+    public function getFromTime(): DateTime
     {
         return $this->fromTime;
     }

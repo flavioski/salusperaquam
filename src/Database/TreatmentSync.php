@@ -205,6 +205,7 @@ class TreatmentSync
      * @param object $treatmentRates
      *
      * @return void
+     *
      * @throws \Exception
      */
     private function updateOrInsertTreatmentRates(Treatment $treatment, object $treatmentRates)
@@ -240,6 +241,7 @@ class TreatmentSync
      * @param object $treatmentRatesDatum
      *
      * @return void
+     *
      * @throws \Exception
      */
     private function updateTreatmentRate(Treatment $treatment, TreatmentRate $treatmentRate, object $treatmentRatesDatum)
@@ -304,6 +306,7 @@ class TreatmentSync
      * @param object $treatmentRatesDatum
      *
      * @return void
+     *
      * @throws \Exception
      */
     private function insertTreatmentRate(Treatment $treatment, object $treatmentRatesDatum)
