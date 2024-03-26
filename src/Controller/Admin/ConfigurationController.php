@@ -63,7 +63,7 @@ class ConfigurationController extends FrameworkBundleAdminController
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return Response
      */
     public function processFormAction(Request $request)
     {

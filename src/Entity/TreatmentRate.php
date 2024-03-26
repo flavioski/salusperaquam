@@ -106,13 +106,13 @@ class TreatmentRate
     private $weekend;
 
     /**
-     * @var int
+     * @var string
      * @ORM\Column(name="internal_id", type="string", nullable=true)
      */
     private $internalId;
 
     /**
-     * @var int
+     * @var string
      * @ORM\Column(name="internal_id_rate", type="string", nullable=true)
      */
     private $internalIdRate;
@@ -425,7 +425,7 @@ class TreatmentRate
      */
     public function getPrice(): float
     {
-        return $this->price;
+        return (float) $this->price;
     }
 
     /**
