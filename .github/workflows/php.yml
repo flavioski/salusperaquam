@@ -52,8 +52,14 @@ jobs:
       - name: Pull PrestaShop files (Tag ${{ matrix.presta-versions }})
         run: docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:${{ matrix.presta-versions }}
 
+      - name: Select .neon file to run with PHPStan
+        id: neon
+        run: |
+          PS_VERSION=$(docker exec temp-ps bash -c 'echo "$PS_VERSION"')
+          [[ "${PS_VERSION:0:3}" != '1.7' ]] && echo ::set-output name=filename::phpstan-PS-1.6.neon || echo ::set-output name=filename::phpstan-PS-1.7.neon
+
       - name : Run PHPStan
-        run: docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:0.12 analyse --configuration=/web/module/tests/phpstan/phpstan-PS-1.7.neon --error-format github
+        run: docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:1.6.8 analyse --configuration=/web/module/tests/phpstan/${{steps.neon.outputs.filename}} --error-format github
   header-stamp:
     name: Check license headers
     runs-on: ubuntu-latest
