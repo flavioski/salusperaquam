@@ -561,6 +561,7 @@ class Treatment
             'id_product_attribute' => $this->getProductAttributeId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
+            'treatment_rates' => $this->getTreatmentRates()->toArray(),
             'bookable' => $this->isBookable(),
             'single_sale' => $this->isSingleSale(),
             'type' => $this->getType(),

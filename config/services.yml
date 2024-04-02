@@ -16,6 +16,13 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentType'
     parent: 'form.type.translatable.aware'
     public: true
+    tags:
+      - { name: form.type }
+
+  flavioski.module.salusperaquam.type.treatment_rate:
+    class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentRateType'
+    parent: 'form.type.translatable.aware'
+    public: true
     arguments:
       - '@flavioski.module.salusperaquam.form.choice_provider.product_attribute_by_id'
       - '@=service("prestashop.adapter.data_provider.currency").getDefaultCurrency()'
@@ -87,6 +94,31 @@ services:
     factory: 'prestashop.core.form.identifiable_object.handler.form_handler_factory:create'
     arguments:
       - '@flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_form_data_handler'
+
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_rate_form_data_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentRateFormDataProvider'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_rate_repository'
+
+  flavioski.module.salusperaquam.form.identifiable_object.builder.treatment_rate_form_builder:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
+    factory: 'prestashop.core.form.builder.form_builder_factory:create'
+    arguments:
+      - 'Flavioski\Module\SalusPerAquam\Form\TreatmentRateType'
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_rate_form_data_provider'
+
+  flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_rate_form_data_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentRateFormDataHandler'
+    arguments:
+      - '@flavioski.module.salusperaquam.repository.treatment_rate_repository'
+      - '@prestashop.core.admin.lang.repository'
+      - '@doctrine.orm.default_entity_manager'
+
+  flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_rate_form_handler:
+    class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler'
+    factory: 'prestashop.core.form.identifiable_object.handler.form_handler_factory:create'
+    arguments:
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_rate_form_data_handler'
 
   # Adapter
   flavioski.module.salusperaquam.adapter.salusperaquam_configuration:
