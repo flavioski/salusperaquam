@@ -308,3 +308,7 @@ $RECYCLE.BIN/
 # CS Fixer
 .php_cs.cache
 .php-cs-fixer.cache
+
+# Docker configuration
+install.lock
+docker-compose.override.yml
