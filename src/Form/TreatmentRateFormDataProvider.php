@@ -30,7 +30,7 @@ class TreatmentRateFormDataProvider implements FormDataProviderInterface
     /**
      * @var TreatmentRateRepository
      */
-    private TreatmentRateRepository $treatmentRateRepository;
+    private $treatmentRateRepository;
 
     /**
      * @param TreatmentRateRepository $treatmentRateRepository

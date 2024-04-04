@@ -85,14 +85,14 @@ class Treatment
      *
      * @ORM\Column(name="bookable", type="boolean")
      */
-    private bool $bookable;
+    private $bookable;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="single_sale", type="boolean")
      */
-    private bool $singleSale;
+    private $singleSale;
 
     /**
      * @var int
