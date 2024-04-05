@@ -101,7 +101,7 @@ jobs:
         run: |
           docker rm -f temp-ps || true
           docker volume rm -f ps-volume || true
-          docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:${{ matrix.presta-versions }
+          docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:${{ matrix.presta-versions }}
           docker exec -t temp-ps rm -rf /var/www/html/modules/salusperaquam
           docker build -t phpstan:php-7.4 ./tests/phpstan/
           docker run --rm \
