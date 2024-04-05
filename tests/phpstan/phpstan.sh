@@ -14,7 +14,7 @@ docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/presta
 # Clear previous instance of the module in the PrestaShop volume
 echo "Clear previous module"
 
-docker exec -t --user root temp-ps sh -c 'find /var/www/html/modules/salusperaquam -type f -exec rm {} +'
+docker exec -t temp-ps rm -rf /var/www/html/modules/salusperaquam
 
 # Run a container for PHPStan, having access to the module content and PrestaShop sources.
 # This tool is outside the composer.json because of the compatibility with PHP 5.6
@@ -23,6 +23,6 @@ echo "Run PHPStan using phpstan-${PS_VERSION}.neon file"
 docker run --rm --volumes-from temp-ps \
        -v $PWD:/var/www/html/modules/salusperaquam \
        -e _PS_ROOT_DIR_=/var/www/html \
-       --workdir=/var/www/html/modules/salusperaquam phpstan/phpstan:0.12.54 \
+       --workdir=/var/www/html/modules/salusperaquam phpstan/phpstan:1.3 \
        analyse \
        --configuration=/var/www/html/modules/salusperaquam/tests/phpstan/phpstan-$PS_VERSION.neon --error-format github
