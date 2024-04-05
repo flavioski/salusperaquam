@@ -11,6 +11,7 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	doctrine:
 		ormRepositoryClass: Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository
+		ormRepositoryClass: Flavioski\Module\SalusPerAquam\Repository\TreatmentRateRepository
 	ignoreErrors:
 		- '#Property TabCore::\$name \(string\) does not accept array.#'
 		- '#Call to sprintf contains 0 placeholders, 1 value given.#'
