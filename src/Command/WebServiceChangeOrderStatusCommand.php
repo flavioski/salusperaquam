@@ -126,7 +126,7 @@ class WebServiceChangeOrderStatusCommand extends Command
         $ordersWithAssignedStatus = [];
 
         if ($orderId) {
-            $order = new Order($orderId);
+            $order = new Order((int) $orderId);
 
             if ($order->current_state !== $optionValueIdOrderStatus) {
                 $orderState = new OrderState((int) $optionValueIdOrderStatus);

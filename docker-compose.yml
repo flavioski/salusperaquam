@@ -117,7 +117,9 @@ services:
       - ADMIN_PASSWD=adminadmin
     volumes:
       - ./:/var/www/html/modules/salusperaquam
+      - ./.docker:/tmp/.docker
       - presta:/var/www/html
+    #entrypoint: [ "bash", "-c", "sh /tmp/.docker/run-from-compose.sh"]
     depends_on:
       - db
 

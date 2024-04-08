@@ -144,7 +144,8 @@ class SalusPerAquam extends Module
             Configuration::deleteByName($name);
         }
 
-        return $this->removeTables() && parent::uninstall() &&
+        return $this->removeTables() &&
+            $this->uninstallConfiguration() && parent::uninstall() &&
             $this->unregisterHooks() &&
             $this->uninstallTab()
             ;
@@ -383,6 +384,22 @@ class SalusPerAquam extends Module
         }
 
         return $result;
+    }
+
+    /**
+     * Uninstall configuration
+     *
+     * @return bool
+     */
+    public function uninstallConfiguration()
+    {
+        foreach ($this->configurationList as $name => $value) {
+            if (!Configuration::deleteByName($name)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

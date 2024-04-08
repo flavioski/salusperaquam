@@ -25,7 +25,6 @@ namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopBundle\Security\Annotation\AdminSecurity;
 use PrestaShopBundle\Security\Annotation\DemoRestricted;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -55,7 +54,7 @@ class ConfigurationController extends FrameworkBundleAdminController
         ]);
     }
 
-    /*
+    /**
      * Process the Parameter form.
      *
      * @AdminSecurity("is_granted(['read','update','create','delete'], request.get('_legacy_controller'))", message="You do not have permission to update this.")
@@ -63,7 +62,7 @@ class ConfigurationController extends FrameworkBundleAdminController
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return Response
      */
     public function processFormAction(Request $request)
     {

@@ -51,10 +51,8 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
         $treatmentData = [
             'name' => $treatment->getName(),
             'code' => $treatment->getCode(),
-            'price' => $treatment->getPrice(),
-            'id_product' => $treatment->getProductId(),
-            'id_product_attribute' => $treatment->getProductAttributeId(),
             'active' => $treatment->isActive(),
+            'treatment_rates' => $this->extractTreatmentRateData($treatment),
         ];
 
         foreach ($treatment->getTreatmentLangs() as $treatmentLang) {
@@ -73,10 +71,51 @@ class TreatmentFormDataProvider implements FormDataProviderInterface
             'name' => '',
             'content' => [],
             'code' => '',
-            'price' => 0,
+            'active' => false,
+            'treatment_rates' => $this->getDefaultTreatmentRateData(),
+        ];
+    }
+
+    private function extractTreatmentRateData($treatment): array
+    {
+        $rates = [];
+        foreach ($treatment->getTreatmentRates() as $treatmentRate) {
+            $rates[$treatmentRate->getId()] = [
+                'id' => $treatmentRate->getId(),
+                'id_product' => $treatmentRate->getProductId(),
+                'id_product_attribute' => $treatmentRate->getProductAttributeId(),
+                'to_date' => $treatmentRate->getToDate(),
+                'to_time' => $treatmentRate->getToTime(),
+                'from_date' => $treatmentRate->getFromDate(),
+                'from_time' => $treatmentRate->getFromTime(),
+                'description' => $treatmentRate->getDescription(),
+                'weekdays' => $treatmentRate->getWeekdays(),
+                'weekend' => $treatmentRate->getWeekend(),
+                'internal_id' => $treatmentRate->getInternalId(),
+                'internal_id_rate' => $treatmentRate->getInternalIdRate(),
+                'price' => $treatmentRate->getPrice(),
+                'installment_payment_plan' => $treatmentRate->isInstallmentPaymentPlan(),
+                'discount' => $treatmentRate->isDiscount(),
+                'active' => $treatmentRate->isActive(),
+            ];
+        }
+
+        return $rates;
+    }
+
+    private function getDefaultTreatmentRateData(): array
+    {
+        return [
             'id_product' => 0,
             'id_product_attribute' => null,
-            'active' => false,
+            'to_date' => new \DateTime('now'),
+            'from_date' => new \DateTime('now'),
+            'description' => '',
+            'weekdays' => '',
+            'weekend' => '',
+            'internal_id' => '',
+            'internal_id_rate' => '',
+            'price' => 0,
         ];
     }
 }

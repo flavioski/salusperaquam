@@ -93,6 +93,7 @@ class TreatmentInstaller
     {
         $errors = [];
         $tableNames = [
+            'treatment_rate',
             'treatment',
             'treatment_lang',
         ];

@@ -16,6 +16,9 @@ parameters:
 		- '#Call to sprintf contains 0 placeholders, 1 value given.#'
 		- '#Result of method Doctrine\\Persistence\\ObjectManager::flush\(\) \(void\) is used.#'
 		- '#Strict comparison using === between false and void will always evaluate to false.#'
+		- '#Strict comparison using === between false and null will always evaluate to false.#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Entity\\Treatment::\$id is never written, only read.#'
+		- '#Property Flavioski\\Module\\SalusPerAquam\\Entity\\TreatmentRate::\$id is never written, only read.#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\Type\\ProductChoiceType::\$productsAttr is never read, only written.#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataProvider::\$translator is never read, only written.#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Form\\ConfigurationFormDataHandler::\$tabRepository is never read, only written.#'
@@ -28,5 +31,10 @@ parameters:
 		- '#Call to an undefined method PrestaShop\\PrestaShop\\Core\\MailTemplate\\Layout\\LayoutCollectionInterface::.#'
 		- '#Property Flavioski\\Module\\SalusPerAquam\\Command\\WebServiceChangeOrderStatusCommand::.#'
 		- '#Access to an undefined property PrestaShop\\PrestaShop\\Adapter\\LegacyContext::.#'
+		- '#Parameter \#1 \$action of method PrestaShop\\PrestaShop\\Core\\Grid\\Action\\GridActionCollection::add\(\).#'
+		- '#Parameter \#1 \$action of method PrestaShop\\PrestaShop\\Core\\Grid\\Action\\GridActionCollectionInterface::add\(\).#'
+		- '#Parameter \#1 \$ordersWithFailedToUpdateStatus of class PrestaShop\\PrestaShop\\Core\\Domain\\Order\\Exception\\ChangeOrderStatusException.#'
+		- '#Parameter \#2 \$ordersWithFailedToSendEmail of class PrestaShop\\PrestaShop\\Core\\Domain\\Order\\Exception\\ChangeOrderStatusException.#'
+		- '#Parameter \#3 \$ordersWithAssignedStatus of class PrestaShop\\PrestaShop\\Core\\Domain\\Order\\Exception\\ChangeOrderStatusException.#'
 
 	level: 5

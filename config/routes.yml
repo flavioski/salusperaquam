@@ -115,4 +115,4 @@ flavioski_salusperaquam_product_combinations:
   defaults:
     _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ProductController::getCombinationsAction'
     _legacy_controller: 'AdminSalusperaquamProduct'
-    _legacy_link: 'dminSalusperaquamProduct:getCombinations'
+    _legacy_link: 'AdminSalusperaquamProduct:getCombinations'

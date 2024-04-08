@@ -202,7 +202,7 @@ class TreatmentController extends FrameworkBundleAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -249,7 +249,7 @@ class TreatmentController extends FrameworkBundleAdminController
      * @param Request $request
      * @param int $treatmentId
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, $treatmentId)
     {
@@ -292,7 +292,7 @@ class TreatmentController extends FrameworkBundleAdminController
      *
      * @param int $treatmentId
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function deleteAction($treatmentId)
     {
@@ -342,7 +342,7 @@ class TreatmentController extends FrameworkBundleAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function deleteBulkAction(Request $request)
     {

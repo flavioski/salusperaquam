@@ -69,11 +69,44 @@ class Treatment
     private $treatmentLangs;
 
     /**
+     * @ORM\OneToMany(targetEntity="Flavioski\Module\SalusPerAquam\Entity\TreatmentRate", cascade={"persist", "remove"}, mappedBy="treatment")
+     */
+    private $treatmentRates;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=128, nullable=false)
      */
     private $code;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="bookable", type="boolean")
+     */
+    private $bookable;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="single_sale", type="boolean")
+     */
+    private $singleSale;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="type", type="integer", options={"unsigned"=true}, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="package_type", type="integer", options={"unsigned"=true}, nullable=true)
+     */
+    private $packageType;
 
     /**
      * @var float
@@ -112,11 +145,14 @@ class Treatment
 
     public function __construct()
     {
+        $this->setBookable(false);
+        $this->setSingleSale(true);
         $this->setDateAdd(new \DateTime());
         $this->setDateUpd(new \DateTime());
         $this->setActive(true);
         $this->setDeleted(false);
         $this->treatmentLangs = new ArrayCollection();
+        $this->treatmentRates = new ArrayCollection();
     }
 
     /**
@@ -133,6 +169,14 @@ class Treatment
     public function getTreatmentLangs()
     {
         return $this->treatmentLangs;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTreatmentRates()
+    {
+        return $this->treatmentRates;
     }
 
     /**
@@ -211,6 +255,94 @@ class Treatment
     public function setCode(string $code): Treatment
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Is bookable.
+     *
+     * @return bool
+     */
+    public function isBookable(): bool
+    {
+        return $this->bookable;
+    }
+
+    /**
+     * Set bookale.
+     *
+     * @param bool $bookable
+     *
+     * @return Treatment
+     */
+    public function setBookable(bool $bookable): Treatment
+    {
+        $this->bookable = $bookable;
+
+        return $this;
+    }
+
+    /**
+     * Is single sale.
+     *
+     * @return bool
+     */
+    public function isSingleSale(): bool
+    {
+        return $this->singleSale;
+    }
+
+    /**
+     * Set single sale.
+     *
+     * @param bool $singleSale
+     *
+     * @return Treatment
+     */
+    public function setSingleSale(bool $singleSale): Treatment
+    {
+        $this->singleSale = $singleSale;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): ?int
+    {
+        return (int) $this->type;
+    }
+
+    /**
+     * @param int|null $type
+     *
+     * @return Treatment
+     */
+    public function setType(?int $type): Treatment
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPackageType(): ?int
+    {
+        return (int) $this->packageType;
+    }
+
+    /**
+     * @param int|null $packageType
+     *
+     * @return Treatment
+     */
+    public function setPackageType(?int $packageType): Treatment
+    {
+        $this->packageType = $packageType;
 
         return $this;
     }
@@ -313,6 +445,35 @@ class Treatment
     }
 
     /**
+     * @param int $rateId
+     *
+     * @return TreatmentRate|null
+     */
+    public function getTreatmentRateByRateId(int $rateId)
+    {
+        foreach ($this->treatmentRates as $treatmentRate) {
+            if ($rateId === $treatmentRate->getId()) {
+                return $treatmentRate;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param TreatmentRate $treatmentRate
+     *
+     * @return $this
+     */
+    public function addTreatmentRate(TreatmentRate $treatmentRate)
+    {
+        $treatmentRate->setTreatment($this);
+        $this->treatmentRates->add($treatmentRate);
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getTreatmentContent()
@@ -400,6 +561,11 @@ class Treatment
             'id_product_attribute' => $this->getProductAttributeId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
+            'treatment_rates' => $this->getTreatmentRates()->toArray(),
+            'bookable' => $this->isBookable(),
+            'single_sale' => $this->isSingleSale(),
+            'type' => $this->getType(),
+            'package_type' => $this->getPackageType(),
             'price' => $this->getPrice(),
             'active' => $this->isActive(),
             'deleted' => $this->isDeleted(),

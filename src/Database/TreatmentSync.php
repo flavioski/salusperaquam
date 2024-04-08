@@ -25,6 +25,8 @@ namespace Flavioski\Module\SalusPerAquam\Database;
 use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\Treatment;
 use Flavioski\Module\SalusPerAquam\Entity\TreatmentLang;
+use Flavioski\Module\SalusPerAquam\Entity\TreatmentRate;
+use Flavioski\Module\SalusPerAquam\Repository\TreatmentRateRepository;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRepository;
 use Flavioski\Module\SalusPerAquam\WebService\Exception\WebServiceException;
 use Flavioski\Module\SalusPerAquam\WebService\GetTreatment;
@@ -36,6 +38,11 @@ class TreatmentSync
      * @var TreatmentRepository
      */
     private $treatmentRepository;
+
+    /**
+     * @var TreatmentRateRepository
+     */
+    private $treatmentRateRepository;
 
     /**
      * @var LangRepository
@@ -54,17 +61,20 @@ class TreatmentSync
 
     /**
      * @param TreatmentRepository $treatmentRepository
+     * @param TreatmentRateRepository $treatmentRateRepository
      * @param LangRepository $langRepository
      * @param EntityManagerInterface $entityManager
      * @param GetTreatment $getTreatment
      */
     public function __construct(
         TreatmentRepository $treatmentRepository,
+        TreatmentRateRepository $treatmentRateRepository,
         LangRepository $langRepository,
         EntityManagerInterface $entityManager,
         GetTreatment $getTreatment
     ) {
         $this->treatmentRepository = $treatmentRepository;
+        $this->treatmentRateRepository = $treatmentRateRepository;
         $this->langRepository = $langRepository;
         $this->entityManager = $entityManager;
         $this->getTreatment = $getTreatment;
@@ -136,6 +146,10 @@ class TreatmentSync
             if ($item->key == 'Price') {
                 $treatment->setPrice(floatval($item->value));
             }
+
+            if ($item->key == 'Rate' && is_object($item->value)) {
+                $this->updateOrInsertTreatmentRates($treatment, $item->value);
+            }
         }
 
         $this->entityManager->persist($treatment);
@@ -153,7 +167,7 @@ class TreatmentSync
 
         $treatment = new Treatment();
 
-        $treatment->setActive(true);
+        $treatment->setActive(false);
         $treatment->setProductId(0);
         $treatment->setProductAttributeId(0);
 
@@ -176,9 +190,187 @@ class TreatmentSync
             if ($item->key == 'Price') {
                 $treatment->setPrice(floatval($item->value));
             }
+
+            if ($item->key == 'Rate' && is_object($item->value)) {
+                $this->updateOrInsertTreatmentRates($treatment, $item->value);
+            }
         }
 
         $this->entityManager->persist($treatment);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param Treatment $treatment
+     * @param object $treatmentRates
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    private function updateOrInsertTreatmentRates(Treatment $treatment, object $treatmentRates)
+    {
+        /*
+         * [key] => Rate
+         * [value] => stdClass Object
+         *   [Map] => Array
+         *     [0] => stdClass Object
+         *       [item] => Array
+         *         [0] => stdClass Object
+         *           [key] => -- the key
+         *           [value] => -- the value
+         */
+        foreach ($treatmentRates->Map as $key => $treatmentRatesDatum) {
+            foreach ($treatmentRatesDatum->item as $item) {
+                if ($item->key == 'InternalId') {
+                    $findedByInternalId = $this->treatmentRateRepository->findOneByInternalId($item->value);
+                    if ($findedByInternalId) {
+                        $treatmentRate = $this->treatmentRateRepository->findOneBy(['internalId' => $item->value]);
+                        $this->updateTreatmentRate($treatment, $treatmentRate, $treatmentRatesDatum);
+                    } else {
+                        $this->insertTreatmentRate($treatment, $treatmentRatesDatum);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * @param Treatment $treatment
+     * @param TreatmentRate $treatmentRate
+     * @param object $treatmentRatesDatum
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    private function updateTreatmentRate(Treatment $treatment, TreatmentRate $treatmentRate, object $treatmentRatesDatum)
+    {
+        foreach ($treatmentRatesDatum->item as $item) {
+            if ($item->key == 'Price') {
+                $treatmentRate->setPrice(floatval($item->value));
+            }
+
+            if ($item->key == 'FromDate') {
+                $treatmentRate->setFromDate(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'ToDate') {
+                $treatmentRate->setToDate(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'FromTime') {
+                $treatmentRate->setFromTime(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'ToTime') {
+                $treatmentRate->setToTime(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'Description') {
+                $treatmentRate->setDescription($item->value);
+            }
+
+            if ($item->key == 'Weekdays') {
+                $treatmentRate->setWeekdays($item->value);
+            }
+
+            if ($item->key == 'Weekend') {
+                $treatmentRate->setWeekend($item->value);
+            }
+
+            if ($item->key == 'InternalId') {
+                $treatmentRate->setInternalId($item->value);
+            }
+
+            if ($item->key == 'InternalIdRate') {
+                $treatmentRate->setInternalIdRate($item->value);
+            }
+
+            if ($item->key == 'InstallmentPaymentPlan') {
+                $treatmentRate->setInstallmentPaymentPlan((bool) $item->value);
+            }
+
+            if ($item->key == 'Discount') {
+                $treatmentRate->setDiscount((bool) $item->value);
+            }
+        }
+
+        $treatmentRate->setTreatment($treatment);
+        $this->entityManager->persist($treatmentRate);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param Treatment $treatment
+     * @param object $treatmentRatesDatum
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    private function insertTreatmentRate(Treatment $treatment, object $treatmentRatesDatum)
+    {
+        $treatmentRate = new TreatmentRate();
+        $treatmentRate->setProductId(0);
+        $treatmentRate->setProductAttributeId(0);
+
+        foreach ($treatmentRatesDatum->item as $item) {
+            if ($item->key == 'Id') {
+                $treatmentRate->setInternalId($item->value);
+            }
+
+            if ($item->key == 'Price') {
+                $treatmentRate->setPrice(floatval($item->value));
+            }
+
+            if ($item->key == 'FromDate') {
+                $treatmentRate->setFromDate(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'ToDate') {
+                $treatmentRate->setToDate(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'FromTime') {
+                $treatmentRate->setFromTime(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'ToTime') {
+                $treatmentRate->setToTime(new \DateTime($item->value));
+            }
+
+            if ($item->key == 'Description') {
+                $treatmentRate->setDescription($item->value);
+            }
+
+            if ($item->key == 'Weekdays') {
+                $treatmentRate->setWeekdays($item->value);
+            }
+
+            if ($item->key == 'Weekend') {
+                $treatmentRate->setWeekend($item->value);
+            }
+
+            if ($item->key == 'InternalId') {
+                $treatmentRate->setInternalId($item->value);
+            }
+
+            if ($item->key == 'InternalIdRate') {
+                $treatmentRate->setInternalIdRate($item->value);
+            }
+
+            if ($item->key == 'InstallmentPaymentPlan') {
+                $treatmentRate->setInstallmentPaymentPlan((bool) $item->value);
+            }
+
+            if ($item->key == 'Discount') {
+                $treatmentRate->setDiscount((bool) $item->value);
+            }
+        }
+
+        $treatmentRate->setTreatment($treatment);
+        $this->entityManager->persist($treatmentRate);
         $this->entityManager->flush();
     }
 }

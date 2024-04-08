@@ -10,6 +10,12 @@ services:
     arguments:
       - Flavioski\Module\SalusPerAquam\Entity\Treatment
 
+  flavioski.module.salusperaquam.repository.treatment_rate_repository:
+    class: Flavioski\Module\SalusPerAquam\Repository\TreatmentRateRepository
+    factory: ['@doctrine.orm.default_entity_manager', getRepository]
+    arguments:
+      - Flavioski\Module\SalusPerAquam\Entity\TreatmentRate
+
   flavioski.module.salusperaquam.treatments.install:
     class: Flavioski\Module\SalusPerAquam\Database\TreatmentInstaller
     arguments:
