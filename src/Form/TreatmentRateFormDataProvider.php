@@ -41,11 +41,14 @@ class TreatmentRateFormDataProvider implements FormDataProviderInterface
         $this->treatmentRateRepository = $treatmentRateRepository;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getData($treatmentRateId)
     {
         $treatmentRate = $this->treatmentRateRepository->findOneById($treatmentRateId);
 
-        $treatmentRateData = [
+        return [
             'id_product' => $treatmentRate->getProductId(),
             'id_product_attribute' => $treatmentRate->getProductAttributeId(),
             'to_date' => $treatmentRate->getToDate(),
@@ -62,8 +65,6 @@ class TreatmentRateFormDataProvider implements FormDataProviderInterface
             'discount' => $treatmentRate->getDiscount(),
             'active' => $treatmentRate->isActive(),
         ];
-
-        return $treatmentRateData;
     }
 
     /**

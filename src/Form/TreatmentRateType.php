@@ -102,8 +102,8 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
                     'readonly' => true,
                 ],
             ])
-            ->add('to_date', DateTimeType::class, [
-                'label' => $this->trans('To Date', 'Modules.Salusperaquam.Admin'),
+            ->add('from_date', DateTimeType::class, [
+                'label' => $this->trans('From Date', 'Modules.Salusperaquam.Admin'),
                 'attr' => [
                     'readonly' => true,
                 ],
@@ -116,8 +116,8 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
                     'second' => $this->trans('Second', 'Admin.Global'),
                 ],
             ])
-            ->add('from_date', DateTimeType::class, [
-                'label' => $this->trans('From Date', 'Modules.Salusperaquam.Admin'),
+            ->add('to_date', DateTimeType::class, [
+                'label' => $this->trans('To Date', 'Modules.Salusperaquam.Admin'),
                 'attr' => [
                     'readonly' => true,
                 ],
