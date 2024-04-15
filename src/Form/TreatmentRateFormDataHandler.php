@@ -79,7 +79,7 @@ class TreatmentRateFormDataHandler implements FormDataHandlerInterface
     public function update($id, array $data)
     {
         if (isset($data['treatment_rates'])) {
-            foreach($data['treatment_rates'] as $treatmentRate) {
+            foreach ($data['treatment_rates'] as $treatmentRate) {
                 $this->updateSingleTreatmentRate($treatmentRate['id'], $treatmentRate);
             }
         }
