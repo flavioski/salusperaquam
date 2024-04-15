@@ -15,9 +15,19 @@ const $ = window.$;
 
 $(() => {
   new TranslatableInput();
-  new ProductAttributeSelectionToggler(
-    treatmentFormMap.treatmentProductSelect,
-    treatmentFormMap.treatmentProductAttributeSelect,
-    treatmentFormMap.treatmentProductAttributeBlock
-  );
+  // problem: we have many "select" on page with follow ids in the form. Example:
+  //    #treatment_treatment_rates_1_id_product
+  //    #treatment_treatment_rates_2_id_product
+  //    #treatment_treatment_rates_3_id_product
+  //    #treatment_treatment_rates_4_id_product
+  //    ...
+  // solution: we want to obtain the id of select (with a regex) that is being selected, on this moment, and put the value on ProductAttributeSelectionToggler function
+  $('select[id^="treatment_treatment_rates_"][id$="_id_product"]').each(function() {
+    const treatmentRateId = $(this).attr('id').match(/\d+/)[0];
+    new ProductAttributeSelectionToggler(
+      treatmentFormMap.treatmentProductSelect(treatmentRateId),
+      treatmentFormMap.treatmentProductAttributeSelect(treatmentRateId),
+      treatmentFormMap.treatmentProductAttributeBlock(treatmentRateId)
+    );
+  });
 });
