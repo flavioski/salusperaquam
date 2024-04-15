@@ -26,7 +26,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Flavioski\Module\SalusPerAquam\Entity\TreatmentRate;
 use Flavioski\Module\SalusPerAquam\Repository\TreatmentRateRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface;
-use PrestaShopBundle\Entity\Repository\LangRepository;
 
 class TreatmentRateFormDataHandler implements FormDataHandlerInterface
 {
