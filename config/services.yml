@@ -111,7 +111,6 @@ services:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentRateFormDataHandler'
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_rate_repository'
-      - '@prestashop.core.admin.lang.repository'
       - '@doctrine.orm.default_entity_manager'
 
   flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_rate_form_handler:
