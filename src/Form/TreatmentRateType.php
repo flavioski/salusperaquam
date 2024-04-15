@@ -189,7 +189,7 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
         $data = $event->getData();
 
         $productId = 0 !== $data['id_product'] ? $data['id_product'] : 0;
-        $productAttributeChoices = $this->productAttributeChoiceProvider->getChoices(['id_product' => $productId]);
+        $productAttributeChoices = $this->productAttributeChoiceProvider->getChoices(['id_product' => (int) $productId]);
 
         $showProductAttributes = !empty($productAttributeChoices);
 
