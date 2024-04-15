@@ -15,7 +15,7 @@ function devConfig() {
         contentBase: path.resolve(__dirname, '/../public'),
         publicPath: '/',
       },
-    },
+    }
   );
 
   return dev;
