@@ -73,7 +73,8 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
         $qb = $this->getQueryBuilder($searchCriteria->getFilters());
         $qb
             ->select('q.id_treatment, q.name, q.code, q.price, q.active, q.id_product, q.id_product_attribute,
-              pl.`name` AS product_name, GROUP_CONCAT(al.`name` SEPARATOR ", ") AS product_attribute_name')
+              GROUP_CONCAT(DISTINCT pl.`name` SEPARATOR ", ") AS product_name,
+              GROUP_CONCAT(al.`name` SEPARATOR ", ") AS product_attribute_name')
             ->groupBy('q.id_treatment');
 
         $this->searchCriteriaApplicator
@@ -128,12 +129,21 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
         $qb
             ->from($this->dbPrefix . 'treatment', 'q')
             ->leftJoin('q',
+                $this->dbPrefix . 'treatment_rate',
+                'r',
+                /* @phpstan-ignore-next-line */
+                $qb->expr()->andX(
+                    $qb->expr()->eq('q.`id_treatment`', 'r.`id_treatment`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_treatment`'))
+                )
+            )
+            ->leftJoin('q',
                 $this->dbPrefix . 'product_lang',
                 'pl',
                 /* @phpstan-ignore-next-line */
                 $qb->expr()->andX(
-                    $qb->expr()->eq('pl.`id_product`', 'q.`id_product`'),
-                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_product`')),
+                    $qb->expr()->eq('pl.`id_product`', 'r.`id_product`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('r.`id_product`')),
                     $qb->expr()->andX($qb->expr()->eq('pl.`id_shop`', ':shopId')),
                     $qb->expr()->andX($qb->expr()->eq('pl.`id_lang`', ':langId'))
                 )
@@ -143,8 +153,8 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
                 'pac',
                 /* @phpstan-ignore-next-line */
                 $qb->expr()->andX(
-                    $qb->expr()->eq('q.`id_product_attribute`', 'pac.`id_product_attribute`'),
-                    $qb->expr()->andX($qb->expr()->isNotNull('q.`id_product_attribute`'))
+                    $qb->expr()->eq('r.`id_product_attribute`', 'pac.`id_product_attribute`'),
+                    $qb->expr()->andX($qb->expr()->isNotNull('r.`id_product_attribute`'))
                 )
             )
             ->leftJoin('pac',
