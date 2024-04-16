@@ -120,9 +120,6 @@ class TreatmentType extends TranslatorAwareType
                 'attr' => [
                     'class' => 'treatment-rates-collection',
                 ],
-                'row_attr' => [
-                    'class' => 'js-treatment-product-attribute-select',
-                ],
             ])
         ;
     }

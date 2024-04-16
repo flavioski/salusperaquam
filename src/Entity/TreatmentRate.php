@@ -64,27 +64,15 @@ class TreatmentRate
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="to_date", type="datetime", nullable=false)
-     */
-    private $toDate;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="to_time", type="time", nullable=false)
-     */
-    private $toTime;
-
-    /**
-     * @var \DateTime
      * @ORM\Column(name="from_date", type="datetime", nullable=false)
      */
     private $fromDate;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="from_time", type="time", nullable=false)
+     * @ORM\Column(name="to_date", type="datetime", nullable=false)
      */
-    private $fromTime;
+    private $toDate;
 
     /**
      * @var string
@@ -242,46 +230,6 @@ class TreatmentRate
     /**
      * @return \DateTime
      */
-    public function getToDate(): DateTime
-    {
-        return $this->toDate;
-    }
-
-    /**
-     * @param DateTime $toDate
-     *
-     * @return TreatmentRate
-     */
-    public function setToDate(DateTime $toDate): TreatmentRate
-    {
-        $this->toDate = $toDate;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getToTime(): DateTime
-    {
-        return $this->toTime;
-    }
-
-    /**
-     * @param DateTime $toTime
-     *
-     * @return TreatmentRate
-     */
-    public function setToTime(DateTime $toTime): TreatmentRate
-    {
-        $this->toTime = $toTime;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
     public function getFromDate(): DateTime
     {
         return $this->fromDate;
@@ -302,19 +250,19 @@ class TreatmentRate
     /**
      * @return \DateTime
      */
-    public function getFromTime(): DateTime
+    public function getToDate(): DateTime
     {
-        return $this->fromTime;
+        return $this->toDate;
     }
 
     /**
-     * @param DateTime $fromTime
+     * @param DateTime $toDate
      *
      * @return TreatmentRate
      */
-    public function setFromTime(DateTime $fromTime): TreatmentRate
+    public function setToDate(DateTime $toDate): TreatmentRate
     {
-        $this->fromTime = $fromTime;
+        $this->toDate = $toDate;
 
         return $this;
     }
@@ -596,10 +544,8 @@ class TreatmentRate
             'id_treatment' => $this->getTreatment()->getId(),
             'id_product' => $this->getProductId(),
             'id_product_attribute' => $this->getProductAttributeId(),
-            'to_date' => $this->getToDate(),
-            'to_time' => $this->getToTime(),
             'from_date' => $this->getFromDate(),
-            'from_time' => $this->getFromTime(),
+            'to_date' => $this->getToDate(),
             'description' => $this->getDescription(),
             'weekdays' => $this->getWeekdays(),
             'weekend' => $this->getWeekend(),

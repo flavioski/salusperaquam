@@ -102,11 +102,14 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
                     'readonly' => true,
                 ],
             ])
-            ->add('to_date', DateTimeType::class, [
-                'label' => $this->trans('To Date', 'Modules.Salusperaquam.Admin'),
+            ->add('from_date', DateTimeType::class, [
+                'label' => $this->trans('From', 'Admin.Global'),
                 'attr' => [
                     'readonly' => true,
                 ],
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'with_seconds' => 'true',
                 'placeholder' => [
                     'year' => $this->trans('Year', 'Admin.Global'),
                     'month' => $this->trans('Month', 'Admin.Global'),
@@ -116,11 +119,14 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
                     'second' => $this->trans('Second', 'Admin.Global'),
                 ],
             ])
-            ->add('from_date', DateTimeType::class, [
-                'label' => $this->trans('From Date', 'Modules.Salusperaquam.Admin'),
+            ->add('to_date', DateTimeType::class, [
+                'label' => $this->trans('To', 'Admin.Global'),
                 'attr' => [
                     'readonly' => true,
                 ],
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'with_seconds' => 'true',
                 'placeholder' => [
                     'year' => $this->trans('Year', 'Admin.Global'),
                     'month' => $this->trans('Month', 'Admin.Global'),
@@ -189,7 +195,7 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
         $data = $event->getData();
 
         $productId = 0 !== $data['id_product'] ? $data['id_product'] : 0;
-        $productAttributeChoices = $this->productAttributeChoiceProvider->getChoices(['id_product' => $productId]);
+        $productAttributeChoices = $this->productAttributeChoiceProvider->getChoices(['id_product' => (int) $productId]);
 
         $showProductAttributes = !empty($productAttributeChoices);
 

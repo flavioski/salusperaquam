@@ -15,9 +15,12 @@ const $ = window.$;
 
 $(() => {
   new TranslatableInput();
-  new ProductAttributeSelectionToggler(
-    treatmentFormMap.treatmentProductSelect,
-    treatmentFormMap.treatmentProductAttributeSelect,
-    treatmentFormMap.treatmentProductAttributeBlock
-  );
+  $('select[id^="treatment_treatment_rates_"][id$="_id_product"]').each(function() {
+    const treatmentRateId = $(this).attr('id').match(/\d+/)[0];
+    new ProductAttributeSelectionToggler(
+      treatmentFormMap.treatmentProductSelect(treatmentRateId),
+      treatmentFormMap.treatmentProductAttributeSelect(treatmentRateId),
+      treatmentFormMap.treatmentProductAttributeBlock(treatmentRateId)
+    );
+  });
 });

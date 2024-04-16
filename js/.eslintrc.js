@@ -38,6 +38,9 @@ module.exports = {
     ],
   },
   settings: {
-    'import/resolver': 'webpack',
+    'import/resolver': {
+      node: {},
+      webpack: 'webpack.config.js',
+    },
   },
 };

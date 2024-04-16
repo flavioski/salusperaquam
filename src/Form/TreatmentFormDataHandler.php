@@ -97,10 +97,7 @@ class TreatmentFormDataHandler implements FormDataHandlerInterface
         $treatment = $this->treatmentRepository->findOneById($id);
         $treatment->setName($data['name']);
         $treatment->setCode($data['code']);
-        $treatment->setPrice($data['price']);
         $treatment->setActive($data['active']);
-        $treatment->setProductId((int) $data['id_product']);
-        $treatment->setProductAttributeId($data['id_product_attribute']);
         foreach ($data['content'] as $langId => $content) {
             $treatmentLang = $treatment->getTreatmentLangByLangId($langId);
             if (null === $treatmentLang) {

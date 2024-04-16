@@ -264,9 +264,14 @@ class TreatmentController extends FrameworkBundleAdminController
         $treatmentForm->handleRequest($request);
 
         $treatmentFormHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_form_handler');
-        $result = $treatmentFormHandler->handleFor((int) $treatmentId, $treatmentForm);
+        $result_treatment = $treatmentFormHandler->handleFor((int) $treatmentId, $treatmentForm);
 
-        if ($result->isSubmitted() && $result->isValid()) {
+        $treatmentRateFormHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.handler.treatment_rate_form_handler');
+        $result_treatment_rate = $treatmentRateFormHandler->handleFor((int) $treatmentId, $treatmentForm);
+
+        if ($result_treatment->isSubmitted() && $result_treatment->isValid()
+            && $result_treatment_rate->isSubmitted() && $result_treatment_rate->isValid()
+        ) {
             $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
 
             return $this->redirectToRoute('flavioski_salusperaquam_treatment_index');

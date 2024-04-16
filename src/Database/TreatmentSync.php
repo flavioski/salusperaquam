@@ -252,19 +252,23 @@ class TreatmentSync
             }
 
             if ($item->key == 'FromDate') {
-                $treatmentRate->setFromDate(new \DateTime($item->value));
+                $fromTime = $this->checkIfExistValueFromArrayObject($treatmentRatesDatum->item, 'FromTime');
+
+                if (!is_null($fromTime)) {
+                    $treatmentRate->setFromDate(new \DateTime($item->value . ' ' . $fromTime));
+                } else {
+                    $treatmentRate->setFromDate(new \DateTime($item->value));
+                }
             }
 
             if ($item->key == 'ToDate') {
-                $treatmentRate->setToDate(new \DateTime($item->value));
-            }
+                $toTime = $this->checkIfExistValueFromArrayObject($treatmentRatesDatum->item, 'ToTime');
 
-            if ($item->key == 'FromTime') {
-                $treatmentRate->setFromTime(new \DateTime($item->value));
-            }
-
-            if ($item->key == 'ToTime') {
-                $treatmentRate->setToTime(new \DateTime($item->value));
+                if (!is_null($toTime)) {
+                    $treatmentRate->setToDate(new \DateTime($item->value . ' ' . $toTime));
+                } else {
+                    $treatmentRate->setToDate(new \DateTime($item->value));
+                }
             }
 
             if ($item->key == 'Description') {
@@ -325,19 +329,23 @@ class TreatmentSync
             }
 
             if ($item->key == 'FromDate') {
-                $treatmentRate->setFromDate(new \DateTime($item->value));
+                $fromTime = $this->checkIfExistValueFromArrayObject($treatmentRatesDatum->item, 'FromTime');
+
+                if (!is_null($fromTime)) {
+                    $treatmentRate->setFromDate(new \DateTime($item->value . ' ' . $fromTime));
+                } else {
+                    $treatmentRate->setFromDate(new \DateTime($item->value));
+                }
             }
 
             if ($item->key == 'ToDate') {
-                $treatmentRate->setToDate(new \DateTime($item->value));
-            }
+                $toTime = $this->checkIfExistValueFromArrayObject($treatmentRatesDatum->item, 'ToTime');
 
-            if ($item->key == 'FromTime') {
-                $treatmentRate->setFromTime(new \DateTime($item->value));
-            }
-
-            if ($item->key == 'ToTime') {
-                $treatmentRate->setToTime(new \DateTime($item->value));
+                if (!is_null($toTime)) {
+                    $treatmentRate->setToDate(new \DateTime($item->value . ' ' . $toTime));
+                } else {
+                    $treatmentRate->setToDate(new \DateTime($item->value));
+                }
             }
 
             if ($item->key == 'Description') {
@@ -372,5 +380,23 @@ class TreatmentSync
         $treatmentRate->setTreatment($treatment);
         $this->entityManager->persist($treatmentRate);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @param $arrayObject
+     * @param $key
+     *
+     * @return mixed|null
+     */
+    private function checkIfExistValueFromArrayObject($arrayObject, $key)
+    {
+        $return = null;
+        foreach ($arrayObject as $item) {
+            if ($item->key == $key) {
+                $return = $item->value;
+            }
+        }
+
+        return $return;
     }
 }
