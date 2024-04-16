@@ -382,6 +382,11 @@ class TreatmentSync
         $this->entityManager->flush();
     }
 
+    /**
+     * @param $arrayObject
+     * @param $key
+     * @return mixed|null
+     */
     private function checkIfExistValueFromArrayObject($arrayObject, $key)
     {
         $return = null;
