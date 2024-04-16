@@ -385,6 +385,7 @@ class TreatmentSync
     /**
      * @param $arrayObject
      * @param $key
+     *
      * @return mixed|null
      */
     private function checkIfExistValueFromArrayObject($arrayObject, $key)
@@ -395,6 +396,7 @@ class TreatmentSync
                 $return = $item->value;
             }
         }
+
         return $return;
     }
 }
