@@ -103,10 +103,13 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
                 ],
             ])
             ->add('from_date', DateTimeType::class, [
-                'label' => $this->trans('From Date', 'Modules.Salusperaquam.Admin'),
+                'label' => $this->trans('From', 'Admin.Global'),
                 'attr' => [
                     'readonly' => true,
                 ],
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'with_seconds' => 'true',
                 'placeholder' => [
                     'year' => $this->trans('Year', 'Admin.Global'),
                     'month' => $this->trans('Month', 'Admin.Global'),
@@ -117,10 +120,13 @@ class TreatmentRateType extends TranslatorAwareType implements EventSubscriberIn
                 ],
             ])
             ->add('to_date', DateTimeType::class, [
-                'label' => $this->trans('To Date', 'Modules.Salusperaquam.Admin'),
+                'label' => $this->trans('To', 'Admin.Global'),
                 'attr' => [
                     'readonly' => true,
                 ],
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'with_seconds' => 'true',
                 'placeholder' => [
                     'year' => $this->trans('Year', 'Admin.Global'),
                     'month' => $this->trans('Month', 'Admin.Global'),
