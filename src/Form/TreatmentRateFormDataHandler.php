@@ -88,9 +88,7 @@ class TreatmentRateFormDataHandler implements FormDataHandlerInterface
     {
         $treatmentRate = $this->treatmentRateRepository->findOneById($id);
         $treatmentRate->setFromDate($data['from_date']);
-        //$treatmentRate->setFromTime($data['from_time']);
         $treatmentRate->setToDate($data['to_date']);
-        //$treatmentRate->setToTime($data['to_time']);
         $treatmentRate->setDescription($data['description']);
         $treatmentRate->setInternalId($data['internal_id']);
         $treatmentRate->setInternalIdRate($data['internal_id_rate']);
