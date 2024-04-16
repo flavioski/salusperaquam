@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Daily weekday admission for adults",
+    "code": "daily-weekday-admission-for-adults",
+    "bookable": "0",
+    "single_sale": "1",
+    "type": {},
+    "package_type": {},
+    "product_id": "0",
+    "product_attribute_id": "0",
+    "price": "20.00",
+    "active": "0",
+    "deleted": "0",
+    "content": {
+      "en": "Daily weekday admission for adults",
+      "it": "Ingresso giornaliero feriale adulti"
+    },
+    "rates": [
+      {
+        "product_id": "0",
+        "product_attribute_id": "0",
+        "from_date": "2019-06-01",
+        "to_date": "2019-06-30",
+        "from_time": "00:00:00",
+        "to_time": "23:59:59",
+        "description": "Daily weekday admission for adults",
+        "weekday": "12345",
+        "weekend": "67",
+        "internal_id": "daily-weekday-admission-for-adults",
+        "internal_id_rate": "daily-weekday-admission-for-adults",
+        "price": "20.00",
+        "installment_payment_plan": "1",
+        "discount": "0",
+        "active": "1",
+        "deleted": "0"
+      },
+      {
+        "product_id": "0",
+        "product_attribute_id": "0",
+        "from_date": "2019-07-01",
+        "to_date": "2019-07-31",
+        "from_time": "00:00:00",
+        "to_time": "23:59:59",
+        "description": "Daily weekday admission for adults - Discount",
+        "weekday": "12345",
+        "weekend": "67",
+        "internal_id": "daily-weekday-admission-for-adults-discount",
+        "internal_id_rate": "daily-weekday-admission-for-adults-discount",
+        "price": "15.00",
+        "installment_payment_plan": "1",
+        "discount": "0",
+        "active": "0",
+        "deleted": "0"
+      }
+    ]
+  },
+  {
+    "name": "Daily weekday admission for children",
+    "code": "daily-weekday-admission-for-children",
+    "bookable": "0",
+    "single_sale": "1",
+    "type": {},
+    "package_type": {},
+    "product_id": "0",
+    "product_attribute_id": "0",
+    "price": "10.00",
+    "active": "0",
+    "deleted": "0",
+    "content": {
+      "en": "Daily weekday admission for children",
+      "it": "Ingresso giornaliero feriale bambini"
+    },
+    "rates": [
+      {
+        "product_id": "0",
+        "product_attribute_id": "0",
+        "from_date": "2019-06-01",
+        "to_date": "2019-06-30",
+        "from_time": "00:00:00",
+        "to_time": "23:59:59",
+        "description": "Daily weekday admission for children",
+        "weekday": "12345",
+        "weekend": "67",
+        "internal_id": "daily-weekday-admission-for-children",
+        "internal_id_rate": "daily-weekday-admission-for-children",
+        "price": "10.00",
+        "installment_payment_plan": "1",
+        "discount": "0",
+        "active": "1",
+        "deleted": "0"
+      },
+      {
+        "product_id": "0",
+        "product_attribute_id": "0",
+        "from_date": "2019-07-01",
+        "to_date": "2019-07-31",
+        "from_time": "00:00:00",
+        "to_time": "23:59:59",
+        "description": "Daily weekday admission for children - Discount",
+        "weekday": "12345",
+        "weekend": "67",
+        "internal_id": "daily-weekday-admission-for-children-discount",
+        "internal_id_rate": "daily-weekday-admission-for-children-discount",
+        "price": "5.00",
+        "installment_payment_plan": "1",
+        "discount": "0",
+        "active": "0",
+        "deleted": "0"
+      }
+    ]
+  }
+]

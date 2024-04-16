@@ -164,7 +164,6 @@ services:
     arguments:
       - '@flavioski.module.salusperaquam.repository.treatment_repository'
       - '@prestashop.core.admin.lang.repository'
-      - '@prestashop.core.admin.shop.repository'
       - '@doctrine.orm.default_entity_manager'
 
   # Sync service
