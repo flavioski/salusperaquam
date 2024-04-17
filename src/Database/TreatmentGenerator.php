@@ -94,7 +94,7 @@ class TreatmentGenerator
             $treatment->setProductAttributeId((int) $treatmentData['product_attribute_id']);
             $treatment->setPrice((float) $treatmentData['price']);
             $treatment->setActive((bool) $treatmentData['active']);
-
+            /** @var \PrestaShopBundle\Entity\Lang $language */
             foreach ($languages as $language) {
                 $treatmentLang = new TreatmentLang();
                 $treatmentLang->setLang($language);
