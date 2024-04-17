@@ -43,20 +43,6 @@ class Treatment
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_product", type="integer", options={"unsigned"=true}, nullable=false)
-     */
-    private $productId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_product_attribute", type="integer", options={"unsigned"=true}, nullable=true)
-     */
-    private $productAttributeId;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=128, nullable=false)
@@ -107,13 +93,6 @@ class Treatment
      * @ORM\Column(name="package_type", type="integer", options={"unsigned"=true}, nullable=true)
      */
     private $packageType;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="price", type="decimal", precision=10, scale=2, nullable=false, options={"default":"0.00"})
-     */
-    private $price;
 
     /**
      * @var bool
@@ -348,26 +327,6 @@ class Treatment
     }
 
     /**
-     * @return float
-     */
-    public function getPrice(): float
-    {
-        return (float) $this->price;
-    }
-
-    /**
-     * @param float $price
-     *
-     * @return Treatment
-     */
-    public function setPrice(float $price): Treatment
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
      * Is active.
      *
      * @return bool
@@ -557,8 +516,6 @@ class Treatment
     {
         return [
             'id_treatment' => $this->getId(),
-            'id_product' => $this->getProductId(),
-            'id_product_attribute' => $this->getProductAttributeId(),
             'name' => $this->getName(),
             'code' => $this->getCode(),
             'treatment_rates' => $this->getTreatmentRates()->toArray(),
@@ -566,7 +523,6 @@ class Treatment
             'single_sale' => $this->isSingleSale(),
             'type' => $this->getType(),
             'package_type' => $this->getPackageType(),
-            'price' => $this->getPrice(),
             'active' => $this->isActive(),
             'deleted' => $this->isDeleted(),
             'date_add' => $this->dateAdd->format(\DateTime::ATOM),

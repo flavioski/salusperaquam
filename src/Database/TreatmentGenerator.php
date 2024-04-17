@@ -90,9 +90,6 @@ class TreatmentGenerator
             $treatment->setSingleSale((bool) $treatmentData['single_sale']);
             $treatment->setType((int) $treatmentData['type']);
             $treatment->setPackageType((int) $treatmentData['package_type']);
-            $treatment->setProductId((int) $treatmentData['product_id']);
-            $treatment->setProductAttributeId((int) $treatmentData['product_attribute_id']);
-            $treatment->setPrice((float) $treatmentData['price']);
             $treatment->setActive((bool) $treatmentData['active']);
             /** @var \PrestaShopBundle\Entity\Lang $language */
             foreach ($languages as $language) {

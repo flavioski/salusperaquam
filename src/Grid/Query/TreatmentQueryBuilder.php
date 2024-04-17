@@ -72,7 +72,8 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
     {
         $qb = $this->getQueryBuilder($searchCriteria->getFilters());
         $qb
-            ->select('q.id_treatment, q.name, q.code, q.price, q.active, q.id_product, q.id_product_attribute,
+            ->select('q.id_treatment, q.name, q.code,
+              GROUP_CONCAT(DISTINCT r.`price` SEPARATOR ", ") AS price, q.active,
               GROUP_CONCAT(DISTINCT pl.`name` SEPARATOR ", ") AS product_name,
               GROUP_CONCAT(al.`name` SEPARATOR ", ") AS product_attribute_name')
             ->groupBy('q.id_treatment');
@@ -119,7 +120,7 @@ class TreatmentQueryBuilder extends AbstractDoctrineQueryBuilder
             'id_treatment' => 'q.id_treatment',
             'name' => 'q.name',
             'code' => 'q.code',
-            'price' => 'q.price',
+            'price' => 'r.price',
             'product_name' => 'pl.name',
             'product_attribute_name' => 'al.name',
             'active' => 'q.active',

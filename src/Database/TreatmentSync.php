@@ -143,8 +143,8 @@ class TreatmentSync
                 }
             }
 
-            if ($item->key == 'Price') {
-                $treatment->setPrice(floatval($item->value));
+            if ($item->key == 'Code') {
+                $treatment->setCode($item->value);
             }
 
             if ($item->key == 'Rate' && is_object($item->value)) {
@@ -168,8 +168,6 @@ class TreatmentSync
         $treatment = new Treatment();
 
         $treatment->setActive(false);
-        $treatment->setProductId(0);
-        $treatment->setProductAttributeId(0);
 
         foreach ($treatmentsDatum->item as $item) {
             if ($item->key == 'Name') {
@@ -185,10 +183,6 @@ class TreatmentSync
 
             if ($item->key == 'Code') {
                 $treatment->setCode($item->value);
-            }
-
-            if ($item->key == 'Price') {
-                $treatment->setPrice(floatval($item->value));
             }
 
             if ($item->key == 'Rate' && is_object($item->value)) {
