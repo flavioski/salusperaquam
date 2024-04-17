@@ -51,10 +51,8 @@ class TreatmentRateFormDataProvider implements FormDataProviderInterface
         return [
             'id_product' => $treatmentRate->getProductId(),
             'id_product_attribute' => $treatmentRate->getProductAttributeId(),
-            'to_date' => $treatmentRate->getToDate(),
-            'to_time' => $treatmentRate->getToTime(),
             'from_date' => $treatmentRate->getFromDate(),
-            'from_time' => $treatmentRate->getFromTime(),
+            'to_date' => $treatmentRate->getToDate(),
             'description' => $treatmentRate->getDescription(),
             'weekdays' => $treatmentRate->getWeekdays(),
             'weekend' => $treatmentRate->getWeekend(),
@@ -75,8 +73,8 @@ class TreatmentRateFormDataProvider implements FormDataProviderInterface
         return [
             'id_product' => 0,
             'id_product_attribute' => null,
-            'to_date' => new \DateTime('now'),
             'from_date' => new \DateTime('now'),
+            'to_date' => new \DateTime('now'),
             'description' => '',
             'weekdays' => '',
             'weekend' => '',
