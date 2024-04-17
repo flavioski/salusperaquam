@@ -159,46 +159,6 @@ class Treatment
     }
 
     /**
-     * @return int
-     */
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
-    /**
-     * @param int $productId
-     *
-     * @return Treatment
-     */
-    public function setProductId(int $productId): Treatment
-    {
-        $this->productId = $productId;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getProductAttributeId(): ?int
-    {
-        return $this->productAttributeId;
-    }
-
-    /**
-     * @param int|null $productAttributeId
-     *
-     * @return Treatment
-     */
-    public function setProductAttributeId(?int $productAttributeId): self
-    {
-        $this->productAttributeId = $productAttributeId;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
