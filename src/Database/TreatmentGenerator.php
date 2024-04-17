@@ -108,8 +108,8 @@ class TreatmentGenerator
 
             foreach ($treatmentData['rates'] as $rate) {
                 $treatmentRate = new TreatmentRate();
-                $fromDate = new \DateTime($rate['from_date']. ' ' . $rate['from_time']);
-                $toDate = new \DateTime($rate['to_date']. ' ' . $rate['to_time']);
+                $fromDate = new \DateTime($rate['from_date'] . ' ' . $rate['from_time']);
+                $toDate = new \DateTime($rate['to_date'] . ' ' . $rate['to_time']);
                 $treatmentRate->setFromDate($fromDate);
                 $treatmentRate->setToDate($toDate);
                 $treatmentRate->setDescription($rate['description']);
