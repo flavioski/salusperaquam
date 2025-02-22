@@ -20,7 +20,7 @@
  */
 declare(strict_types=1);
 
-namespace Flavioski\Module\SalusPerAquam\Controller\Admin;
+namespace Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration;
 
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopBundle\Security\Annotation\AdminSecurity;
@@ -28,7 +28,7 @@ use PrestaShopBundle\Security\Annotation\DemoRestricted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ConfigurationController extends FrameworkBundleAdminController
+class SettingController extends FrameworkBundleAdminController
 {
     /**
      * @AdminSecurity("is_granted('read', request.get('_legacy_controller'))", message="Access denied.")
@@ -39,11 +39,11 @@ class ConfigurationController extends FrameworkBundleAdminController
      */
     public function indexAction(Request $request)
     {
-        $form = $this->get('flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_form_handler')->getForm();
+        $form = $this->get('flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_setting_form_handler')->getForm();
 
-        return $this->render('@Modules/salusperaquam/views/templates/admin/configuration/index.html.twig', [
+        return $this->render('@Modules/salusperaquam/views/templates/admin/configuration/setting/index.html.twig', [
             'layoutHeaderToolbarBtn' => [],
-            'layoutTitle' => $this->trans('Configurations', 'Modules.Salusperaquam.Admin'),
+            'layoutTitle' => $this->trans('Settings', 'Modules.Salusperaquam.Admin'),
             'requireAddonsSearch' => true,
             'requireBulkActions' => false,
             'showContentHeader' => true,
@@ -66,7 +66,7 @@ class ConfigurationController extends FrameworkBundleAdminController
      */
     public function processFormAction(Request $request)
     {
-        $formHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_form_handler');
+        $formHandler = $this->get('flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_setting_form_handler');
 
         $form = $formHandler->getForm();
         $form->handleRequest($request);
@@ -77,14 +77,14 @@ class ConfigurationController extends FrameworkBundleAdminController
             if ($errors = $formHandler->save($data)) {
                 $this->flashErrors($errors);
 
-                return $this->redirectToRoute('flavioski_salusperaquam_configuration_index');
+                return $this->redirectToRoute('flavioski_salusperaquam_configuration_setting_index');
             }
 
             $this->addFlash('success', $this->trans('Update successful', 'Admin.Notifications.Success'));
         }
 
-        return $this->render('@Modules/salusperaquam/views/templates/admin/configuration/index.html.twig', [
-            'layoutTitle' => $this->trans('Customers', 'Admin.Navigation.Menu'),
+        return $this->render('@Modules/salusperaquam/views/templates/admin/configuration/setting/index.html.twig', [
+            'layoutTitle' => $this->trans('Setting', 'Admin.Navigation.Menu'),
             'requireAddonsSearch' => true,
             'enableSidebar' => true,
             'help_link' => '',

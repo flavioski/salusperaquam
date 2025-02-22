@@ -278,6 +278,108 @@ class SalusPerAquam extends Module
         $ConfigurationTab->module = $this->name;
         $ConfigurationTab->save();
 
+        // Sub for "Configuration->Setting"
+        $ConfigurationSettingTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationSetting');
+        if (!$ConfigurationSettingTabId) {
+            $ConfigurationSettingTab = null;
+        }
+
+        $ConfigurationSettingTab = new Tab($ConfigurationSettingTabId);
+        $ConfigurationSettingTab->active = true;
+        $ConfigurationSettingTab->class_name = 'AdminSalusperaquamConfigurationSetting';
+        $ConfigurationSettingTab->name = [];
+        foreach (Language::getLanguages(true) as $lang) {
+            $ConfigurationSettingTab->name[$lang['id_lang']] = 'Settings';
+        }
+        $ConfigurationSettingTab->id_parent = $ConfigurationTab->id;
+        $ConfigurationSettingTab->module = $this->name;
+        $ConfigurationSettingTab->save();
+
+        // Sub for "Configuration->Access"
+        $ConfigurationAccessTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationAccess');
+        if (!$ConfigurationAccessTabId) {
+            $ConfigurationAccessTab = null;
+        }
+
+        $ConfigurationAccessTab = new Tab($ConfigurationAccessTabId);
+        $ConfigurationAccessTab->active = true;
+        $ConfigurationAccessTab->class_name = 'AdminSalusperaquamConfigurationAccess';
+        $ConfigurationAccessTab->name = [];
+        foreach (Language::getLanguages(true) as $lang) {
+            $ConfigurationAccessTab->name[$lang['id_lang']] = 'Access';
+        }
+        $ConfigurationAccessTab->id_parent = $ConfigurationTab->id;
+        $ConfigurationAccessTab->module = $this->name;
+        $ConfigurationAccessTab->save();
+
+        // Sub for "Configuration->User"
+        $ConfigurationUserTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationUser');
+        if (!$ConfigurationUserTabId) {
+            $ConfigurationUserTab = null;
+        }
+
+        $ConfigurationUserTab = new Tab($ConfigurationUserTabId);
+        $ConfigurationUserTab->active = true;
+        $ConfigurationUserTab->class_name = 'AdminSalusperaquamConfigurationUser';
+        $ConfigurationUserTab->name = [];
+        foreach (Language::getLanguages(true) as $lang) {
+            $ConfigurationUserTab->name[$lang['id_lang']] = 'Users';
+        }
+        $ConfigurationUserTab->id_parent = $ConfigurationTab->id;
+        $ConfigurationUserTab->module = $this->name;
+        $ConfigurationUserTab->save();
+
+        // Sub for "Configuration->Treatment"
+        $ConfigurationTreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationTreatment');
+        if (!$ConfigurationTreatmentTabId) {
+            $ConfigurationTreatmentTab = null;
+        }
+
+        $ConfigurationTreatmentTab = new Tab($ConfigurationTreatmentTabId);
+        $ConfigurationTreatmentTab->active = true;
+        $ConfigurationTreatmentTab->class_name = 'AdminSalusperaquamConfigurationTreatment';
+        $ConfigurationTreatmentTab->name = [];
+        foreach (Language::getLanguages(true) as $lang) {
+            $ConfigurationTreatmentTab->name[$lang['id_lang']] = 'Treatments';
+        }
+        $ConfigurationTreatmentTab->id_parent = $ConfigurationTab->id;
+        $ConfigurationTreatmentTab->module = $this->name;
+        $ConfigurationTreatmentTab->save();
+
+        // Sub for "Configuration->Sale"
+        $ConfigurationSaleTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationSale');
+        if (!$ConfigurationSaleTabId) {
+            $ConfigurationSaleTab = null;
+        }
+
+        $ConfigurationSaleTab = new Tab($ConfigurationSaleTabId);
+        $ConfigurationSaleTab->active = true;
+        $ConfigurationSaleTab->class_name = 'AdminSalusperaquamConfigurationSale';
+        $ConfigurationSaleTab->name = [];
+        foreach (Language::getLanguages(true) as $lang) {
+            $ConfigurationSaleTab->name[$lang['id_lang']] = 'Sales';
+        }
+        $ConfigurationSaleTab->id_parent = $ConfigurationTab->id;
+        $ConfigurationSaleTab->module = $this->name;
+        $ConfigurationSaleTab->save();
+
+        // Sub for "Configuration->Reservation"
+        $ConfigurationReservationTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationReservation');
+        if (!$ConfigurationReservationTabId) {
+            $ConfigurationReservationTab = null;
+        }
+
+        $ConfigurationReservationTab = new Tab($ConfigurationReservationTabId);
+        $ConfigurationReservationTab->active = true;
+        $ConfigurationReservationTab->class_name = 'AdminSalusperaquamConfigurationReservation';
+        $ConfigurationReservationTab->name = [];
+        foreach (Language::getLanguages(true) as $lang) {
+            $ConfigurationReservationTab->name[$lang['id_lang']] = 'Reservations';
+        }
+        $ConfigurationReservationTab->id_parent = $ConfigurationTab->id;
+        $ConfigurationReservationTab->module = $this->name;
+        $ConfigurationReservationTab->save();
+
         // Sub for "Treatment"
         $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
         if (!$TreatmentTabId) {
@@ -321,6 +423,41 @@ class SalusPerAquam extends Module
         }
         $ConfigurationTab = new Tab($ConfigurationTabId);
         $ConfigurationTab->delete();
+
+        $ConfigurationSettingTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationSetting');
+        if (!$ConfigurationSettingTabId) {
+            return true;
+        }
+        $ConfigurationSettingTab = new Tab($ConfigurationSettingTabId);
+        $ConfigurationSettingTab->delete();
+
+        $ConfigurationAccessTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationAccess');
+        if (!$ConfigurationAccessTabId) {
+            return true;
+        }
+        $ConfigurationAccessTab = new Tab($ConfigurationAccessTabId);
+        $ConfigurationAccessTab->delete();
+
+        $ConfigurationUserTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationUser');
+        if (!$ConfigurationUserTabId) {
+            return true;
+        }
+        $ConfigurationUserTab = new Tab($ConfigurationUserTabId);
+        $ConfigurationUserTab->delete();
+
+        $ConfigurationTreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationTreatment');
+        if (!$ConfigurationTreatmentTabId) {
+            return true;
+        }
+        $ConfigurationTreatmentTab = new Tab($ConfigurationTreatmentTabId);
+        $ConfigurationTreatmentTab->delete();
+
+        $ConfigurationSaleTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamConfigurationSale');
+        if (!$ConfigurationSaleTabId) {
+            return true;
+        }
+        $ConfigurationSaleTab = new Tab($ConfigurationSaleTabId);
+        $ConfigurationSaleTab->delete();
 
         $TreatmentTabId = (int) Tab::getIdFromClassName('AdminSalusperaquamTreatment');
         if (!$TreatmentTabId) {

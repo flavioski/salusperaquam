@@ -4,8 +4,8 @@ imports:
 
 services:
   # Form services
-  flavioski.module.salusperaquam.type.configuration:
-    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationType'
+  flavioski.module.salusperaquam.type.configuration.setting:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationSettingType'
     parent: 'form.type.translatable.aware'
     arguments:
       - '@=service("prestashop.adapter.multistore_feature").isUsed()'
@@ -51,23 +51,23 @@ services:
     arguments:
       - '@prestashop.adapter.attribute.repository.attribute_repository'
 
-  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_form_handler:
-    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationFormDataHandler'
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_setting_form_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationSettingFormDataHandler'
     arguments:
       - '@form.factory'
       - '@prestashop.core.hook.dispatcher'
-      - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_data_provider'
-      - 'Flavioski\Module\SalusPerAquam\Form\ConfigurationType'
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_setting_data_provider'
+      - 'Flavioski\Module\SalusPerAquam\Form\ConfigurationSettingType'
       - 'ConfigurationPage'
     calls:
       - method: setTabRepository
         arguments:
            - '@prestashop.core.admin.tab.repository'
 
-  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_data_provider:
-    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationFormDataProvider'
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_setting_data_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationSettingFormDataProvider'
     arguments:
-      - '@flavioski.module.salusperaquam.adapter.salusperaquam_configuration'
+      - '@flavioski.module.salusperaquam.adapter.salusperaquam_configuration_setting'
       - '@translator'
 
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
@@ -120,8 +120,8 @@ services:
       - '@flavioski.module.salusperaquam.form.identifiable_object.data_handler.treatment_rate_form_data_handler'
 
   # Adapter
-  flavioski.module.salusperaquam.adapter.salusperaquam_configuration:
-    class: 'Flavioski\Module\SalusPerAquam\Adapter\SalusperaquamConfiguration'
+  flavioski.module.salusperaquam.adapter.salusperaquam_configuration_setting:
+    class: 'Flavioski\Module\SalusPerAquam\Adapter\SalusperaquamConfigurationSetting'
     arguments:
       - '@prestashop.adapter.legacy.configuration'
 

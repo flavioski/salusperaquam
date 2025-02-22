@@ -25,7 +25,7 @@ namespace Flavioski\Module\SalusPerAquam\Adapter;
 use PrestaShop\PrestaShop\Adapter\Configuration;
 use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 
-class SalusperaquamConfiguration implements DataConfigurationInterface
+class SalusperaquamConfigurationSetting implements DataConfigurationInterface
 {
     /**
      * @var Configuration

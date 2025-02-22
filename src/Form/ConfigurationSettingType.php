@@ -28,7 +28,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ConfigurationType extends TranslatorAwareType
+class ConfigurationSettingType extends TranslatorAwareType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -175,7 +175,7 @@ class ConfigurationType extends TranslatorAwareType
      */
     public function getBlockPrefix()
     {
-        return 'configuration_general_block';
+        return 'configuration_setting_general_block';
     }
 
     /**

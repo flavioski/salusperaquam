@@ -25,7 +25,7 @@ namespace Flavioski\Module\SalusPerAquam\Form;
 use PrestaShop\PrestaShop\Core\Form\Handler;
 use PrestaShopBundle\Entity\Repository\TabRepository;
 
-final class ConfigurationFormDataHandler extends Handler
+final class ConfigurationSettingFormDataHandler extends Handler
 {
     /**
      * @var TabRepository

@@ -2,21 +2,21 @@
 # @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/tabs/
 #
 # configuration
-flavioski_salusperaquam_configuration_index:
-  path: /salusperaquam/configuration
+flavioski_salusperaquam_configuration_setting_index:
+  path: /salusperaquam/configuration/setting
   methods: [GET]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ConfigurationController::indexAction'
-    _legacy_controller: 'AdminSalusperaquamConfiguration'
-    _legacy_link: 'AdminSalusperaquamConfiguration'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration\SettingController::indexAction'
+    _legacy_controller: 'AdminSalusperaquamConfigurationSetting'
+    _legacy_link: 'AdminSalusperaquamConfigurationSetting'
 
-flavioski_salusperaquam_configuration_save:
-  path: /salusperaquam/configuration
+flavioski_salusperaquam_configuration_setting_save:
+  path: /salusperaquam/configuration/setting
   methods: [POST]
   defaults:
-    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\ConfigurationController::processFormAction'
-    _legacy_controller: 'AdminSalusperaquamConfiguration'
-    _legacy_link: 'AdminSalusperaquamConfiguration:update'
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration\SettingController::processFormAction'
+    _legacy_controller: 'AdminSalusperaquamConfigurationSetting'
+    _legacy_link: 'AdminSalusperaquamConfigurationSetting:update'
 
 # treatments
 flavioski_salusperaquam_treatment_index:

@@ -26,7 +26,7 @@ use PrestaShop\PrestaShop\Core\Configuration\DataConfigurationInterface;
 use PrestaShop\PrestaShop\Core\Form\FormDataProviderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class ConfigurationFormDataProvider implements FormDataProviderInterface
+class ConfigurationSettingFormDataProvider implements FormDataProviderInterface
 {
     /**
      * @var DataConfigurationInterface
