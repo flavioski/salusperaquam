@@ -12,6 +12,14 @@ services:
     tags:
       - { name: form.type }
 
+  flavioski.module.salusperaquam.type.configuration.access:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationAccessType'
+    parent: 'form.type.translatable.aware'
+    arguments:
+      - '@=service("prestashop.adapter.multistore_feature").isUsed()'
+    tags:
+      - { name: form.type }
+
   flavioski.module.salusperaquam.type.treatment:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentType'
     parent: 'form.type.translatable.aware'
@@ -70,6 +78,25 @@ services:
       - '@flavioski.module.salusperaquam.adapter.salusperaquam_configuration_setting'
       - '@translator'
 
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_access_form_handler:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationAccessFormDataHandler'
+    arguments:
+      - '@form.factory'
+      - '@prestashop.core.hook.dispatcher'
+      - '@flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_access_data_provider'
+      - 'Flavioski\Module\SalusPerAquam\Form\ConfigurationAccessType'
+      - 'ConfigurationPage'
+    calls:
+      - method: setTabRepository
+        arguments:
+          - '@prestashop.core.admin.tab.repository'
+
+  flavioski.module.salusperaquam.form.identifiable_object.data_provider.configuration_access_data_provider:
+    class: 'Flavioski\Module\SalusPerAquam\Form\ConfigurationAccessFormDataProvider'
+    arguments:
+      - '@flavioski.module.salusperaquam.adapter.salusperaquam_configuration_access'
+      - '@translator'
+
   flavioski.module.salusperaquam.form.identifiable_object.data_provider.treatment_form_data_provider:
     class: 'Flavioski\Module\SalusPerAquam\Form\TreatmentFormDataProvider'
     arguments:
@@ -122,6 +149,11 @@ services:
   # Adapter
   flavioski.module.salusperaquam.adapter.salusperaquam_configuration_setting:
     class: 'Flavioski\Module\SalusPerAquam\Adapter\SalusperaquamConfigurationSetting'
+    arguments:
+      - '@prestashop.adapter.legacy.configuration'
+
+  flavioski.module.salusperaquam.adapter.salusperaquam_configuration_access:
+    class: 'Flavioski\Module\SalusPerAquam\Adapter\SalusperaquamConfigurationAccess'
     arguments:
       - '@prestashop.adapter.legacy.configuration'
 
