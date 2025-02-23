@@ -95,17 +95,6 @@ class ConfigurationSettingType extends TranslatorAwareType
                     'class' => 'configuration-test-option',
                 ],
             ])
-            ->add('test_session_id', TextType::class, [
-                'label' => $this->trans(
-                    'Session id',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-test-option',
-                ],
-            ])
             ->add('production', SwitchType::class, [
                 'label' => $this->trans(
                     'Production mode',
@@ -160,17 +149,6 @@ class ConfigurationSettingType extends TranslatorAwareType
             ->add('production_usertype', TextType::class, [
                 'label' => $this->trans(
                     'Usertype',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-production-option',
-                ],
-            ])
-            ->add('production_session_id', TextType::class, [
-                'label' => $this->trans(
-                    'Session Id',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,

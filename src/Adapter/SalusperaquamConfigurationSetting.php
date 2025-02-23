@@ -49,14 +49,12 @@ class SalusperaquamConfigurationSetting implements DataConfigurationInterface
             'test_username' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME'),
             'test_password' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD'),
             'test_usertype' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_USERTYPE'),
-            'test_session_id' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TEST_SESSION_ID'),
             'production' => $this->configuration->getBoolean('SALUSPERAQUAM_CONFIGURATION_PRODUCTION'),
             'production_url' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_URL'),
             'production_seat_id' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_SEAT_ID'),
             'production_username' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERNAME'),
             'production_password' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_PASSWORD'),
             'production_usertype' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERTYPE'),
-            'production_session_id' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_SESSION_ID'),
         ];
     }
 
@@ -72,14 +70,12 @@ class SalusperaquamConfigurationSetting implements DataConfigurationInterface
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_USERNAME', $config['test_username']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_PASSWORD', $config['test_password']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_USERTYPE', $config['test_usertype']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TEST_SESSION_ID', $config['test_session_id']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION', (int) $config['production']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_URL', $config['production_url']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_SEAT_ID', $config['production_seat_id']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERNAME', $config['production_username']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_PASSWORD', $config['production_password']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_USERTYPE', $config['production_usertype']);
-            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_PRODUCTION_SESSION_ID', $config['production_session_id']);
         }
 
         return [];
@@ -97,14 +93,12 @@ class SalusperaquamConfigurationSetting implements DataConfigurationInterface
             $config['test_username'],
             $config['test_password'],
             $config['test_usertype'],
-            $config['test_session_id'],
             $config['production'],
             $config['production_url'],
             $config['production_seat_id'],
             $config['production_username'],
             $config['production_password'],
-            $config['production_usertype'],
-            $config['production_session_id']
+            $config['production_usertype']
         );
     }
 }
