@@ -66,6 +66,22 @@ flavioski_salusperaquam_configuration_treatment_save:
     _legacy_controller: 'AdminSalusperaquamConfigurationTreatment'
     _legacy_link: 'AdminSalusperaquamConfigurationTreatment:update'
 
+flavioski_salusperaquam_configuration_sale_index:
+  path: /salusperaquam/configuration/sale
+  methods: [GET]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration\SaleController::indexAction'
+    _legacy_controller: 'AdminSalusperaquamConfigurationSale'
+    _legacy_link: 'AdminSalusperaquamConfigurationSale'
+
+flavioski_salusperaquam_configuration_sale_save:
+  path: /salusperaquam/configuration/sale
+  methods: [POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration\SaleController::processFormAction'
+    _legacy_controller: 'AdminSalusperaquamConfigurationSale'
+    _legacy_link: 'AdminSalusperaquamConfigurationSale:update'
+
 # treatments
 flavioski_salusperaquam_treatment_index:
   path: /salusperaquam/treatments/{offset}/{limit}/{orderBy}/{sortOrder}

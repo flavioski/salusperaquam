@@ -1,0 +1,100 @@
+<?php
+/**
+ * Salus per Aquam
+ * Copyright since 2021 Flavio Pellizzer and Contributors
+ * <Flavio Pellizzer> Property
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT
+ * that is bundled with this package in the file LICENSE.md.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/MIT
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to flappio.pelliccia@gmail.com so we can send you a copy immediately.
+ *
+ * @author    Flavio Pellizzer <flappio.pelliccia@gmail.com>
+ * @copyright Since 2021 Flavio Pellizzer
+ * @license   https://opensource.org/licenses/MIT
+ */
+declare(strict_types=1);
+
+namespace Flavioski\Module\SalusPerAquam\Form;
+
+use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ConfigurationSaleType extends TranslatorAwareType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('configuration_sale_url', TextType::class, [
+                'label' => $this->trans(
+                    'Sale > URL',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => true,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-sale-option',
+                ],
+            ])
+            ->add('configuration_sale_biding', TextType::class, [
+                'label' => $this->trans(
+                    'Sale > Biding',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => true,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-sale-option',
+                ],
+            ])
+            ->add('configuration_sale_resource', TextType::class, [
+                'label' => $this->trans(
+                    'Sale > Resource',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => true,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-sale-option',
+                ],
+            ])
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'translation_domain' => 'Modules.Salusperaquam.Admin',
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'configuration_sale_general_block';
+    }
+
+    /**
+     * If some value is different from default-value, option message should be completed with specific reason.
+     *
+     * @return array
+     */
+    public function getErrorsMessages()
+    {
+        return [
+            'http' => $this->trans('http (outdated)', 'Modules.Salusperaquam.Admin'),
+        ];
+    }
+}
