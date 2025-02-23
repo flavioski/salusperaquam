@@ -65,6 +65,17 @@ class ConfigurationSaleType extends TranslatorAwareType
                     'class' => 'configuration-sale-option',
                 ],
             ])
+            ->add('configuration_sale_resource_add_sale', TextType::class, [
+                'label' => $this->trans(
+                    'Sale > Resource Add Sale',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => true,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-sale-option',
+                ],
+            ])
         ;
     }
 

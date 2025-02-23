@@ -46,6 +46,7 @@ class SalusperaquamConfigurationSale implements DataConfigurationInterface
             'configuration_sale_url' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_SALE_URL'),
             'configuration_sale_biding' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_SALE_BIDING'),
             'configuration_sale_resource' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_SALE_RESOURCE'),
+            'configuration_sale_resource_add_sale' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_SALE_RESOURCE_ADD_SALE'),
         ];
     }
 
@@ -58,6 +59,7 @@ class SalusperaquamConfigurationSale implements DataConfigurationInterface
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_SALE_URL', $config['configuration_sale_url']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_SALE_BIDING', $config['configuration_sale_biding']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_SALE_RESOURCE', $config['configuration_sale_resource']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_SALE_RESOURCE_ADD_SALE', $config['configuration_sale_resource_add_sale']);
         }
 
         return [];
@@ -71,7 +73,8 @@ class SalusperaquamConfigurationSale implements DataConfigurationInterface
         return isset(
             $config['configuration_sale_url'],
             $config['configuration_sale_biding'],
-            $config['configuration_sale_resource']
+            $config['configuration_sale_resource'],
+            $config['configuration_sale_resource_add_sale']
         );
     }
 }
