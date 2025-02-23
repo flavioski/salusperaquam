@@ -34,7 +34,6 @@ flavioski_salusperaquam_configuration_access_save:
     _legacy_controller: 'AdminSalusperaquamConfigurationAccess'
     _legacy_link: 'AdminSalusperaquamConfigurationAccess:update'
 
-
 flavioski_salusperaquam_configuration_user_index:
   path: /salusperaquam/configuration/user
   methods: [GET]
