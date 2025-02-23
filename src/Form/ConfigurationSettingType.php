@@ -51,6 +51,17 @@ class ConfigurationSettingType extends TranslatorAwareType
                     'class' => 'configuration-test-option',
                 ],
             ])
+            ->add('test_seat_id', TextType::class, [
+                'label' => $this->trans(
+                    'Seat Id',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
             ->add('test_username', TextType::class, [
                 'label' => $this->trans(
                     'Username',
@@ -65,6 +76,28 @@ class ConfigurationSettingType extends TranslatorAwareType
             ->add('test_password', TextType::class, [
                 'label' => $this->trans(
                     'Password',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_usertype', TextType::class, [
+                'label' => $this->trans(
+                    'Usertype',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-test-option',
+                ],
+            ])
+            ->add('test_session_id', TextType::class, [
+                'label' => $this->trans(
+                    'Session id',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
@@ -102,6 +135,17 @@ class ConfigurationSettingType extends TranslatorAwareType
                     'class' => 'configuration-production-option',
                 ],
             ])
+            ->add('production_seat_id', TextType::class, [
+                'label' => $this->trans(
+                    'Seat Id',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
             ->add('production_username', TextType::class, [
                 'label' => $this->trans(
                     'Username',
@@ -116,6 +160,28 @@ class ConfigurationSettingType extends TranslatorAwareType
             ->add('production_password', TextType::class, [
                 'label' => $this->trans(
                     'Password',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_usertype', TextType::class, [
+                'label' => $this->trans(
+                    'Usertype',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => false,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-production-option',
+                ],
+            ])
+            ->add('production_session_id', TextType::class, [
+                'label' => $this->trans(
+                    'Session Id',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
