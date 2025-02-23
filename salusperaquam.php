@@ -553,7 +553,7 @@ class SalusPerAquam extends Module
         // This controller actually does not exist, it is used in the tab
         // and is accessible thanks to routing settings with _legacy_link
         Tools::redirectAdmin(
-            Context::getContext()->link->getAdminLink('AdminSalusperaquamConfiguration')
+            Context::getContext()->link->getAdminLink('AdminSalusperaquamConfigurationSetting')
         );
     }
 
