@@ -73,17 +73,6 @@ class ConfigurationSettingType extends TranslatorAwareType
                     'class' => 'configuration-test-option',
                 ],
             ])
-            ->add('test_resource_get_treatment', TextType::class, [
-                'label' => $this->trans(
-                    'Resource when retrieve treatments',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-test-option',
-                ],
-            ])
             ->add('test_resource_add_sale', TextType::class, [
                 'label' => $this->trans(
                     'Resource when add sale treatments',
@@ -127,17 +116,6 @@ class ConfigurationSettingType extends TranslatorAwareType
             ->add('production_password', TextType::class, [
                 'label' => $this->trans(
                     'Password',
-                    'Modules.Salusperaquam.Admin'
-                ),
-                'required' => false,
-                'empty_data' => '',
-                'row_attr' => [
-                    'class' => 'configuration-production-option',
-                ],
-            ])
-            ->add('production_resource_get_treatment', TextType::class, [
-                'label' => $this->trans(
-                    'Resource GetTreatment',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => false,
