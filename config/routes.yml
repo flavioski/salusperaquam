@@ -82,6 +82,22 @@ flavioski_salusperaquam_configuration_sale_save:
     _legacy_controller: 'AdminSalusperaquamConfigurationSale'
     _legacy_link: 'AdminSalusperaquamConfigurationSale:update'
 
+flavioski_salusperaquam_configuration_reservation_index:
+  path: /salusperaquam/configuration/reservation
+  methods: [GET]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration\ReservationController::indexAction'
+    _legacy_controller: 'AdminSalusperaquamConfigurationReservation'
+    _legacy_link: 'AdminSalusperaquamConfigurationReservation'
+
+flavioski_salusperaquam_configuration_reservation_save:
+  path: /salusperaquam/configuration/reservation
+  methods: [POST]
+  defaults:
+    _controller: 'Flavioski\Module\SalusPerAquam\Controller\Admin\Configuration\ReservationController::processFormAction'
+    _legacy_controller: 'AdminSalusperaquamConfigurationReservation'
+    _legacy_link: 'AdminSalusperaquamConfigurationReservation:update'
+
 # treatments
 flavioski_salusperaquam_treatment_index:
   path: /salusperaquam/treatments/{offset}/{limit}/{orderBy}/{sortOrder}
