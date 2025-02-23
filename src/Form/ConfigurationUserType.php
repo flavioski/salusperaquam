@@ -27,42 +27,42 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ConfigurationAccessType extends TranslatorAwareType
+class ConfigurationUserType extends TranslatorAwareType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('configuration_login_url', TextType::class, [
+            ->add('configuration_user_url', TextType::class, [
                 'label' => $this->trans(
-                    'Login > URL',
+                    'User > URL',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => true,
                 'empty_data' => '',
                 'row_attr' => [
-                    'class' => 'configuration-login-option',
+                    'class' => 'configuration-user-option',
                 ],
             ])
-            ->add('configuration_login_biding', TextType::class, [
+            ->add('configuration_user_biding', TextType::class, [
                 'label' => $this->trans(
-                    'Login > Biding',
+                    'User > Biding',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => true,
                 'empty_data' => '',
                 'row_attr' => [
-                    'class' => 'configuration-login-option',
+                    'class' => 'configuration-user-option',
                 ],
             ])
-            ->add('configuration_login_resource', TextType::class, [
+            ->add('configuration_user_resource', TextType::class, [
                 'label' => $this->trans(
-                    'Login > Resource',
+                    'User > Resource',
                     'Modules.Salusperaquam.Admin'
                 ),
                 'required' => true,
                 'empty_data' => '',
                 'row_attr' => [
-                    'class' => 'configuration-login-option',
+                    'class' => 'configuration-user-option',
                 ],
             ])
         ;
@@ -83,7 +83,7 @@ class ConfigurationAccessType extends TranslatorAwareType
      */
     public function getBlockPrefix()
     {
-        return 'configuration_access_general_block';
+        return 'configuration_user_general_block';
     }
 
     /**
