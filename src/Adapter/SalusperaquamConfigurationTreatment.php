@@ -46,6 +46,7 @@ class SalusperaquamConfigurationTreatment implements DataConfigurationInterface
             'configuration_treatment_url' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TREATMENT_URL'),
             'configuration_treatment_biding' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TREATMENT_BIDING'),
             'configuration_treatment_resource' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TREATMENT_RESOURCE'),
+            'configuration_treatment_resource_get_treatment' => $this->configuration->get('SALUSPERAQUAM_CONFIGURATION_TREATMENT_RESOURCE_GET_TREATMENT'),
         ];
     }
 
@@ -58,6 +59,7 @@ class SalusperaquamConfigurationTreatment implements DataConfigurationInterface
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TREATMENT_URL', $config['configuration_treatment_url']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TREATMENT_BIDING', $config['configuration_treatment_biding']);
             $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TREATMENT_RESOURCE', $config['configuration_treatment_resource']);
+            $this->configuration->set('SALUSPERAQUAM_CONFIGURATION_TREATMENT_RESOURCE_GET_TREATMENT', $config['configuration_treatment_resource_get_treatment']);
         }
 
         return [];
@@ -72,6 +74,7 @@ class SalusperaquamConfigurationTreatment implements DataConfigurationInterface
             $config['configuration_treatment_url'],
             $config['configuration_treatment_biding'],
             $config['configuration_treatment_resource'],
+            $config['configuration_treatment_resource_get_treatment'],
        );
     }
 }

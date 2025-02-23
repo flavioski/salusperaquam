@@ -65,6 +65,17 @@ class ConfigurationTreatmentType extends TranslatorAwareType
                     'class' => 'configuration-treatment-option',
                 ],
             ])
+            ->add('configuration_treatment_resource_get_treatment', TextType::class, [
+                'label' => $this->trans(
+                    'Treatment > Resource Get Treatment',
+                    'Modules.Salusperaquam.Admin'
+                ),
+                'required' => true,
+                'empty_data' => '',
+                'row_attr' => [
+                    'class' => 'configuration-treatment-option',
+                ],
+            ])
         ;
     }
 
